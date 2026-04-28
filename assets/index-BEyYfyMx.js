@@ -397,14 +397,443 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
 `)},d5=function(){var e=parseInt(document.body.getAttribute(El)||"0",10);return isFinite(e)?e:0},tH=function(){_.useEffect(function(){return document.body.setAttribute(El,(d5()+1).toString()),function(){var e=d5()-1;e<=0?document.body.removeAttribute(El):document.body.setAttribute(El,e.toString())}},[])},rH=function(e){var r=e.noRelative,n=e.noImportant,i=e.gapMode,c=i===void 0?"margin":i;tH();var u=_.useMemo(function(){return KV(c)},[c]);return _.createElement(JV,{styles:eH(u,!r,c,n?"":"!important")})},Cm=!1;if(typeof window<"u")try{var Qd=Object.defineProperty({},"passive",{get:function(){return Cm=!0,!0}});window.addEventListener("test",Qd,Qd),window.removeEventListener("test",Qd,Qd)}catch{Cm=!1}var il=Cm?{passive:!1}:!1,aH=function(e){return e.tagName==="TEXTAREA"},b3=function(e,r){if(!(e instanceof Element))return!1;var n=window.getComputedStyle(e);return n[r]!=="hidden"&&!(n.overflowY===n.overflowX&&!aH(e)&&n[r]==="visible")},nH=function(e){return b3(e,"overflowY")},iH=function(e){return b3(e,"overflowX")},f5=function(e,r){var n=r.ownerDocument,i=r;do{typeof ShadowRoot<"u"&&i instanceof ShadowRoot&&(i=i.host);var c=x3(e,i);if(c){var u=v3(e,i),d=u[1],p=u[2];if(d>p)return!0}i=i.parentNode}while(i&&i!==n.body);return!1},oH=function(e){var r=e.scrollTop,n=e.scrollHeight,i=e.clientHeight;return[r,n,i]},lH=function(e){var r=e.scrollLeft,n=e.scrollWidth,i=e.clientWidth;return[r,n,i]},x3=function(e,r){return e==="v"?nH(r):iH(r)},v3=function(e,r){return e==="v"?oH(r):lH(r)},sH=function(e,r){return e==="h"&&r==="rtl"?-1:1},cH=function(e,r,n,i,c){var u=sH(e,window.getComputedStyle(r).direction),d=u*i,p=n.target,g=r.contains(p),m=!1,b=d>0,x=0,y=0;do{if(!p)break;var j=v3(e,p),w=j[0],C=j[1],E=j[2],R=C-E-u*w;(w||R)&&x3(e,p)&&(x+=R,y+=w);var A=p.parentNode;p=A&&A.nodeType===Node.DOCUMENT_FRAGMENT_NODE?A.host:A}while(!g&&p!==document.body||g&&(r.contains(p)||r===p));return(b&&Math.abs(x)<1||!b&&Math.abs(y)<1)&&(m=!0),m},Kd=function(e){return"changedTouches"in e?[e.changedTouches[0].clientX,e.changedTouches[0].clientY]:[0,0]},p5=function(e){return[e.deltaX,e.deltaY]},h5=function(e){return e&&"current"in e?e.current:e},uH=function(e,r){return e[0]===r[0]&&e[1]===r[1]},dH=function(e){return`
   .block-interactivity-`.concat(e,` {pointer-events: none;}
   .allow-interactivity-`).concat(e,` {pointer-events: all;}
-`)},fH=0,ol=[];function pH(e){var r=_.useRef([]),n=_.useRef([0,0]),i=_.useRef(),c=_.useState(fH++)[0],u=_.useState(m3)[0],d=_.useRef(e);_.useEffect(function(){d.current=e},[e]),_.useEffect(function(){if(e.inert){document.body.classList.add("block-interactivity-".concat(c));var C=ra([e.lockRef.current],(e.shards||[]).map(h5),!0).filter(Boolean);return C.forEach(function(E){return E.classList.add("allow-interactivity-".concat(c))}),function(){document.body.classList.remove("block-interactivity-".concat(c)),C.forEach(function(E){return E.classList.remove("allow-interactivity-".concat(c))})}}},[e.inert,e.lockRef.current,e.shards]);var p=_.useCallback(function(C,E){if("touches"in C&&C.touches.length===2||C.type==="wheel"&&C.ctrlKey)return!d.current.allowPinchZoom;var R=Kd(C),A=n.current,k="deltaX"in C?C.deltaX:A[0]-R[0],H="deltaY"in C?C.deltaY:A[1]-R[1],B,J=C.target,G=Math.abs(k)>Math.abs(H)?"h":"v";if("touches"in C&&G==="h"&&J.type==="range")return!1;var ce=f5(G,J);if(!ce)return!0;if(ce?B=G:(B=G==="v"?"h":"v",ce=f5(G,J)),!ce)return!1;if(!i.current&&"changedTouches"in C&&(k||H)&&(i.current=B),!B)return!0;var re=i.current||B;return cH(re,E,C,re==="h"?k:H)},[]),g=_.useCallback(function(C){var E=C;if(!(!ol.length||ol[ol.length-1]!==u)){var R="deltaY"in E?p5(E):Kd(E),A=r.current.filter(function(B){return B.name===E.type&&(B.target===E.target||E.target===B.shadowParent)&&uH(B.delta,R)})[0];if(A&&A.should){E.cancelable&&E.preventDefault();return}if(!A){var k=(d.current.shards||[]).map(h5).filter(Boolean).filter(function(B){return B.contains(E.target)}),H=k.length>0?p(E,k[0]):!d.current.noIsolation;H&&E.cancelable&&E.preventDefault()}}},[]),m=_.useCallback(function(C,E,R,A){var k={name:C,delta:E,target:R,should:A,shadowParent:hH(R)};r.current.push(k),setTimeout(function(){r.current=r.current.filter(function(H){return H!==k})},1)},[]),b=_.useCallback(function(C){n.current=Kd(C),i.current=void 0},[]),x=_.useCallback(function(C){m(C.type,p5(C),C.target,p(C,e.lockRef.current))},[]),y=_.useCallback(function(C){m(C.type,Kd(C),C.target,p(C,e.lockRef.current))},[]);_.useEffect(function(){return ol.push(u),e.setCallbacks({onScrollCapture:x,onWheelCapture:x,onTouchMoveCapture:y}),document.addEventListener("wheel",g,il),document.addEventListener("touchmove",g,il),document.addEventListener("touchstart",b,il),function(){ol=ol.filter(function(C){return C!==u}),document.removeEventListener("wheel",g,il),document.removeEventListener("touchmove",g,il),document.removeEventListener("touchstart",b,il)}},[]);var j=e.removeScrollBar,w=e.inert;return _.createElement(_.Fragment,null,w?_.createElement(u,{styles:dH(c)}):null,j?_.createElement(rH,{noRelative:e.noRelative,gapMode:e.gapMode}):null)}function hH(e){for(var r=null;e!==null;)e instanceof ShadowRoot&&(r=e.host,e=e.host),e=e.parentNode;return r}const gH=qL(g3,pH);var y3=_.forwardRef(function(e,r){return _.createElement(mf,ie({},e,{ref:r,sideCar:gH}))});y3.classNames=mf.classNames;function S3(e){const{autoFocus:r,trapFocus:n,dialogRef:i,initialFocusRef:c,blockScrollOnMount:u,allowPinchZoom:d,finalFocusRef:p,returnFocusOnClose:g,preserveScrollBarGap:m,lockFocusAcrossFrames:b,isOpen:x}=Ci(),[y,j]=gb();_.useEffect(()=>{!y&&j&&setTimeout(j)},[y,j]);const w=p3(i,x);return l.jsx(i3,{autoFocus:r,isDisabled:!n,initialFocusRef:c,finalFocusRef:p,restoreFocus:g,contentRef:i,lockFocusAcrossFrames:b,children:l.jsx(y3,{removeScrollBar:!m,allowPinchZoom:d,enabled:w===1&&u,forwardProps:!0,children:e.children})})}var bf=ke((e,r)=>{const{className:n,children:i,containerProps:c,motionProps:u,...d}=e,{getDialogProps:p,getDialogContainerProps:g}=Ci(),m=p(d,r),b=g(c),x=Je("chakra-modal__content",n),y=Vl(),j={display:"flex",flexDirection:"column",position:"relative",width:"100%",outline:0,...y.dialog},w={display:"flex",width:"100vw",height:"$100vh",position:"fixed",left:0,top:0,...y.dialogContainer},{motionPreset:C}=Ci();return l.jsx(S3,{children:l.jsx(Te.div,{...b,className:"chakra-modal__content-container",tabIndex:-1,__css:w,children:l.jsx(f3,{preset:C,motionProps:u,className:x,...m,__css:j,children:i})})})});bf.displayName="ModalContent";var[mH,bH]=aa(),xH={start:{ltr:"left",rtl:"right"},end:{ltr:"right",rtl:"left"}};function vH(e,r){var n,i;if(e)return(i=(n=xH[e])==null?void 0:n[r])!=null?i:e}function yH(e){var r;const{isOpen:n,onClose:i,placement:c="right",children:u,...d}=e,p=t4(),g=(r=p.components)==null?void 0:r.Drawer,m=vH(c,p.direction);return l.jsx(mH,{value:{placement:m},children:l.jsx(nu,{isOpen:n,onClose:i,styleConfig:g,...d,children:u})})}var SH=Te(jw),j3=ke((e,r)=>{const{className:n,children:i,motionProps:c,containerProps:u,...d}=e,{getDialogProps:p,getDialogContainerProps:g,isOpen:m}=Ci(),b=p(d,r),x=g(u),y=Je("chakra-modal__content",n),j=Vl(),w={display:"flex",flexDirection:"column",position:"relative",width:"100%",outline:0,...j.dialog},C={display:"flex",width:"100vw",height:"$100vh",position:"fixed",left:0,top:0,...j.dialogContainer},{placement:E}=bH();return l.jsx(S3,{children:l.jsx(Te.div,{...x,className:"chakra-modal__content-container",__css:C,children:l.jsx(SH,{motionProps:c,direction:E,in:m,className:y,...b,__css:w,children:i})})})});j3.displayName="DrawerContent";var Ib=ke((e,r)=>{const{className:n,...i}=e,{headerId:c,setHeaderMounted:u}=Ci();_.useEffect(()=>(u(!0),()=>u(!1)),[u]);const d=Je("chakra-modal__header",n),g={flex:0,...Vl().header};return l.jsx(Te.header,{ref:r,className:d,id:c,...i,__css:g})});Ib.displayName="ModalHeader";var jH=Te(ho.div),iu=ke((e,r)=>{const{className:n,transition:i,motionProps:c,...u}=e,d=Je("chakra-modal__overlay",n),g={pos:"fixed",left:"0",top:"0",w:"100vw",h:"100vh",...Vl().overlay},{motionPreset:m}=Ci(),x=c||(m==="none"?{}:yw);return l.jsx(jH,{...x,__css:g,ref:r,className:d,...u})});iu.displayName="ModalOverlay";var ou=ke((e,r)=>{const{className:n,...i}=e,{bodyId:c,setBodyMounted:u}=Ci();_.useEffect(()=>(u(!0),()=>u(!1)),[u]);const d=Je("chakra-modal__body",n),p=Vl();return l.jsx(Te.div,{ref:r,className:d,id:c,...i,__css:p.body})});ou.displayName="ModalBody";var lu=ke((e,r)=>{const{onClick:n,className:i,...c}=e,{onClose:u}=Ci(),d=Je("chakra-modal__close-btn",i),p=Vl();return l.jsx(Tb,{ref:r,__css:p.closeButton,className:d,onClick:to(n,g=>{g.stopPropagation(),u()}),...c})});lu.displayName="ModalCloseButton";function wH(e,r=[]){const n=Object.assign({},e);for(const i of r)i in n&&delete n[i];return n}var _H=["h","minH","height","minHeight"],w3=ke((e,r)=>{const n=_a("Textarea",e),{className:i,rows:c,...u}=Rr(e),d=Tw(u),p=c?wH(n,_H):n;return l.jsx(Te.textarea,{ref:r,rows:c,...d,className:Je("chakra-textarea",i),__css:p})});w3.displayName="Textarea";const CH=go({d:"M23.384,21.619,16.855,15.09a9.284,9.284,0,1,0-1.768,1.768l6.529,6.529a1.266,1.266,0,0,0,1.768,0A1.251,1.251,0,0,0,23.384,21.619ZM2.75,9.5a6.75,6.75,0,1,1,6.75,6.75A6.758,6.758,0,0,1,2.75,9.5Z",displayName:"SearchIcon"}),g5=go({d:"M11.2857,6.05714 L10.08571,4.85714 L7.85714,7.14786 L7.85714,1 L6.14286,1 L6.14286,7.14786 L3.91429,4.85714 L2.71429,6.05714 L7,10.42857 L11.2857,6.05714 Z M1,11.2857 L1,13 L13,13 L13,11.2857 L1,11.2857 Z",displayName:"DownloadIcon",viewBox:"0 0 14 14"}),TH=go({d:"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z",displayName:"ArrowForwardIcon"}),ec=go({displayName:"ExternalLinkIcon",path:l.jsxs("g",{fill:"none",stroke:"currentColor",strokeLinecap:"round",strokeWidth:"2",children:[l.jsx("path",{d:"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"}),l.jsx("path",{d:"M15 3h6v6"}),l.jsx("path",{d:"M10 14L21 3"})]})}),Jd=go({displayName:"AttachmentIcon",d:"M21.843,3.455a6.961,6.961,0,0,0-9.846,0L1.619,13.832a5.128,5.128,0,0,0,7.252,7.252L17.3,12.653A3.293,3.293,0,1,0,12.646,8L7.457,13.184A1,1,0,1,0,8.871,14.6L14.06,9.409a1.294,1.294,0,0,1,1.829,1.83L7.457,19.67a3.128,3.128,0,0,1-4.424-4.424L13.411,4.869a4.962,4.962,0,1,1,7.018,7.018L12.646,19.67a1,1,0,1,0,1.414,1.414L21.843,13.3a6.96,6.96,0,0,0,0-9.846Z"}),EH=go({displayName:"EmailIcon",path:l.jsxs("g",{fill:"currentColor",children:[l.jsx("path",{d:"M11.114,14.556a1.252,1.252,0,0,0,1.768,0L22.568,4.87a.5.5,0,0,0-.281-.849A1.966,1.966,0,0,0,22,4H2a1.966,1.966,0,0,0-.289.021.5.5,0,0,0-.281.849Z"}),l.jsx("path",{d:"M23.888,5.832a.182.182,0,0,0-.2.039l-6.2,6.2a.251.251,0,0,0,0,.354l5.043,5.043a.75.75,0,1,1-1.06,1.061l-5.043-5.043a.25.25,0,0,0-.354,0l-2.129,2.129a2.75,2.75,0,0,1-3.888,0L7.926,13.488a.251.251,0,0,0-.354,0L2.529,18.531a.75.75,0,0,1-1.06-1.061l5.043-5.043a.251.251,0,0,0,0-.354l-6.2-6.2a.18.18,0,0,0-.2-.039A.182.182,0,0,0,0,6V18a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2V6A.181.181,0,0,0,23.888,5.832Z"})]})}),RH=go({displayName:"HamburgerIcon",viewBox:"0 0 24 24",d:"M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"}),m5=[{name:"Головна",path:"/"},{name:"Портфоліо",path:"/portfolio"},{name:"Навчально - методичний комплекс",path:"/educational-methodical"},{name:"Наставництво",path:"/extracurricular"},{name:"Волонтерська діяльність",path:"/volunteer"},{name:"Патріотичне виховання",path:"/patriotic-education"},{name:"Рух - це життя",path:"/physical-activity"},{name:"Досягнення",path:"/achievements"},{name:"Підвищення кваліфікації",path:"/self-development"}],zH=({children:e})=>{const{isOpen:r,onOpen:n,onClose:i}=Vb(),c=Ka();return l.jsxs(S,{children:[l.jsxs(S,{as:"nav",display:{base:"none",md:"flex"},position:"fixed",left:0,top:0,height:"100vh",width:"280px",bg:"#F0FFFF",color:"black",borderRight:"1px solid rgba(0,0,0,0.15)",boxShadow:"2px 0 8px rgba(0,0,0,0.08)",zIndex:100,flexDirection:"column",children:[l.jsx(S,{p:6,pb:4,borderBottom:"1px solid rgba(0,0,0,0.15)",children:l.jsx(sl,{to:"/",style:{width:"100%"},children:l.jsx(S,{w:"100%",display:"flex",justifyContent:"center",transition:"all 0.3s ease",_hover:{transform:"scale(1.05)",bg:"rgba(30, 144, 255, 0.05)"},cursor:"pointer",borderRadius:"lg",py:3,px:2,children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/AAzXCkep3NbN6howTMaGYriVs2wOPThDuFPcD89wNLReZqN27qtHOFNRECTEkBmdXyhMZuSfhAZzeVsYvYuwOB1yNUvHPT6T6korDZ3GHIwHyc-5HR6TH9Go7D0HELzC9m9RN7-h-SpTNO627xCbrdLbydxVwkxevTZRRyKQhYGcWLRLkY9M3jDpXQ_AVBQ=w1638.jpg",h:{base:"100px",md:"130px"},alt:"Logo",objectFit:"contain",filter:"drop-shadow(0 2px 8px rgba(0,0,0,0.15))",transition:"all 0.3s ease"})})})}),l.jsx(S,{flex:"1",overflowY:"auto",overflowX:"hidden",px:4,py:4,css:{"&::-webkit-scrollbar":{width:"8px"},"&::-webkit-scrollbar-track":{background:"transparent",borderRadius:"4px"},"&::-webkit-scrollbar-thumb":{background:"rgba(0, 0, 0, 0.15)",borderRadius:"4px",border:"2px solid transparent",backgroundClip:"padding-box",transition:"all 0.2s cubic-bezier(0.4, 0, 0.2, 1)"},"&::-webkit-scrollbar-thumb:hover":{background:"rgba(0, 0, 0, 0.25)",backgroundClip:"padding-box"},"&::-webkit-scrollbar-thumb:active":{background:"rgba(0, 0, 0, 0.35)",backgroundClip:"padding-box"}},children:l.jsx(le,{align:"start",spacing:2,w:"100%",children:m5.map(u=>{const d=c.pathname===u.path;return l.jsx(sl,{to:u.path,style:{width:"100%"},children:l.jsx(S,{px:4,py:3,borderRadius:"lg",bg:d?"linear-gradient(90deg, rgba(30, 144, 255, 0.15) 0%, rgba(30, 144, 255, 0.05) 100%)":"transparent",borderLeft:d?"4px solid #1E90FF":"4px solid transparent",borderRight:d?"1px solid rgba(30, 144, 255, 0.2)":"1px solid transparent",transition:"all 0.3s ease",_hover:{bg:d?"linear-gradient(90deg, rgba(30, 144, 255, 0.2) 0%, rgba(30, 144, 255, 0.1) 100%)":"linear-gradient(90deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.01) 100%)",transform:"translateX(4px)",borderLeft:"4px solid #1E90FF",boxShadow:"0 2px 8px rgba(30, 144, 255, 0.15)"},width:"100%",position:"relative",_before:d?{content:'""',position:"absolute",left:0,top:0,bottom:0,width:"4px",bg:"#1E90FF",borderRadius:"0 4px 4px 0",boxShadow:"2px 0 8px rgba(30, 144, 255, 0.3)"}:{},children:l.jsx(ae,{fontWeight:d?"700":"600",cursor:"pointer",color:d?"#1E90FF":"gray.700",fontSize:"sm",transition:"all 0.2s",lineHeight:"1.4",children:u.name})})},u.path)})})})]}),l.jsxs(W0,{as:"header",display:{base:"flex",md:"none"},position:"fixed",top:0,left:0,right:0,zIndex:50,w:"100%",bg:"black",color:"white",p:3,align:"center",justify:"space-between",borderBottom:"4px solid #FF6B08",children:[l.jsx(Vc,{"aria-label":"Menu",icon:l.jsx(RH,{}),variant:"ghost",color:"white",onClick:n}),l.jsx(sl,{to:"/",children:l.jsx(S,{transition:"all 0.3s ease",_hover:{transform:"scale(1.05)"},cursor:"pointer",p:1,borderRadius:"md",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/HGPA.jpg",h:"55px",alt:"Logo",objectFit:"contain",maxW:"180px",filter:"drop-shadow(0 2px 4px rgba(255,255,255,0.2))",transition:"all 0.3s ease"})})}),l.jsx(Vc,{"aria-label":"Search",icon:l.jsx(CH,{}),variant:"ghost",color:"white"})]}),l.jsxs(yH,{isOpen:r,placement:"left",onClose:i,children:[l.jsx(iu,{}),l.jsxs(j3,{bg:"#c0c0c0",color:"black",maxW:"100vw",children:[l.jsx(lu,{}),l.jsx(ou,{mt:10,children:l.jsx(le,{spacing:1.5,align:"stretch",children:m5.map(u=>{const d=c.pathname===u.path;return l.jsx(sl,{to:u.path,onClick:i,children:l.jsx(ae,{fontSize:"lg",py:1.5,px:2,color:d?"#FF6B08":"black",fontWeight:d?"600":"normal",children:u.name})},u.path)})})})]})]}),l.jsx(S,{ml:{base:0,md:"280px"},pt:{base:c.pathname==="/"?0:"64px",md:0},minHeight:{base:"calc(100vh - 64px)",md:"100vh"},overflow:c.pathname==="/"?"hidden":"visible",children:e})]})},AH=()=>{const{pathname:e}=Ka(),r=_.useRef(null),n=_.useRef(!1);return _.useLayoutEffect(()=>{n.current=!0;const i=()=>{document.documentElement&&(document.documentElement.scrollTop=0,document.documentElement.scrollLeft=0),document.body&&(document.body.scrollTop=0,document.body.scrollLeft=0),window.scrollTo(0,0)};return i(),r.current&&clearInterval(r.current),r.current=setInterval(()=>{i()},10),setTimeout(()=>{r.current&&(clearInterval(r.current),r.current=null),n.current=!1},1e3),()=>{r.current&&(clearInterval(r.current),r.current=null)}},[e]),_.useEffect(()=>{const i=()=>{document.documentElement&&(document.documentElement.scrollTop=0,document.documentElement.scrollLeft=0),document.body&&(document.body.scrollTop=0,document.body.scrollLeft=0),window.scrollTo(0,0)};i();const c=[setTimeout(i,0),setTimeout(i,5),setTimeout(i,10),setTimeout(i,20),setTimeout(i,30),setTimeout(i,50),setTimeout(i,100),setTimeout(i,200),setTimeout(i,300),setTimeout(i,500)],u=()=>{n.current&&i()};window.addEventListener("scroll",u,{passive:!1,capture:!0}),window.addEventListener("wheel",u,{passive:!1,capture:!0}),window.addEventListener("touchmove",u,{passive:!1,capture:!0});const d=setTimeout(()=>{window.removeEventListener("scroll",u,{capture:!0}),window.removeEventListener("wheel",u,{capture:!0}),window.removeEventListener("touchmove",u,{capture:!0})},1500);return()=>{c.forEach(p=>clearTimeout(p)),clearTimeout(d),window.removeEventListener("scroll",u,{capture:!0}),window.removeEventListener("wheel",u,{capture:!0}),window.removeEventListener("touchmove",u,{capture:!0})}},[e]),null},Nn=()=>{const r=Ka().pathname==="/",[n,i]=_.useState(!r);return _.useLayoutEffect(()=>{(()=>{window.scrollTo(0,0),document.documentElement&&(document.documentElement.scrollTop=0,document.documentElement.scrollLeft=0),document.body&&(document.body.scrollTop=0,document.body.scrollLeft=0)})()},[]),_.useEffect(()=>{const c=()=>{window.scrollTo(0,0),document.documentElement&&(document.documentElement.scrollTop=0,document.documentElement.scrollLeft=0),document.body&&(document.body.scrollTop=0,document.body.scrollLeft=0)};if(c(),r){i(!1);return}i(!0);const u=setInterval(()=>{c()},50),d=setTimeout(()=>{i(!1),clearInterval(u),c()},1500);return()=>{clearInterval(u),clearTimeout(d)}},[r]),n},b5=wa`
+`)},fH=0,ol=[];function pH(e){var r=_.useRef([]),n=_.useRef([0,0]),i=_.useRef(),c=_.useState(fH++)[0],u=_.useState(m3)[0],d=_.useRef(e);_.useEffect(function(){d.current=e},[e]),_.useEffect(function(){if(e.inert){document.body.classList.add("block-interactivity-".concat(c));var C=ra([e.lockRef.current],(e.shards||[]).map(h5),!0).filter(Boolean);return C.forEach(function(E){return E.classList.add("allow-interactivity-".concat(c))}),function(){document.body.classList.remove("block-interactivity-".concat(c)),C.forEach(function(E){return E.classList.remove("allow-interactivity-".concat(c))})}}},[e.inert,e.lockRef.current,e.shards]);var p=_.useCallback(function(C,E){if("touches"in C&&C.touches.length===2||C.type==="wheel"&&C.ctrlKey)return!d.current.allowPinchZoom;var R=Kd(C),A=n.current,k="deltaX"in C?C.deltaX:A[0]-R[0],H="deltaY"in C?C.deltaY:A[1]-R[1],B,J=C.target,G=Math.abs(k)>Math.abs(H)?"h":"v";if("touches"in C&&G==="h"&&J.type==="range")return!1;var ce=f5(G,J);if(!ce)return!0;if(ce?B=G:(B=G==="v"?"h":"v",ce=f5(G,J)),!ce)return!1;if(!i.current&&"changedTouches"in C&&(k||H)&&(i.current=B),!B)return!0;var re=i.current||B;return cH(re,E,C,re==="h"?k:H)},[]),g=_.useCallback(function(C){var E=C;if(!(!ol.length||ol[ol.length-1]!==u)){var R="deltaY"in E?p5(E):Kd(E),A=r.current.filter(function(B){return B.name===E.type&&(B.target===E.target||E.target===B.shadowParent)&&uH(B.delta,R)})[0];if(A&&A.should){E.cancelable&&E.preventDefault();return}if(!A){var k=(d.current.shards||[]).map(h5).filter(Boolean).filter(function(B){return B.contains(E.target)}),H=k.length>0?p(E,k[0]):!d.current.noIsolation;H&&E.cancelable&&E.preventDefault()}}},[]),m=_.useCallback(function(C,E,R,A){var k={name:C,delta:E,target:R,should:A,shadowParent:hH(R)};r.current.push(k),setTimeout(function(){r.current=r.current.filter(function(H){return H!==k})},1)},[]),b=_.useCallback(function(C){n.current=Kd(C),i.current=void 0},[]),x=_.useCallback(function(C){m(C.type,p5(C),C.target,p(C,e.lockRef.current))},[]),y=_.useCallback(function(C){m(C.type,Kd(C),C.target,p(C,e.lockRef.current))},[]);_.useEffect(function(){return ol.push(u),e.setCallbacks({onScrollCapture:x,onWheelCapture:x,onTouchMoveCapture:y}),document.addEventListener("wheel",g,il),document.addEventListener("touchmove",g,il),document.addEventListener("touchstart",b,il),function(){ol=ol.filter(function(C){return C!==u}),document.removeEventListener("wheel",g,il),document.removeEventListener("touchmove",g,il),document.removeEventListener("touchstart",b,il)}},[]);var j=e.removeScrollBar,w=e.inert;return _.createElement(_.Fragment,null,w?_.createElement(u,{styles:dH(c)}):null,j?_.createElement(rH,{noRelative:e.noRelative,gapMode:e.gapMode}):null)}function hH(e){for(var r=null;e!==null;)e instanceof ShadowRoot&&(r=e.host,e=e.host),e=e.parentNode;return r}const gH=qL(g3,pH);var y3=_.forwardRef(function(e,r){return _.createElement(mf,ie({},e,{ref:r,sideCar:gH}))});y3.classNames=mf.classNames;function S3(e){const{autoFocus:r,trapFocus:n,dialogRef:i,initialFocusRef:c,blockScrollOnMount:u,allowPinchZoom:d,finalFocusRef:p,returnFocusOnClose:g,preserveScrollBarGap:m,lockFocusAcrossFrames:b,isOpen:x}=Ci(),[y,j]=gb();_.useEffect(()=>{!y&&j&&setTimeout(j)},[y,j]);const w=p3(i,x);return l.jsx(i3,{autoFocus:r,isDisabled:!n,initialFocusRef:c,finalFocusRef:p,restoreFocus:g,contentRef:i,lockFocusAcrossFrames:b,children:l.jsx(y3,{removeScrollBar:!m,allowPinchZoom:d,enabled:w===1&&u,forwardProps:!0,children:e.children})})}var bf=ke((e,r)=>{const{className:n,children:i,containerProps:c,motionProps:u,...d}=e,{getDialogProps:p,getDialogContainerProps:g}=Ci(),m=p(d,r),b=g(c),x=Je("chakra-modal__content",n),y=Vl(),j={display:"flex",flexDirection:"column",position:"relative",width:"100%",outline:0,...y.dialog},w={display:"flex",width:"100vw",height:"$100vh",position:"fixed",left:0,top:0,...y.dialogContainer},{motionPreset:C}=Ci();return l.jsx(S3,{children:l.jsx(Te.div,{...b,className:"chakra-modal__content-container",tabIndex:-1,__css:w,children:l.jsx(f3,{preset:C,motionProps:u,className:x,...m,__css:j,children:i})})})});bf.displayName="ModalContent";var[mH,bH]=aa(),xH={start:{ltr:"left",rtl:"right"},end:{ltr:"right",rtl:"left"}};function vH(e,r){var n,i;if(e)return(i=(n=xH[e])==null?void 0:n[r])!=null?i:e}function yH(e){var r;const{isOpen:n,onClose:i,placement:c="right",children:u,...d}=e,p=t4(),g=(r=p.components)==null?void 0:r.Drawer,m=vH(c,p.direction);return l.jsx(mH,{value:{placement:m},children:l.jsx(nu,{isOpen:n,onClose:i,styleConfig:g,...d,children:u})})}var SH=Te(jw),j3=ke((e,r)=>{const{className:n,children:i,motionProps:c,containerProps:u,...d}=e,{getDialogProps:p,getDialogContainerProps:g,isOpen:m}=Ci(),b=p(d,r),x=g(u),y=Je("chakra-modal__content",n),j=Vl(),w={display:"flex",flexDirection:"column",position:"relative",width:"100%",outline:0,...j.dialog},C={display:"flex",width:"100vw",height:"$100vh",position:"fixed",left:0,top:0,...j.dialogContainer},{placement:E}=bH();return l.jsx(S3,{children:l.jsx(Te.div,{...x,className:"chakra-modal__content-container",__css:C,children:l.jsx(SH,{motionProps:c,direction:E,in:m,className:y,...b,__css:w,children:i})})})});j3.displayName="DrawerContent";var Ib=ke((e,r)=>{const{className:n,...i}=e,{headerId:c,setHeaderMounted:u}=Ci();_.useEffect(()=>(u(!0),()=>u(!1)),[u]);const d=Je("chakra-modal__header",n),g={flex:0,...Vl().header};return l.jsx(Te.header,{ref:r,className:d,id:c,...i,__css:g})});Ib.displayName="ModalHeader";var jH=Te(ho.div),iu=ke((e,r)=>{const{className:n,transition:i,motionProps:c,...u}=e,d=Je("chakra-modal__overlay",n),g={pos:"fixed",left:"0",top:"0",w:"100vw",h:"100vh",...Vl().overlay},{motionPreset:m}=Ci(),x=c||(m==="none"?{}:yw);return l.jsx(jH,{...x,__css:g,ref:r,className:d,...u})});iu.displayName="ModalOverlay";var ou=ke((e,r)=>{const{className:n,...i}=e,{bodyId:c,setBodyMounted:u}=Ci();_.useEffect(()=>(u(!0),()=>u(!1)),[u]);const d=Je("chakra-modal__body",n),p=Vl();return l.jsx(Te.div,{ref:r,className:d,id:c,...i,__css:p.body})});ou.displayName="ModalBody";var lu=ke((e,r)=>{const{onClick:n,className:i,...c}=e,{onClose:u}=Ci(),d=Je("chakra-modal__close-btn",i),p=Vl();return l.jsx(Tb,{ref:r,__css:p.closeButton,className:d,onClick:to(n,g=>{g.stopPropagation(),u()}),...c})});lu.displayName="ModalCloseButton";function wH(e,r=[]){const n=Object.assign({},e);for(const i of r)i in n&&delete n[i];return n}var _H=["h","minH","height","minHeight"],w3=ke((e,r)=>{const n=_a("Textarea",e),{className:i,rows:c,...u}=Rr(e),d=Tw(u),p=c?wH(n,_H):n;return l.jsx(Te.textarea,{ref:r,rows:c,...d,className:Je("chakra-textarea",i),__css:p})});w3.displayName="Textarea";const CH = go({
+    d: "M23.384,21.619,16.855,15.09a9.284,9.284,0,1,0-1.768,1.768l6.529,6.529a1.266,1.266,0,0,0,1.768,0A1.251,1.251,0,0,0,23.384,21.619ZM2.75,9.5a6.75,6.75,0,1,1,6.75,6.75A6.758,6.758,0,0,1,2.75,9.5Z",
+    displayName: "SearchIcon",
+  }),
+  g5 = go({
+    d: "M11.2857,6.05714 L10.08571,4.85714 L7.85714,7.14786 L7.85714,1 L6.14286,1 L6.14286,7.14786 L3.91429,4.85714 L2.71429,6.05714 L7,10.42857 L11.2857,6.05714 Z M1,11.2857 L1,13 L13,13 L13,11.2857 L1,11.2857 Z",
+    displayName: "DownloadIcon",
+    viewBox: "0 0 14 14",
+  }),
+  TH = go({
+    d: "M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z",
+    displayName: "ArrowForwardIcon",
+  }),
+  ec = go({
+    displayName: "ExternalLinkIcon",
+    path: l.jsxs("g", {
+      fill: "none",
+      stroke: "currentColor",
+      strokeLinecap: "round",
+      strokeWidth: "2",
+      children: [
+        l.jsx("path", {
+          d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6",
+        }),
+        l.jsx("path", { d: "M15 3h6v6" }),
+        l.jsx("path", { d: "M10 14L21 3" }),
+      ],
+    }),
+  }),
+  Jd = go({
+    displayName: "AttachmentIcon",
+    d: "M21.843,3.455a6.961,6.961,0,0,0-9.846,0L1.619,13.832a5.128,5.128,0,0,0,7.252,7.252L17.3,12.653A3.293,3.293,0,1,0,12.646,8L7.457,13.184A1,1,0,1,0,8.871,14.6L14.06,9.409a1.294,1.294,0,0,1,1.829,1.83L7.457,19.67a3.128,3.128,0,0,1-4.424-4.424L13.411,4.869a4.962,4.962,0,1,1,7.018,7.018L12.646,19.67a1,1,0,1,0,1.414,1.414L21.843,13.3a6.96,6.96,0,0,0,0-9.846Z",
+  }),
+  EH = go({
+    displayName: "EmailIcon",
+    path: l.jsxs("g", {
+      fill: "currentColor",
+      children: [
+        l.jsx("path", {
+          d: "M11.114,14.556a1.252,1.252,0,0,0,1.768,0L22.568,4.87a.5.5,0,0,0-.281-.849A1.966,1.966,0,0,0,22,4H2a1.966,1.966,0,0,0-.289.021.5.5,0,0,0-.281.849Z",
+        }),
+        l.jsx("path", {
+          d: "M23.888,5.832a.182.182,0,0,0-.2.039l-6.2,6.2a.251.251,0,0,0,0,.354l5.043,5.043a.75.75,0,1,1-1.06,1.061l-5.043-5.043a.25.25,0,0,0-.354,0l-2.129,2.129a2.75,2.75,0,0,1-3.888,0L7.926,13.488a.251.251,0,0,0-.354,0L2.529,18.531a.75.75,0,0,1-1.06-1.061l5.043-5.043a.251.251,0,0,0,0-.354l-6.2-6.2a.18.18,0,0,0-.2-.039A.182.182,0,0,0,0,6V18a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2V6A.181.181,0,0,0,23.888,5.832Z",
+        }),
+      ],
+    }),
+  }),
+  RH = go({
+    displayName: "HamburgerIcon",
+    viewBox: "0 0 24 24",
+    d: "M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z",
+  }),
+  m5 = [
+    { name: "Головна", path: "/" },
+    { name: "Портфоліо", path: "/portfolio" },
+    {
+      name: "Навчально - методичний комплекс",
+      path: "/educational-methodical",
+    },
+    { name: "Наставництво", path: "/extracurricular" },
+    { name: "Волонтерська діяльність", path: "/volunteer" },
+    { name: "Патріотичне виховання", path: "/patriotic-education" },
+    { name: "Рух - це життя", path: "/physical-activity" },
+    { name: "Досягнення", path: "/achievements" },
+    { name: "Підвищення кваліфікації", path: "/self-development" },
+  ],
+  zH = ({ children: e }) => {
+    const { isOpen: r, onOpen: n, onClose: i } = Vb(),
+      c = Ka();
+    return l.jsxs(S, {
+      children: [
+        l.jsxs(S, {
+          as: "nav",
+          display: { base: "none", md: "flex" },
+          position: "fixed",
+          left: 0,
+          top: 0,
+          height: "100vh",
+          width: "280px",
+          bg: "#F0FFFF",
+          color: "black",
+          borderRight: "1px solid rgba(0,0,0,0.15)",
+          boxShadow: "2px 0 8px rgba(0,0,0,0.08)",
+          zIndex: 100,
+          flexDirection: "column",
+          children: [
+            l.jsx(S, {
+              p: 6,
+              pb: 4,
+              borderBottom: "1px solid rgba(0,0,0,0.15)",
+              children: l.jsx(sl, {
+                to: "/",
+                style: { width: "100%" },
+                children: l.jsx(S, {
+                  w: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  transition: "all 0.3s ease",
+                  _hover: {
+                    transform: "scale(1.05)",
+                    bg: "rgba(30, 144, 255, 0.05)",
+                  },
+                  cursor: "pointer",
+                  borderRadius: "lg",
+                  py: 3,
+                  px: 2,
+                  children: l.jsx(V, {
+                    src: "/Boichenko_HGPA/images/AAzXCkep3NbN6howTMaGYriVs2wOPThDuFPcD89wNLReZqN27qtHOFNRECTEkBmdXyhMZuSfhAZzeVsYvYuwOB1yNUvHPT6T6korDZ3GHIwHyc-5HR6TH9Go7D0HELzC9m9RN7-h-SpTNO627xCbrdLbydxVwkxevTZRRyKQhYGcWLRLkY9M3jDpXQ_AVBQ=w1638.jpg",
+                    h: { base: "100px", md: "130px" },
+                    alt: "Logo",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.15))",
+                    transition: "all 0.3s ease",
+                  }),
+                }),
+              }),
+            }),
+            l.jsx(S, {
+              flex: "1",
+              overflowY: "auto",
+              overflowX: "hidden",
+              px: 4,
+              py: 4,
+              css: {
+                "&::-webkit-scrollbar": { width: "8px" },
+                "&::-webkit-scrollbar-track": {
+                  background: "transparent",
+                  borderRadius: "4px",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  background: "rgba(0, 0, 0, 0.15)",
+                  borderRadius: "4px",
+                  border: "2px solid transparent",
+                  backgroundClip: "padding-box",
+                  transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                },
+                "&::-webkit-scrollbar-thumb:hover": {
+                  background: "rgba(0, 0, 0, 0.25)",
+                  backgroundClip: "padding-box",
+                },
+                "&::-webkit-scrollbar-thumb:active": {
+                  background: "rgba(0, 0, 0, 0.35)",
+                  backgroundClip: "padding-box",
+                },
+              },
+              children: l.jsx(le, {
+                align: "start",
+                spacing: 2,
+                w: "100%",
+                children: m5.map((u) => {
+                  const d = c.pathname === u.path;
+                  return l.jsx(
+                    sl,
+                    {
+                      to: u.path,
+                      style: { width: "100%" },
+                      children: l.jsx(S, {
+                        px: 4,
+                        py: 3,
+                        borderRadius: "lg",
+                        bg: d
+                          ? "linear-gradient(90deg, rgba(30, 144, 255, 0.15) 0%, rgba(30, 144, 255, 0.05) 100%)"
+                          : "transparent",
+                        borderLeft: d
+                          ? "4px solid #1E90FF"
+                          : "4px solid transparent",
+                        borderRight: d
+                          ? "1px solid rgba(30, 144, 255, 0.2)"
+                          : "1px solid transparent",
+                        transition: "all 0.3s ease",
+                        _hover: {
+                          bg: d
+                            ? "linear-gradient(90deg, rgba(30, 144, 255, 0.2) 0%, rgba(30, 144, 255, 0.1) 100%)"
+                            : "linear-gradient(90deg, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0.01) 100%)",
+                          transform: "translateX(4px)",
+                          borderLeft: "4px solid #1E90FF",
+                          boxShadow: "0 2px 8px rgba(30, 144, 255, 0.15)",
+                        },
+                        width: "100%",
+                        position: "relative",
+                        _before: d
+                          ? {
+                              content: '""',
+                              position: "absolute",
+                              left: 0,
+                              top: 0,
+                              bottom: 0,
+                              width: "4px",
+                              bg: "#1E90FF",
+                              borderRadius: "0 4px 4px 0",
+                              boxShadow: "2px 0 8px rgba(30, 144, 255, 0.3)",
+                            }
+                          : {},
+                        children: l.jsx(ae, {
+                          fontWeight: d ? "700" : "600",
+                          cursor: "pointer",
+                          color: d ? "#1E90FF" : "gray.700",
+                          fontSize: "sm",
+                          transition: "all 0.2s",
+                          lineHeight: "1.4",
+                          children: u.name,
+                        }),
+                      }),
+                    },
+                    u.path
+                  );
+                }),
+              }),
+            }),
+          ],
+        }),
+        l.jsxs(W0, {
+          as: "header",
+          display: { base: "flex", md: "none" },
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          w: "100%",
+          bg: "black",
+          color: "white",
+          p: 3,
+          align: "center",
+          justify: "space-between",
+          borderBottom: "4px solid #FF6B08",
+          children: [
+            l.jsx(Vc, {
+              "aria-label": "Menu",
+              icon: l.jsx(RH, {}),
+              variant: "ghost",
+              color: "white",
+              onClick: n,
+            }),
+            l.jsx(sl, {
+              to: "/",
+              children: l.jsx(S, {
+                transition: "all 0.3s ease",
+                _hover: { transform: "scale(1.05)" },
+                cursor: "pointer",
+                p: 1,
+                borderRadius: "md",
+                children: l.jsx(V, {
+                  src: "/Boichenko_HGPA/images/HGPA.jpg",
+                  h: "55px",
+                  alt: "Logo",
+                  objectFit: "contain",
+                  maxW: "180px",
+                  filter: "drop-shadow(0 2px 4px rgba(255,255,255,0.2))",
+                  transition: "all 0.3s ease",
+                }),
+              }),
+            }),
+            l.jsx(Vc, {
+              "aria-label": "Search",
+              icon: l.jsx(CH, {}),
+              variant: "ghost",
+              color: "white",
+            }),
+          ],
+        }),
+        l.jsxs(yH, {
+          isOpen: r,
+          placement: "left",
+          onClose: i,
+          children: [
+            l.jsx(iu, {}),
+            l.jsxs(j3, {
+              bg: "#c0c0c0",
+              color: "black",
+              maxW: "100vw",
+              children: [
+                l.jsx(lu, {}),
+                l.jsx(ou, {
+                  mt: 10,
+                  children: l.jsx(le, {
+                    spacing: 1.5,
+                    align: "stretch",
+                    children: m5.map((u) => {
+                      const d = c.pathname === u.path;
+                      return l.jsx(
+                        sl,
+                        {
+                          to: u.path,
+                          onClick: i,
+                          children: l.jsx(ae, {
+                            fontSize: "lg",
+                            py: 1.5,
+                            px: 2,
+                            color: d ? "#FF6B08" : "black",
+                            fontWeight: d ? "600" : "normal",
+                            children: u.name,
+                          }),
+                        },
+                        u.path
+                      );
+                    }),
+                  }),
+                }),
+              ],
+            }),
+          ],
+        }),
+        l.jsx(S, {
+          ml: { base: 0, md: "280px" },
+          pt: { base: c.pathname === "/" ? 0 : "64px", md: 0 },
+          minHeight: { base: "calc(100vh - 64px)", md: "100vh" },
+          overflow: c.pathname === "/" ? "hidden" : "visible",
+          children: e,
+        }),
+      ],
+    });
+  },
+  AH = () => {
+    const { pathname: e } = Ka(),
+      r = _.useRef(null),
+      n = _.useRef(!1);
+    return (
+      _.useLayoutEffect(() => {
+        n.current = !0;
+        const i = () => {
+          document.documentElement &&
+            ((document.documentElement.scrollTop = 0),
+            (document.documentElement.scrollLeft = 0)),
+            document.body &&
+              ((document.body.scrollTop = 0), (document.body.scrollLeft = 0)),
+            window.scrollTo(0, 0);
+        };
+        return (
+          i(),
+          r.current && clearInterval(r.current),
+          (r.current = setInterval(() => {
+            i();
+          }, 10)),
+          setTimeout(() => {
+            r.current && (clearInterval(r.current), (r.current = null)),
+              (n.current = !1);
+          }, 1e3),
+          () => {
+            r.current && (clearInterval(r.current), (r.current = null));
+          }
+        );
+      }, [e]),
+      _.useEffect(() => {
+        const i = () => {
+          document.documentElement &&
+            ((document.documentElement.scrollTop = 0),
+            (document.documentElement.scrollLeft = 0)),
+            document.body &&
+              ((document.body.scrollTop = 0), (document.body.scrollLeft = 0)),
+            window.scrollTo(0, 0);
+        };
+        i();
+        const c = [
+            setTimeout(i, 0),
+            setTimeout(i, 5),
+            setTimeout(i, 10),
+            setTimeout(i, 20),
+            setTimeout(i, 30),
+            setTimeout(i, 50),
+            setTimeout(i, 100),
+            setTimeout(i, 200),
+            setTimeout(i, 300),
+            setTimeout(i, 500),
+          ],
+          u = () => {
+            n.current && i();
+          };
+        window.addEventListener("scroll", u, { passive: !1, capture: !0 }),
+          window.addEventListener("wheel", u, { passive: !1, capture: !0 }),
+          window.addEventListener("touchmove", u, { passive: !1, capture: !0 });
+        const d = setTimeout(() => {
+          window.removeEventListener("scroll", u, { capture: !0 }),
+            window.removeEventListener("wheel", u, { capture: !0 }),
+            window.removeEventListener("touchmove", u, { capture: !0 });
+        }, 1500);
+        return () => {
+          c.forEach((p) => clearTimeout(p)),
+            clearTimeout(d),
+            window.removeEventListener("scroll", u, { capture: !0 }),
+            window.removeEventListener("wheel", u, { capture: !0 }),
+            window.removeEventListener("touchmove", u, { capture: !0 });
+        };
+      }, [e]),
+      null
+    );
+  },
+  Nn = () => {
+    const r = Ka().pathname === "/",
+      [n, i] = _.useState(!r);
+    return (
+      _.useLayoutEffect(() => {
+        (() => {
+          window.scrollTo(0, 0),
+            document.documentElement &&
+              ((document.documentElement.scrollTop = 0),
+              (document.documentElement.scrollLeft = 0)),
+            document.body &&
+              ((document.body.scrollTop = 0), (document.body.scrollLeft = 0));
+        })();
+      }, []),
+      _.useEffect(() => {
+        const c = () => {
+          window.scrollTo(0, 0),
+            document.documentElement &&
+              ((document.documentElement.scrollTop = 0),
+              (document.documentElement.scrollLeft = 0)),
+            document.body &&
+              ((document.body.scrollTop = 0), (document.body.scrollLeft = 0));
+        };
+        if ((c(), r)) {
+          i(!1);
+          return;
+        }
+        i(!0);
+        const u = setInterval(() => {
+            c();
+          }, 50),
+          d = setTimeout(() => {
+            i(!1), clearInterval(u), c();
+          }, 1500);
+        return () => {
+          clearInterval(u), clearTimeout(d);
+        };
+      }, [r]),
+      n
+    );
+  },
+  b5 = wa`
   0% {
     transform: rotate(0deg);
   }
   100% {
     transform: rotate(360deg);
   }
-`,kH=wa`
+`,
+  kH = wa`
   0%, 100% {
     opacity: 1;
     transform: scale(1);
@@ -413,14 +842,16 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
     opacity: 0.7;
     transform: scale(0.95);
   }
-`,FH=wa`
+`,
+  FH = wa`
   0% {
     opacity: 0;
   }
   100% {
     opacity: 1;
   }
-`,MH=wa`
+`,
+  MH = wa`
   0% {
     background-position: 0% 50%;
   }
@@ -430,7 +861,578 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
   100% {
     background-position: 0% 50%;
   }
-`,Vn=({isLoading:e,children:r})=>(_.useEffect(()=>{if(e){const n=window.scrollY;return document.body.style.position="fixed",document.body.style.top=`-${n}px`,document.body.style.width="100%",document.body.style.overflow="hidden",()=>{document.body.style.position="",document.body.style.top="",document.body.style.width="",document.body.style.overflow="",window.scrollTo(0,0)}}},[e]),l.jsxs(S,{position:"relative",minHeight:"100vh",children:[e&&l.jsx(S,{position:"fixed",top:{base:"64px",md:0},left:{base:0,md:"280px"},right:0,bottom:0,bgGradient:"linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%)",bgSize:"200% 200%",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",sx:{animation:`${FH} 0.3s ease-in, ${MH} 3s ease infinite`},children:l.jsxs(le,{spacing:8,position:"relative",zIndex:1,children:[l.jsxs(S,{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",children:[l.jsx(S,{position:"absolute",w:{base:"150px",md:"180px",lg:"200px"},h:{base:"150px",md:"180px",lg:"200px"},borderRadius:"50%",bgGradient:"conic-gradient(from 0deg, rgba(255, 255, 255, 0.4), rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4), rgba(240, 147, 251, 0.4), rgba(79, 172, 254, 0.4), rgba(255, 255, 255, 0.4))",filter:"blur(10px)",sx:{animation:`${b5} 2s linear infinite`}}),l.jsx(S,{position:"relative",w:{base:"120px",md:"140px",lg:"160px"},h:{base:"120px",md:"140px",lg:"160px"},borderRadius:"50%",border:{base:"5px solid",md:"6px solid",lg:"7px solid"},borderColor:"rgba(255, 255, 255, 0.2)",borderTopColor:"rgba(255, 255, 255, 0.95)",borderRightColor:"rgba(102, 126, 234, 0.8)",bg:"transparent",boxShadow:"0 8px 32px rgba(255, 255, 255, 0.4), 0 0 60px rgba(102, 126, 234, 0.3)",sx:{animation:`${b5} 1s linear infinite`}}),l.jsx(S,{position:"absolute",w:{base:"16px",md:"20px",lg:"24px"},h:{base:"16px",md:"20px",lg:"24px"},borderRadius:"50%",bg:"white",boxShadow:"0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(102, 126, 234, 0.6)",sx:{animation:`${kH} 2s ease-in-out infinite`}})]}),l.jsx(ae,{fontSize:{base:"xl",md:"2xl",lg:"3xl"},fontWeight:"700",color:"white",letterSpacing:"wide",textAlign:"center",textShadow:"0 2px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.3)",px:6,py:3,borderRadius:"xl",bg:"rgba(255, 255, 255, 0.1)",backdropFilter:"blur(10px)",border:"1px solid rgba(255, 255, 255, 0.2)",children:"Завантаження..."})]})}),l.jsx(S,{opacity:e?0:1,visibility:e?"hidden":"visible",transition:"opacity 0.4s ease-in, visibility 0s linear",sx:{...e&&{pointerEvents:"none",overflow:"hidden",maxHeight:"100vh"}},children:r})]})),e0=[{date:"2025 рік",title:"Вручення нагороди від Ігоря Олександровича Терехова - Харківського міського голови з нагоди 105 річниці з дня заснування Академії",subtitle:"",image:"/HGPA_Boiko/Boichenko_HGPA/images/MainImgs/news2.jpg"},{date:"2023 рік",title:"Вручення посвідчення докторанта ректором Академії",subtitle:"",image:"/HGPA_Boiko/Boichenko_HGPA/images/MainImgs/photo_2025-12-14_14-51-33.jpg"},{date:"2025 рік",title:"Привітання здобувача освіти Коледжу з перемогою у змаганнях з акробатики",subtitle:"",image:"/HGPA_Boiko/Boichenko_HGPA/images/MainImgs/DSC_9418.JPG"},{date:"2025 рік",title:"Національно-патріотична зустріч напередодні Дня Збройних Сил України",subtitle:"",image:"/HGPA_Boiko/Boichenko_HGPA/images/MainImgs/photo_2025-12-03_14-58-59.jpg"},{date:"2022 рік",title:"Рухова активність та спортивне вдосконалення",subtitle:"",image:"/HGPA_Boiko/Boichenko_HGPA/images/MainImgs/photo_2025-12-14_14-37-22.jpg"},{date:"2024 рік",title:"Волонтерська діяльність із дітьми ВПО",subtitle:"",image:"/HGPA_Boiko/Boichenko_HGPA/images/MainImgs/photo_2025-12-13_17-17-57.jpg"}],BH=()=>{const[e,r]=_.useState(0);_.useEffect(()=>{const i=setInterval(()=>{r(c=>(c+1)%e0.length)},5e3);return()=>clearInterval(i)},[]);const n=()=>{r(i=>(i+1)%e0.length)};return l.jsxs(S,{position:"absolute",top:0,left:0,right:0,bottom:0,width:"100%",height:"100%",overflow:"hidden",children:[e0.map((i,c)=>l.jsxs(S,{position:"absolute",top:0,left:0,right:0,bottom:0,opacity:c===e?1:0,transition:"opacity 0.5s ease-in-out",zIndex:c===e?1:0,children:[l.jsx(V,{src:i.image,alt:i.title,position:"absolute",top:0,left:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:c===1||c===2||c===7||c===13?"center top":"center center",minHeight:"100%",minWidth:"100%",loading:"lazy"}),l.jsxs(S,{position:"absolute",bottom:0,left:0,right:0,bg:"rgba(0,0,0,0.7)",p:{base:4,md:6},color:"white",zIndex:2,pr:{base:"100px",md:"120px"},children:[l.jsx(ae,{fontSize:{base:"xs",md:"sm"},mb:2,children:i.date}),l.jsx(ae,{fontSize:{base:"xl",md:"4xl"},fontWeight:"bold",lineHeight:{base:"1.2",md:"1.1"},children:i.title}),l.jsx(ae,{fontSize:{base:"sm",md:"xl"},display:{base:"none",sm:"block"},children:i.subtitle})]})]},c)),l.jsxs(W0,{position:"absolute",right:{base:3,md:6},top:"50%",transform:"translateY(-50%)",direction:"column",align:"center",gap:{base:2,md:4},zIndex:10,children:[l.jsx(W0,{direction:"column",gap:{base:1.5,md:2},children:e0.map((i,c)=>l.jsx(S,{w:{base:"6px",md:"8px"},h:{base:"6px",md:"8px"},borderRadius:"50%",bg:c===e?"#1E90FF":"white",cursor:"pointer",onClick:()=>r(c),transition:"all 0.3s"},c))}),l.jsx(Vc,{"aria-label":"Next slide",icon:l.jsx(TH,{}),onClick:n,bg:"white",color:"black",borderRadius:"50%",size:{base:"sm",md:"md"},width:{base:"32px",md:"40px"},height:{base:"32px",md:"40px"},minW:{base:"32px",md:"40px"},minH:{base:"32px",md:"40px"},_hover:{bg:"#1E90FF",color:"white"}})]})]})},DH=({isOpen:e,onClose:r})=>{const[n,i]=_.useState(""),[c,u]=_.useState(""),[d,p]=_.useState(""),[g,m]=_.useState(!1),b=yL(),x=async y=>{if(y.preventDefault(),!n.trim()||!c.trim()||!d.trim()){b({title:"Помилка",description:"Будь ласка, заповніть всі поля",status:"error",duration:3e3,isClosable:!0});return}if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)){b({title:"Помилка",description:"Будь ласка, введіть коректну email адресу",status:"error",duration:3e3,isClosable:!0});return}m(!0);try{const j=new FormData;j.append("name",n),j.append("email",c),j.append("message",d),j.append("_subject","Зворотний зв'язок з сайту"),j.append("_captcha","false");const C=await(await fetch("https://formsubmit.co/ajax/braunvlad981@gmail.com",{method:"POST",body:j})).json();if(C.success)m(!1),b({title:"Успіх",description:"Ваше повідомлення успішно відправлено на email!",status:"success",duration:3e3,isClosable:!0}),i(""),u(""),p(""),r();else throw new Error(C.message||"Помилка відправки")}catch(j){console.error("Помилка відправки email:",j),m(!1),b({title:"Помилка",description:j instanceof Error?j.message:"Не вдалося відправити повідомлення. Спробуйте ще раз.",status:"error",duration:3e3,isClosable:!0})}};return l.jsxs(nu,{isOpen:e,onClose:r,size:"xl",isCentered:!0,children:[l.jsx(iu,{bg:"blackAlpha.600",backdropFilter:"blur(4px)"}),l.jsxs(bf,{borderRadius:"24px",overflow:"hidden",bg:"white",boxShadow:"0 20px 60px rgba(0, 0, 0, 0.3)",maxW:{base:"90%",md:"600px"},children:[l.jsx(S,{h:"4px",bgGradient:"linear(to-r, #FF6B35, #FF8C42, #FFA500)",w:"100%"}),l.jsx(Ib,{fontSize:{base:"24px",md:"32px"},fontWeight:"bold",color:"#2D3748",textAlign:"center",pt:8,pb:4,letterSpacing:"0.5px",children:"ФОРМА ЗВОРОТНОГО ЗВ'ЯЗКУ"}),l.jsx(lu,{size:"lg",color:"#2D3748",border:"none",outline:"none",boxShadow:"none",_hover:{bg:"transparent",color:"#FF6B35",outline:"none",boxShadow:"none",border:"none",_focus:{outline:"none",boxShadow:"none",border:"none"}},_active:{bg:"transparent",outline:"none",boxShadow:"none",border:"none"},_focus:{outline:"none",boxShadow:"none",border:"none"},top:2,right:2}),l.jsx(ou,{pb:8,px:{base:6,md:10},children:l.jsxs("form",{name:"feedback-form",method:"POST","data-netlify":"true","netlify-honeypot":"bot-field",onSubmit:x,children:[l.jsx("input",{type:"hidden",name:"form-name",value:"feedback-form"}),l.jsx("input",{type:"hidden",name:"bot-field"}),l.jsxs(y0,{mb:6,isRequired:!0,children:[l.jsx(S0,{fontSize:{base:"14px",md:"16px"},fontWeight:"600",color:"#4A5568",mb:2,children:"Ім'я та Прізвище"}),l.jsx(P0,{type:"text",name:"name",value:n,onChange:y=>i(y.target.value),placeholder:"Введіть ваше ім'я та прізвище",borderRadius:"12px",border:"2px solid",borderColor:"gray.200",_hover:{borderColor:"#FF8C42"},_focus:{borderColor:"#FF6B35",boxShadow:"0 0 0 3px rgba(255, 107, 53, 0.1)"},h:{base:"44px",md:"48px"},fontSize:{base:"14px",md:"16px"},bg:"gray.50"})]}),l.jsxs(y0,{mb:6,isRequired:!0,children:[l.jsx(S0,{fontSize:{base:"14px",md:"16px"},fontWeight:"600",color:"#4A5568",mb:2,children:"E-mail адреса"}),l.jsx(P0,{type:"email",name:"email",value:c,onChange:y=>u(y.target.value),placeholder:"your.email@example.com",borderRadius:"12px",border:"2px solid",borderColor:"gray.200",_hover:{borderColor:"#FF8C42"},_focus:{borderColor:"#FF6B35",boxShadow:"0 0 0 3px rgba(255, 107, 53, 0.1)"},h:{base:"44px",md:"48px"},fontSize:{base:"14px",md:"16px"},bg:"gray.50"})]}),l.jsxs(y0,{mb:8,isRequired:!0,children:[l.jsx(S0,{fontSize:{base:"14px",md:"16px"},fontWeight:"600",color:"#4A5568",mb:2,children:"Запитання"}),l.jsx(w3,{name:"question",value:d,onChange:y=>p(y.target.value),placeholder:"Напишіть ваше запитання або повідомлення...",borderRadius:"12px",border:"2px solid",borderColor:"gray.200",_hover:{borderColor:"#FF8C42"},_focus:{borderColor:"#FF6B35",boxShadow:"0 0 0 3px rgba(255, 107, 53, 0.1)"},minH:"120px",fontSize:{base:"14px",md:"16px"},bg:"gray.50",resize:"vertical"})]}),l.jsx(S,{mb:6,h:"1px",bgImage:"repeating-linear-gradient(to right, #FF8C42 0px, #FF8C42 10px, transparent 10px, transparent 20px)",opacity:.5}),l.jsx(no,{type:"submit",w:"100%",h:{base:"48px",md:"56px"},bgGradient:"linear(to-r, #FF6B35, #FF8C42, #FFA500)",color:"white",fontSize:{base:"16px",md:"18px"},fontWeight:"bold",borderRadius:"12px",_hover:{bgGradient:"linear(to-r, #FF8C42, #FFA500, #FFB347)",transform:"translateY(-2px)",boxShadow:"0 8px 20px rgba(255, 107, 53, 0.4)"},_active:{transform:"translateY(0px)"},transition:"all 0.3s",isLoading:g,loadingText:"Відправка...",children:"НАДІСЛАТИ"})]})})]})]})},x5=wa`
+`,
+  Vn = ({ isLoading: e, children: r }) => (
+    _.useEffect(() => {
+      if (e) {
+        const n = window.scrollY;
+        return (
+          (document.body.style.position = "fixed"),
+          (document.body.style.top = `-${n}px`),
+          (document.body.style.width = "100%"),
+          (document.body.style.overflow = "hidden"),
+          () => {
+            (document.body.style.position = ""),
+              (document.body.style.top = ""),
+              (document.body.style.width = ""),
+              (document.body.style.overflow = ""),
+              window.scrollTo(0, 0);
+          }
+        );
+      }
+    }, [e]),
+    l.jsxs(S, {
+      position: "relative",
+      minHeight: "100vh",
+      children: [
+        e &&
+          l.jsx(S, {
+            position: "fixed",
+            top: { base: "64px", md: 0 },
+            left: { base: 0, md: "280px" },
+            right: 0,
+            bottom: 0,
+            bgGradient:
+              "linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%)",
+            bgSize: "200% 200%",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            sx: { animation: `${FH} 0.3s ease-in, ${MH} 3s ease infinite` },
+            children: l.jsxs(le, {
+              spacing: 8,
+              position: "relative",
+              zIndex: 1,
+              children: [
+                l.jsxs(S, {
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  children: [
+                    l.jsx(S, {
+                      position: "absolute",
+                      w: { base: "150px", md: "180px", lg: "200px" },
+                      h: { base: "150px", md: "180px", lg: "200px" },
+                      borderRadius: "50%",
+                      bgGradient:
+                        "conic-gradient(from 0deg, rgba(255, 255, 255, 0.4), rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4), rgba(240, 147, 251, 0.4), rgba(79, 172, 254, 0.4), rgba(255, 255, 255, 0.4))",
+                      filter: "blur(10px)",
+                      sx: { animation: `${b5} 2s linear infinite` },
+                    }),
+                    l.jsx(S, {
+                      position: "relative",
+                      w: { base: "120px", md: "140px", lg: "160px" },
+                      h: { base: "120px", md: "140px", lg: "160px" },
+                      borderRadius: "50%",
+                      border: {
+                        base: "5px solid",
+                        md: "6px solid",
+                        lg: "7px solid",
+                      },
+                      borderColor: "rgba(255, 255, 255, 0.2)",
+                      borderTopColor: "rgba(255, 255, 255, 0.95)",
+                      borderRightColor: "rgba(102, 126, 234, 0.8)",
+                      bg: "transparent",
+                      boxShadow:
+                        "0 8px 32px rgba(255, 255, 255, 0.4), 0 0 60px rgba(102, 126, 234, 0.3)",
+                      sx: { animation: `${b5} 1s linear infinite` },
+                    }),
+                    l.jsx(S, {
+                      position: "absolute",
+                      w: { base: "16px", md: "20px", lg: "24px" },
+                      h: { base: "16px", md: "20px", lg: "24px" },
+                      borderRadius: "50%",
+                      bg: "white",
+                      boxShadow:
+                        "0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(102, 126, 234, 0.6)",
+                      sx: { animation: `${kH} 2s ease-in-out infinite` },
+                    }),
+                  ],
+                }),
+                l.jsx(ae, {
+                  fontSize: { base: "xl", md: "2xl", lg: "3xl" },
+                  fontWeight: "700",
+                  color: "white",
+                  letterSpacing: "wide",
+                  textAlign: "center",
+                  textShadow:
+                    "0 2px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.3)",
+                  px: 6,
+                  py: 3,
+                  borderRadius: "xl",
+                  bg: "rgba(255, 255, 255, 0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  children: "Завантаження...",
+                }),
+              ],
+            }),
+          }),
+        l.jsx(S, {
+          opacity: e ? 0 : 1,
+          visibility: e ? "hidden" : "visible",
+          transition: "opacity 0.4s ease-in, visibility 0s linear",
+          sx: {
+            ...(e && {
+              pointerEvents: "none",
+              overflow: "hidden",
+              maxHeight: "100vh",
+            }),
+          },
+          children: r,
+        }),
+      ],
+    })
+  ),
+  e0 = [
+    {
+      date: "2025 рік",
+      title:
+        "Вручення нагороди від Ігоря Олександровича Терехова - Харківського міського голови з нагоди 105 річниці з дня заснування Академії",
+      subtitle: "",
+      image: "/Boichenko_HGPA/images/MainImgs/news2.jpg",
+    },
+    {
+      date: "2023 рік",
+      title: "Вручення посвідчення докторанта ректором Академії",
+      subtitle: "",
+      image:
+        "/Boichenko_HGPA/images/MainImgs/photo_2025-12-14_14-51-33.jpg",
+    },
+    {
+      date: "2025 рік",
+      title:
+        "Привітання здобувача освіти Коледжу з перемогою у змаганнях з акробатики",
+      subtitle: "",
+      image: "/Boichenko_HGPA/images/MainImgs/DSC_9418.JPG",
+    },
+    {
+      date: "2025 рік",
+      title:
+        "Національно-патріотична зустріч напередодні Дня Збройних Сил України",
+      subtitle: "",
+      image:
+        "/Boichenko_HGPA/images/MainImgs/photo_2025-12-03_14-58-59.jpg",
+    },
+    {
+      date: "2022 рік",
+      title: "Рухова активність та спортивне вдосконалення",
+      subtitle: "",
+      image:
+        "/Boichenko_HGPA/images/MainImgs/photo_2025-12-14_14-37-22.jpg",
+    },
+    {
+      date: "2024 рік",
+      title: "Волонтерська діяльність із дітьми ВПО",
+      subtitle: "",
+      image:
+        "/Boichenko_HGPA/images/MainImgs/photo_2025-12-13_17-17-57.jpg",
+    },
+  ],
+  BH = () => {
+    const [e, r] = _.useState(0);
+    _.useEffect(() => {
+      const i = setInterval(() => {
+        r((c) => (c + 1) % e0.length);
+      }, 5e3);
+      return () => clearInterval(i);
+    }, []);
+    const n = () => {
+      r((i) => (i + 1) % e0.length);
+    };
+    return l.jsxs(S, {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: "100%",
+      height: "100%",
+      overflow: "hidden",
+      children: [
+        e0.map((i, c) =>
+          l.jsxs(
+            S,
+            {
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: c === e ? 1 : 0,
+              transition: "opacity 0.5s ease-in-out",
+              zIndex: c === e ? 1 : 0,
+              children: [
+                l.jsx(V, {
+                  src: i.image,
+                  alt: i.title,
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition:
+                    c === 1 || c === 2 || c === 7 || c === 13
+                      ? "center top"
+                      : "center center",
+                  minHeight: "100%",
+                  minWidth: "100%",
+                  loading: "lazy",
+                }),
+                l.jsxs(S, {
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  bg: "rgba(0,0,0,0.7)",
+                  p: { base: 4, md: 6 },
+                  color: "white",
+                  zIndex: 2,
+                  pr: { base: "100px", md: "120px" },
+                  children: [
+                    l.jsx(ae, {
+                      fontSize: { base: "xs", md: "sm" },
+                      mb: 2,
+                      children: i.date,
+                    }),
+                    l.jsx(ae, {
+                      fontSize: { base: "xl", md: "4xl" },
+                      fontWeight: "bold",
+                      lineHeight: { base: "1.2", md: "1.1" },
+                      children: i.title,
+                    }),
+                    l.jsx(ae, {
+                      fontSize: { base: "sm", md: "xl" },
+                      display: { base: "none", sm: "block" },
+                      children: i.subtitle,
+                    }),
+                  ],
+                }),
+              ],
+            },
+            c
+          )
+        ),
+        l.jsxs(W0, {
+          position: "absolute",
+          right: { base: 3, md: 6 },
+          top: "50%",
+          transform: "translateY(-50%)",
+          direction: "column",
+          align: "center",
+          gap: { base: 2, md: 4 },
+          zIndex: 10,
+          children: [
+            l.jsx(W0, {
+              direction: "column",
+              gap: { base: 1.5, md: 2 },
+              children: e0.map((i, c) =>
+                l.jsx(
+                  S,
+                  {
+                    w: { base: "6px", md: "8px" },
+                    h: { base: "6px", md: "8px" },
+                    borderRadius: "50%",
+                    bg: c === e ? "#1E90FF" : "white",
+                    cursor: "pointer",
+                    onClick: () => r(c),
+                    transition: "all 0.3s",
+                  },
+                  c
+                )
+              ),
+            }),
+            l.jsx(Vc, {
+              "aria-label": "Next slide",
+              icon: l.jsx(TH, {}),
+              onClick: n,
+              bg: "white",
+              color: "black",
+              borderRadius: "50%",
+              size: { base: "sm", md: "md" },
+              width: { base: "32px", md: "40px" },
+              height: { base: "32px", md: "40px" },
+              minW: { base: "32px", md: "40px" },
+              minH: { base: "32px", md: "40px" },
+              _hover: { bg: "#1E90FF", color: "white" },
+            }),
+          ],
+        }),
+      ],
+    });
+  },
+  DH = ({ isOpen: e, onClose: r }) => {
+    const [n, i] = _.useState(""),
+      [c, u] = _.useState(""),
+      [d, p] = _.useState(""),
+      [g, m] = _.useState(!1),
+      b = yL(),
+      x = async (y) => {
+        if ((y.preventDefault(), !n.trim() || !c.trim() || !d.trim())) {
+          b({
+            title: "Помилка",
+            description: "Будь ласка, заповніть всі поля",
+            status: "error",
+            duration: 3e3,
+            isClosable: !0,
+          });
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c)) {
+          b({
+            title: "Помилка",
+            description: "Будь ласка, введіть коректну email адресу",
+            status: "error",
+            duration: 3e3,
+            isClosable: !0,
+          });
+          return;
+        }
+        m(!0);
+        try {
+          const j = new FormData();
+          j.append("name", n),
+            j.append("email", c),
+            j.append("message", d),
+            j.append("_subject", "Зворотний зв'язок з сайту"),
+            j.append("_captcha", "false");
+          const C = await (
+            await fetch("https://formsubmit.co/ajax/braunvlad981@gmail.com", {
+              method: "POST",
+              body: j,
+            })
+          ).json();
+          if (C.success)
+            m(!1),
+              b({
+                title: "Успіх",
+                description: "Ваше повідомлення успішно відправлено на email!",
+                status: "success",
+                duration: 3e3,
+                isClosable: !0,
+              }),
+              i(""),
+              u(""),
+              p(""),
+              r();
+          else throw new Error(C.message || "Помилка відправки");
+        } catch (j) {
+          console.error("Помилка відправки email:", j),
+            m(!1),
+            b({
+              title: "Помилка",
+              description:
+                j instanceof Error
+                  ? j.message
+                  : "Не вдалося відправити повідомлення. Спробуйте ще раз.",
+              status: "error",
+              duration: 3e3,
+              isClosable: !0,
+            });
+        }
+      };
+    return l.jsxs(nu, {
+      isOpen: e,
+      onClose: r,
+      size: "xl",
+      isCentered: !0,
+      children: [
+        l.jsx(iu, { bg: "blackAlpha.600", backdropFilter: "blur(4px)" }),
+        l.jsxs(bf, {
+          borderRadius: "24px",
+          overflow: "hidden",
+          bg: "white",
+          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+          maxW: { base: "90%", md: "600px" },
+          children: [
+            l.jsx(S, {
+              h: "4px",
+              bgGradient: "linear(to-r, #FF6B35, #FF8C42, #FFA500)",
+              w: "100%",
+            }),
+            l.jsx(Ib, {
+              fontSize: { base: "24px", md: "32px" },
+              fontWeight: "bold",
+              color: "#2D3748",
+              textAlign: "center",
+              pt: 8,
+              pb: 4,
+              letterSpacing: "0.5px",
+              children: "ФОРМА ЗВОРОТНОГО ЗВ'ЯЗКУ",
+            }),
+            l.jsx(lu, {
+              size: "lg",
+              color: "#2D3748",
+              border: "none",
+              outline: "none",
+              boxShadow: "none",
+              _hover: {
+                bg: "transparent",
+                color: "#FF6B35",
+                outline: "none",
+                boxShadow: "none",
+                border: "none",
+                _focus: { outline: "none", boxShadow: "none", border: "none" },
+              },
+              _active: {
+                bg: "transparent",
+                outline: "none",
+                boxShadow: "none",
+                border: "none",
+              },
+              _focus: { outline: "none", boxShadow: "none", border: "none" },
+              top: 2,
+              right: 2,
+            }),
+            l.jsx(ou, {
+              pb: 8,
+              px: { base: 6, md: 10 },
+              children: l.jsxs("form", {
+                name: "feedback-form",
+                method: "POST",
+                "data-netlify": "true",
+                "netlify-honeypot": "bot-field",
+                onSubmit: x,
+                children: [
+                  l.jsx("input", {
+                    type: "hidden",
+                    name: "form-name",
+                    value: "feedback-form",
+                  }),
+                  l.jsx("input", { type: "hidden", name: "bot-field" }),
+                  l.jsxs(y0, {
+                    mb: 6,
+                    isRequired: !0,
+                    children: [
+                      l.jsx(S0, {
+                        fontSize: { base: "14px", md: "16px" },
+                        fontWeight: "600",
+                        color: "#4A5568",
+                        mb: 2,
+                        children: "Ім'я та Прізвище",
+                      }),
+                      l.jsx(P0, {
+                        type: "text",
+                        name: "name",
+                        value: n,
+                        onChange: (y) => i(y.target.value),
+                        placeholder: "Введіть ваше ім'я та прізвище",
+                        borderRadius: "12px",
+                        border: "2px solid",
+                        borderColor: "gray.200",
+                        _hover: { borderColor: "#FF8C42" },
+                        _focus: {
+                          borderColor: "#FF6B35",
+                          boxShadow: "0 0 0 3px rgba(255, 107, 53, 0.1)",
+                        },
+                        h: { base: "44px", md: "48px" },
+                        fontSize: { base: "14px", md: "16px" },
+                        bg: "gray.50",
+                      }),
+                    ],
+                  }),
+                  l.jsxs(y0, {
+                    mb: 6,
+                    isRequired: !0,
+                    children: [
+                      l.jsx(S0, {
+                        fontSize: { base: "14px", md: "16px" },
+                        fontWeight: "600",
+                        color: "#4A5568",
+                        mb: 2,
+                        children: "E-mail адреса",
+                      }),
+                      l.jsx(P0, {
+                        type: "email",
+                        name: "email",
+                        value: c,
+                        onChange: (y) => u(y.target.value),
+                        placeholder: "your.email@example.com",
+                        borderRadius: "12px",
+                        border: "2px solid",
+                        borderColor: "gray.200",
+                        _hover: { borderColor: "#FF8C42" },
+                        _focus: {
+                          borderColor: "#FF6B35",
+                          boxShadow: "0 0 0 3px rgba(255, 107, 53, 0.1)",
+                        },
+                        h: { base: "44px", md: "48px" },
+                        fontSize: { base: "14px", md: "16px" },
+                        bg: "gray.50",
+                      }),
+                    ],
+                  }),
+                  l.jsxs(y0, {
+                    mb: 8,
+                    isRequired: !0,
+                    children: [
+                      l.jsx(S0, {
+                        fontSize: { base: "14px", md: "16px" },
+                        fontWeight: "600",
+                        color: "#4A5568",
+                        mb: 2,
+                        children: "Запитання",
+                      }),
+                      l.jsx(w3, {
+                        name: "question",
+                        value: d,
+                        onChange: (y) => p(y.target.value),
+                        placeholder:
+                          "Напишіть ваше запитання або повідомлення...",
+                        borderRadius: "12px",
+                        border: "2px solid",
+                        borderColor: "gray.200",
+                        _hover: { borderColor: "#FF8C42" },
+                        _focus: {
+                          borderColor: "#FF6B35",
+                          boxShadow: "0 0 0 3px rgba(255, 107, 53, 0.1)",
+                        },
+                        minH: "120px",
+                        fontSize: { base: "14px", md: "16px" },
+                        bg: "gray.50",
+                        resize: "vertical",
+                      }),
+                    ],
+                  }),
+                  l.jsx(S, {
+                    mb: 6,
+                    h: "1px",
+                    bgImage:
+                      "repeating-linear-gradient(to right, #FF8C42 0px, #FF8C42 10px, transparent 10px, transparent 20px)",
+                    opacity: 0.5,
+                  }),
+                  l.jsx(no, {
+                    type: "submit",
+                    w: "100%",
+                    h: { base: "48px", md: "56px" },
+                    bgGradient: "linear(to-r, #FF6B35, #FF8C42, #FFA500)",
+                    color: "white",
+                    fontSize: { base: "16px", md: "18px" },
+                    fontWeight: "bold",
+                    borderRadius: "12px",
+                    _hover: {
+                      bgGradient: "linear(to-r, #FF8C42, #FFA500, #FFB347)",
+                      transform: "translateY(-2px)",
+                      boxShadow: "0 8px 20px rgba(255, 107, 53, 0.4)",
+                    },
+                    _active: { transform: "translateY(0px)" },
+                    transition: "all 0.3s",
+                    isLoading: g,
+                    loadingText: "Відправка...",
+                    children: "НАДІСЛАТИ",
+                  }),
+                ],
+              }),
+            }),
+          ],
+        }),
+      ],
+    });
+  },
+  x5 = wa`
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   10% { transform: translate(-2px, -1px) rotate(-1deg); }
   20% { transform: translate(-1px, 2px) rotate(1deg); }
@@ -441,34 +1443,7042 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
   70% { transform: translate(2px, 1px) rotate(-1deg); }
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
-`,OH=()=>{const e=Nn(),[r,n]=_.useState(!1);return l.jsx(Vn,{isLoading:e,children:l.jsxs(S,{height:{base:"calc(100vh - 64px)",md:"100vh"},overflow:"hidden",position:"relative",children:[l.jsx(BH,{}),l.jsx(Vc,{"aria-label":"Зворотній зв'язок",position:"fixed",bottom:{base:"20px",md:"30px"},right:{base:"20px",md:"30px"},w:{base:"60px",md:"70px"},h:{base:"60px",md:"70px"},minW:{base:"60px",md:"70px"},minH:{base:"60px",md:"70px"},borderRadius:"full",bgGradient:"linear(to-r, #FF6B35, #FF8C42, #FFA500)",color:"white",icon:l.jsx(EH,{boxSize:{base:"24px",md:"28px"}}),boxShadow:"0 4px 15px rgba(255, 107, 53, 0.4)",animation:`${x5} 2s ease-in-out infinite`,_hover:{bgGradient:"linear(to-r, #FF8C42, #FFA500, #FFB347)",transform:"scale(1.1)",boxShadow:"0 8px 25px rgba(255, 107, 53, 0.6)",animation:`${x5} 0.5s ease-in-out infinite`},_active:{transform:"scale(0.95)"},transition:"all 0.3s",zIndex:20,onClick:()=>n(!0)}),l.jsx(DH,{isOpen:r,onClose:()=>n(!1)})]})})},$H=()=>{const e=Nn();return l.jsx(Vn,{isLoading:e,children:l.jsx(S,{children:l.jsx(S,{bg:"white",py:{base:6,md:10},px:{base:4,md:8},children:l.jsx(dt,{maxW:"1200px",children:l.jsxs(ya,{spacing:{base:6,md:10},align:"start",flexDirection:{base:"column",md:"row"},mb:8,children:[l.jsx(S,{flex:{base:"1",md:"0 0 350px"},width:{base:"100%",md:"350px"},mb:{base:6,md:0},children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"2xl",position:"relative",_before:{content:'""',position:"absolute",top:0,left:0,right:0,bottom:0,bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, transparent 100%)",zIndex:1,pointerEvents:"none"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_17-38-33.jpg",alt:"Бойченко Артем Васильович",width:"100%",height:"auto",objectFit:"cover",display:"block"})})}),l.jsx(S,{flex:1,width:"100%",children:l.jsxs(le,{align:"start",spacing:6,children:[l.jsxs(S,{width:"100%",bg:"white",p:{base:6,md:8},position:"relative",boxShadow:"0 4px 20px rgba(0, 0, 0, 0.1)",children:[l.jsxs(S,{position:"absolute",top:0,left:0,right:0,bottom:0,pointerEvents:"none",children:[l.jsx(S,{position:"absolute",top:0,left:"40px",right:"40px",height:"2px",bg:"linear-gradient(90deg, transparent, #1E90FF, #1E90FF, transparent)"}),l.jsx(S,{position:"absolute",top:"40px",right:0,bottom:"40px",width:"2px",bg:"linear-gradient(180deg, transparent, #1E90FF, #1E90FF, transparent)"}),l.jsx(S,{position:"absolute",bottom:0,left:"40px",right:"40px",height:"2px",bg:"linear-gradient(90deg, transparent, #1E90FF, #1E90FF, transparent)"}),l.jsx(S,{position:"absolute",top:"40px",left:0,bottom:"40px",width:"2px",bg:"linear-gradient(180deg, transparent, #1E90FF, #1E90FF, transparent)"})]}),l.jsx(Re,{size:{base:"xl",md:"2xl"},mb:6,color:"#2C3E50",fontWeight:"700",textAlign:{base:"center",md:"left"},fontFamily:"Georgia, serif",letterSpacing:"0.5px",children:"Бойченко Артем Васильович"}),l.jsxs(le,{align:{base:"center",md:"start"},spacing:4,mt:6,children:[l.jsx(S,{width:"100%",py:3,px:4,borderLeft:"4px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",transition:"all 0.3s",_hover:{bg:"rgba(30, 144, 255, 0.1)",transform:"translateX(4px)"},children:l.jsx(ae,{fontSize:{base:"md",md:"lg"},color:"#2C3E50",fontWeight:"600",letterSpacing:"0.3px",children:"Кандидат педагогічних наук"})}),l.jsx(S,{width:"100%",py:3,px:4,borderLeft:"4px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",transition:"all 0.3s",_hover:{bg:"rgba(30, 144, 255, 0.1)",transform:"translateX(4px)"},children:l.jsx(ae,{fontSize:{base:"md",md:"lg"},color:"#2C3E50",fontWeight:"600",letterSpacing:"0.3px",children:"Викладач вищої категорії"})}),l.jsx(S,{width:"100%",py:3,px:4,borderLeft:"4px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",transition:"all 0.3s",_hover:{bg:"rgba(30, 144, 255, 0.1)",transform:"translateX(4px)"},children:l.jsx(ae,{fontSize:{base:"md",md:"lg"},color:"#2C3E50",fontWeight:"600",letterSpacing:"0.3px",children:"Докторант"})})]})]}),l.jsx(U0,{borderColor:"#1E90FF",borderWidth:"2px"}),l.jsxs(S,{width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:4,color:"#1E90FF",children:"Освіта та кваліфікація"}),l.jsxs(le,{align:"start",spacing:4,children:[l.jsxs(S,{pl:4,borderLeft:"3px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",p:4,borderRadius:"md",width:"100%",children:[l.jsx(ae,{fontWeight:"bold",mb:2,color:"gray.800",children:"2008 рік"}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:'Закінчив Харківський національний педагогічний університет імені Г.С. Сковороди. Отримав базову вищу освіту за напрямом "Педагогічна освіта". Кваліфікація: бакалавр педагогічної освіти, вчитель фізичної культури для початкової школи.'})]}),l.jsxs(S,{pl:4,borderLeft:"3px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",p:4,borderRadius:"md",width:"100%",children:[l.jsx(ae,{fontWeight:"bold",mb:2,color:"gray.800",children:"2009 рік"}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:'Закінчив Харківський національний педагогічний університет імені Г.С. Сковороди. Отримав повну вищу освіту за спеціальністю "Педагогіка і методика середньої освіти. Фізична культура". Кваліфікація: викладач фізичної культури.'})]}),l.jsxs(S,{pl:4,borderLeft:"3px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",p:4,borderRadius:"md",width:"100%",children:[l.jsx(ae,{fontWeight:"bold",mb:2,color:"gray.800",children:"2018 рік"}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:"Захистив кандидатську дисертацію за спеціальністю 13.00.02 - теорія та методика навчання (фізична культура, основи здоров'я)."})]}),l.jsxs(S,{pl:4,borderLeft:"3px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",p:4,borderRadius:"md",width:"100%",children:[l.jsx(ae,{fontWeight:"bold",mb:2,color:"gray.800",children:"2023 рік"}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:"Навчається в докторантурі."})]})]})]}),l.jsx(U0,{borderColor:"#1E90FF",borderWidth:"2px"}),l.jsxs(S,{width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:4,color:"#1E90FF",children:"Професійна діяльність та досягнення"}),l.jsx(S,{pl:4,borderLeft:"3px solid #1E90FF",bg:"rgba(30, 144, 255, 0.05)",p:4,borderRadius:"md",width:"100%",children:l.jsxs(le,{align:"start",spacing:3,children:[l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:"Активно бере участь у навчально-методичній роботі відділення соціальної роботи, фізичної культури та музичного мистецтва."}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:"Має понад 40 наукових публікацій у фахових та міжнародних виданнях."}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:"Володіє науковими публікаціями, які індексуються в наукометричних базах даних."}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"gray.700",lineHeight:"1.8",children:"Опублікував понад 30 наукових робіт у співавторстві зі студентами."})]})})]})]})})]})})})})})},LH=()=>{const e=Nn(),{isOpen:r,onOpen:n,onClose:i}=Vb(),[c,u]=_.useState(null),d=[{id:1,title:"Навчальна програма",description:"Робоча програма навчальної дисципліни 'Фізична культура'",filePath:"/HGPA_Boiko/Boichenko_HGPA/documents/31ф. Фізична культура.docx",type:"docx",icon:Jd},{id:2,title:"Лекційний матеріал 31Ф",description:"",filePath:"/HGPA_Boiko/Boichenko_HGPA/documents/Лекції 31 ф.doc",type:"doc",icon:Jd},{id:3,title:"Практичні заняття 31Ф",description:"",filePath:"/HGPA_Boiko/Boichenko_HGPA/documents/практичні 31ф 6 сем..docx",type:"docx",icon:Jd}],p=(b,x,y)=>{y==="pdf"?(u({filePath:b,title:x,type:y}),n()):window.open(b,"_blank")},g=()=>{if(c){const b=document.createElement("a");b.href=c.filePath,b.download=c.filePath.split("/").pop()||"document",document.body.appendChild(b),b.click(),document.body.removeChild(b)}},m=()=>{c&&window.open(c.filePath,"_blank")};return l.jsx(Vn,{isLoading:e,children:l.jsxs(S,{children:[l.jsx(S,{bgImage:"/HGPA_Boiko/Boichenko_HGPA/images/Metalist_Stadium_Kharkiv.jpg",bgSize:"cover",bgPosition:"center",bgRepeat:"no-repeat",bgAttachment:"fixed",minHeight:{base:"calc(100vh - 64px)",md:"100vh"},position:"relative",_before:{content:'""',position:"absolute",top:0,left:0,right:0,bottom:0,bg:"rgba(0, 0, 0, 0.6)",zIndex:0},children:l.jsx(S,{position:"relative",zIndex:1,py:{base:6,md:10},px:{base:4,md:8},children:l.jsx(dt,{maxW:"1200px",children:l.jsxs(le,{spacing:8,align:"stretch",children:[l.jsx(S,{textAlign:"center",mb:8,children:l.jsx(Re,{size:{base:"xl",md:"2xl"},color:"#F0FFFF",fontWeight:"bold",mb:4,position:"relative",display:"inline-block",_after:{content:'""',position:"absolute",bottom:"-14px",left:"50%",transform:"translateX(-50%)",width:"80px",height:"4px",bg:"linear-gradient(90deg, #1E90FF, #00BFFF)",borderRadius:"full"},children:"Навчально-методичний комплекс"})}),l.jsx(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)",lg:"repeat(3, 1fr)"},gap:{base:4,md:6},mt:2,children:d.map(b=>l.jsx(ne,{children:l.jsxs(S,{bg:"white",borderRadius:"xl",p:6,boxShadow:"lg",border:"2px solid",borderColor:"gray.200",cursor:"pointer",transition:"all 0.3s ease",_hover:{transform:"translateY(-8px)",boxShadow:"xl",borderColor:"#1E90FF",bg:"rgba(30, 144, 255, 0.05)"},onClick:()=>p(b.filePath,b.title,b.type),height:"100%",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #1E90FF, #00BFFF)",transform:"scaleX(0)",transformOrigin:"left",transition:"transform 0.3s ease",_groupHover:{transform:"scaleX(1)"}},sx:{"&:hover::before":{transform:"scaleX(1)"}},children:[l.jsx(S,{display:"flex",alignItems:"center",justifyContent:"center",w:"80px",h:"80px",bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",borderRadius:"xl",mb:4,mx:"auto",children:l.jsx(ta,{as:b.icon,w:10,h:10,color:"#1E90FF"})}),l.jsx(Re,{size:{base:"md",md:"lg"},mb:3,color:"#1E90FF",textAlign:"center",fontWeight:"bold",children:b.title}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"#1E90FF",textAlign:"center",lineHeight:"1.6",children:b.description}),l.jsx(S,{mt:4,pt:4,borderTop:"1px solid",borderColor:"gray.200",textAlign:"center",children:l.jsx(ae,{fontSize:"sm",color:"#1E90FF",fontWeight:"600",_hover:{textDecoration:"underline"},children:"Відкрити документ →"})})]})},b.id))}),l.jsxs(S,{children:[l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(3, 1fr)"},gap:{base:4,md:6},mt:8,children:[l.jsx(ne,{children:l.jsxs(S,{as:"a",href:"https://repository.khpa.edu.ua/collections/33b593f9-dd8e-4d6d-8aca-deeba5158f0e/search?f.author=%D0%91%D0%BE%D0%B9%D1%87%D0%B5%D0%BD%D0%BA%D0%BE,%20%D0%90%D1%80%D1%82%D0%B5%D0%BC,equals&spc.page=1",target:"_blank",rel:"noopener noreferrer",bg:"white",borderRadius:"xl",p:6,boxShadow:"lg",border:"2px solid",borderColor:"gray.200",cursor:"pointer",transition:"all 0.3s ease",_hover:{transform:"translateY(-8px)",boxShadow:"xl",borderColor:"#1E90FF",bg:"rgba(30, 144, 255, 0.05)"},display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center",textDecoration:"none",children:[l.jsx(S,{w:"60px",h:"60px",bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",borderRadius:"xl",display:"flex",alignItems:"center",justifyContent:"center",mb:4,children:l.jsx(ta,{as:ec,w:8,h:8,color:"#1E90FF"})}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},fontWeight:"600",color:"#1E90FF",_hover:{textDecoration:"underline"},children:"Репозиторій 1"})]})}),l.jsx(ne,{children:l.jsxs(S,{as:"a",href:"https://repository.khpa.edu.ua/collections/6ccde0bf-6531-4bfb-b9f1-bb060933d504/search?f.author=%D0%91%D0%BE%D0%B9%D1%87%D0%B5%D0%BD%D0%BA%D0%BE,%20%D0%90%D1%80%D1%82%D0%B5%D0%BC,equals&spc.page=1",target:"_blank",rel:"noopener noreferrer",bg:"white",borderRadius:"xl",p:6,boxShadow:"lg",border:"2px solid",borderColor:"gray.200",cursor:"pointer",transition:"all 0.3s ease",_hover:{transform:"translateY(-8px)",boxShadow:"xl",borderColor:"#1E90FF",bg:"rgba(30, 144, 255, 0.05)"},display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center",textDecoration:"none",children:[l.jsx(S,{w:"60px",h:"60px",bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",borderRadius:"xl",display:"flex",alignItems:"center",justifyContent:"center",mb:4,children:l.jsx(ta,{as:ec,w:8,h:8,color:"#1E90FF"})}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},fontWeight:"600",color:"#1E90FF",_hover:{textDecoration:"underline"},children:"Репозиторій 2"})]})}),l.jsx(ne,{children:l.jsxs(S,{as:"a",href:"https://repository.khpa.edu.ua/collections/79000d67-7121-4a4d-9c0a-7126c52a8afe/search?f.author=%D0%A1%D1%83%D1%80%D0%BE%D0%B2%D0%BE%D0%B2,%20%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9,equals&spc.page=1",target:"_blank",rel:"noopener noreferrer",bg:"white",borderRadius:"xl",p:6,boxShadow:"lg",border:"2px solid",borderColor:"gray.200",cursor:"pointer",transition:"all 0.3s ease",_hover:{transform:"translateY(-8px)",boxShadow:"xl",borderColor:"#1E90FF",bg:"rgba(30, 144, 255, 0.05)"},display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center",textDecoration:"none",children:[l.jsx(S,{w:"60px",h:"60px",bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",borderRadius:"xl",display:"flex",alignItems:"center",justifyContent:"center",mb:4,children:l.jsx(ta,{as:ec,w:8,h:8,color:"#1E90FF"})}),l.jsx(ae,{fontSize:{base:"sm",md:"md"},fontWeight:"600",color:"#1E90FF",_hover:{textDecoration:"underline"},children:"Репозиторій 3"})]})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},mt:8,px:{base:4,md:6},children:[l.jsx(ne,{children:l.jsx(S,{maxW:{base:"100%",md:"300px"},width:"100%",mx:"auto",borderRadius:"xl",overflow:"hidden",boxShadow:"2xl",position:"relative",bg:"black",border:"4px solid",borderColor:"gray.200",_hover:{transform:"translateY(-6px)",boxShadow:"2xl",borderColor:"#1E90FF",transition:"all 0.3s ease"},children:l.jsxs("video",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video-503fdf3b7823f9746a8ad5fc42de960b-V.mp4",controls:!0,controlsList:"nodownload",autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"auto",style:{width:"100%",height:"auto",display:"block",minHeight:"300px"},onError:b=>{console.error("Video error:",b);const x=b.target;x.error&&(console.error("Video error code:",x.error.code),console.error("Video error message:",x.error.message))},children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video-503fdf3b7823f9746a8ad5fc42de960b-V.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео."]})})}),l.jsx(ne,{children:l.jsx(S,{maxW:{base:"100%",md:"300px"},width:"100%",mx:"auto",borderRadius:"xl",overflow:"hidden",boxShadow:"2xl",position:"relative",bg:"black",border:"4px solid",borderColor:"gray.200",_hover:{transform:"translateY(-6px)",boxShadow:"2xl",borderColor:"#1E90FF",transition:"all 0.3s ease"},children:l.jsxs("video",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video-586b132e47c28d96bf79ca4681a1e71d-V.mp4",controls:!0,controlsList:"nodownload",autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"auto",style:{width:"100%",height:"auto",display:"block",minHeight:"300px"},onError:b=>{console.error("Video error:",b);const x=b.target;x.error&&(console.error("Video error code:",x.error.code),console.error("Video error message:",x.error.message))},children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video-586b132e47c28d96bf79ca4681a1e71d-V.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео."]})})})]})]}),l.jsx(U0,{my:12,borderColor:"gray.300",borderWidth:"2px"}),l.jsxs(S,{children:[l.jsx(Re,{size:{base:"lg",md:"xl"},color:"#F0FFFF",fontWeight:"bold",mb:6,textAlign:"center",position:"relative",pb:4,_after:{content:'""',position:"absolute",bottom:0,left:"50%",transform:"translateX(-50%)",width:"100px",height:"3px",bg:"linear-gradient(90deg, #1E90FF, #00BFFF)",borderRadius:"full"},children:"Приклади різних видів загальної фізичної підготовки"}),l.jsx(S,{mt:8,display:"flex",justifyContent:"center",alignItems:"center",width:"100%",px:{base:4,md:6},children:l.jsxs(le,{spacing:4,align:"center",width:"100%",children:[l.jsx(S,{maxW:{base:"100%",md:"700px",lg:"800px"},width:"100%",borderRadius:"xl",overflow:"hidden",boxShadow:"2xl",position:"relative",bg:"black",border:"4px solid",borderColor:"gray.200",_hover:{transform:"translateY(-6px)",boxShadow:"2xl",borderColor:"#1E90FF",transition:"all 0.3s ease"},children:l.jsxs("video",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2025-12-14_22-41-45.mp4",controls:!0,controlsList:"download",autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"auto",style:{width:"100%",height:"auto",display:"block",minHeight:"300px"},onError:b=>{console.error("Video error:",b);const x=b.target;x.error&&(console.error("Video error code:",x.error.code),console.error("Video error message:",x.error.message))},children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2025-12-14_22-41-45.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео."]})}),l.jsx(S,{textAlign:"center",children:l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"#F0FFFF",fontWeight:"500",children:"Спеціально-фізична підготовка"})})]})})]}),l.jsx(S,{children:l.jsx(S,{mt:8,display:"flex",justifyContent:"center",alignItems:"center",width:"100%",px:{base:4,md:6},children:l.jsxs(le,{spacing:4,align:"center",width:"100%",children:[l.jsx(S,{maxW:{base:"100%",md:"300px",lg:"300px"},width:"100%",borderRadius:"xl",overflow:"hidden",boxShadow:"2xl",position:"relative",bg:"black",border:"4px solid",borderColor:"gray.200",_hover:{transform:"translateY(-6px)",boxShadow:"2xl",borderColor:"#1E90FF",transition:"all 0.3s ease"},children:l.jsxs("video",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2025-12-14_22-41-59.mp4",controls:!0,controlsList:"download",autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"auto",style:{width:"100%",height:"auto",display:"block",minHeight:"300px"},onError:b=>{console.error("Video error:",b);const x=b.target;x.error&&(console.error("Video error code:",x.error.code),console.error("Video error message:",x.error.message))},children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2025-12-14_22-41-59.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео."]})}),l.jsx(S,{textAlign:"center",children:l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"#F0FFFF",fontWeight:"500",children:"Загально-фізична підготовка"})})]})})}),l.jsx(S,{children:l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},mt:8,px:{base:4,md:6},children:[l.jsxs(ne,{children:[l.jsx(S,{maxW:{base:"100%",md:"450px"},width:"100%",mx:"auto",borderRadius:"xl",overflow:"hidden",boxShadow:"2xl",position:"relative",bg:"black",border:"4px solid",borderColor:"gray.200",_hover:{transform:"translateY(-6px)",boxShadow:"2xl",borderColor:"#1E90FF",transition:"all 0.3s ease"},children:l.jsxs("video",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2021-01-26_14-36-00.mp4",controls:!0,controlsList:"download",autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"auto",style:{width:"100%",height:"auto",display:"block",minHeight:"300px"},onError:b=>{console.error("Video error:",b);const x=b.target;x.error&&(console.error("Video error code:",x.error.code),console.error("Video error message:",x.error.message))},children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2021-01-26_14-36-00.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео."]})}),l.jsx(S,{mt:4,textAlign:"center",children:l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"#F0FFFF",fontWeight:"500",children:"Комплекс ЗРВ на місці та в русі (1)"})})]}),l.jsxs(ne,{children:[l.jsx(S,{maxW:{base:"100%",md:"450px"},width:"100%",mx:"auto",borderRadius:"xl",overflow:"hidden",boxShadow:"2xl",position:"relative",bg:"black",border:"4px solid",borderColor:"gray.200",_hover:{transform:"translateY(-6px)",boxShadow:"2xl",borderColor:"#1E90FF",transition:"all 0.3s ease"},children:l.jsxs("video",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2021-01-26_14-36-03.mp4",controls:!0,controlsList:"download",autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"auto",style:{width:"100%",height:"auto",display:"block",minHeight:"300px"},onError:b=>{console.error("Video error:",b);const x=b.target;x.error&&(console.error("Video error code:",x.error.code),console.error("Video error message:",x.error.message))},children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2021-01-26_14-36-03.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео."]})}),l.jsx(S,{mt:4,textAlign:"center",children:l.jsx(ae,{fontSize:{base:"sm",md:"md"},color:"#F0FFFF",fontWeight:"500",children:"Комплекс. ЗРВ на місці та в русі (2)"})})]})]})})]})})})}),l.jsxs(nu,{isOpen:r,onClose:i,size:"full",children:[l.jsx(iu,{bg:"blackAlpha.800"}),l.jsxs(bf,{maxW:"100vw",maxH:"100vh",m:0,borderRadius:0,children:[l.jsxs(Ib,{bg:"#1E90FF",color:"white",display:"flex",justifyContent:"space-between",alignItems:"center",children:[l.jsx(ae,{children:c?.title||"Перегляд документа"}),l.jsxs(ya,{spacing:2,children:[l.jsx(no,{leftIcon:l.jsx(g5,{}),size:"sm",colorScheme:"whiteAlpha",variant:"solid",onClick:g,children:"Скачати"}),l.jsx(no,{leftIcon:l.jsx(ec,{}),size:"sm",colorScheme:"whiteAlpha",variant:"solid",onClick:m,children:"Відкрити в новій вкладці"})]})]}),l.jsx(lu,{color:"white"}),l.jsx(ou,{p:0,bg:"gray.100",children:c&&l.jsx(S,{width:"100%",height:"calc(100vh - 80px)",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",bg:"white",children:c.type==="pdf"?l.jsx("iframe",{src:c.filePath,width:"100%",height:"100%",style:{border:"none"},title:"Document Preview"}):l.jsxs(le,{spacing:6,p:8,textAlign:"center",children:[l.jsx(S,{w:"120px",h:"120px",borderRadius:"full",bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",display:"flex",alignItems:"center",justifyContent:"center",mx:"auto",children:l.jsx(ta,{as:Jd,w:16,h:16,color:"#1E90FF"})}),l.jsx(Re,{size:"lg",color:"gray.700",children:c.title}),l.jsx(ae,{fontSize:"md",color:"gray.600",maxW:"500px",children:"Word документи не можуть бути переглянуті безпосередньо в браузері. Рекомендуємо конвертувати документ у PDF для перегляду. Або використайте один з варіантів нижче."}),l.jsxs(le,{spacing:4,mt:4,children:[l.jsx(no,{leftIcon:l.jsx(ec,{}),colorScheme:"blue",size:"lg",width:"100%",maxW:"400px",onClick:m,children:"Відкрити в новій вкладці"}),l.jsx(no,{leftIcon:l.jsx(g5,{}),variant:"outline",colorScheme:"blue",size:"lg",width:"100%",maxW:"400px",onClick:g,children:"Скачати документ"})]})]})})})]})]})]})})},Tn=({text:e,image1:r,image2:n,textColor:i="white"})=>l.jsxs(le,{spacing:{base:6,md:8},align:"stretch",mb:{base:6,md:8},children:[l.jsxs(S,{mt:{base:0,md:10},position:"relative",px:{base:6,md:10,lg:12},py:{base:8,md:10},bg:"rgba(0, 0, 0, 0.35)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,width:"100%",height:"4px",bg:"linear-gradient(90deg, transparent, #1E90FF, #00BFFF, #1E90FF, transparent)"},_after:{content:'""',position:"absolute",bottom:0,left:0,width:"100%",height:"4px",bg:"linear-gradient(90deg, transparent, #1E90FF, #00BFFF, #1E90FF, transparent)"},children:[l.jsx(S,{position:"absolute",left:0,top:"20%",width:"5px",height:"60%",bg:"linear-gradient(180deg, #1E90FF 0%, #00BFFF 50%, #1E90FF 100%)",borderRadius:"0 8px 8px 0",boxShadow:"0 0 25px rgba(30, 144, 255, 0.7)"}),l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},color:i,lineHeight:"2.3",textAlign:"justify",fontWeight:"300",letterSpacing:"0.8px",position:"relative",zIndex:1,pl:{base:4,md:6},children:e})]}),(r||n)&&l.jsxs(Ce,{templateColumns:{base:"1fr",md:r&&n?"1fr 1fr":"1fr"},gap:{base:4,md:6},mt:2,children:[r&&l.jsx(ne,{children:l.jsxs(S,{position:"relative",width:"100%",height:{base:"300px",md:"400px",lg:"500px"},borderRadius:"2xl",overflow:"hidden",boxShadow:"0 15px 50px rgba(0, 0, 0, 0.6)",border:"2px solid rgba(255, 255, 255, 0.2)",transition:"all 0.3s ease",_hover:{transform:"translateY(-5px)",boxShadow:"0 20px 60px rgba(30, 144, 255, 0.4)",borderColor:"rgba(30, 144, 255, 0.5)"},_before:{content:'""',position:"absolute",inset:0,bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%)",zIndex:1,pointerEvents:"none"},children:[l.jsx(V,{src:r,alt:"Фото",width:"100%",height:"100%",objectFit:"cover",position:"relative",zIndex:0}),l.jsx(S,{position:"absolute",bottom:0,left:0,right:0,height:"60px",bg:"linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)",zIndex:2})]})}),n&&l.jsx(ne,{children:l.jsxs(S,{position:"relative",width:"100%",height:{base:"300px",md:"400px",lg:"500px"},borderRadius:"2xl",overflow:"hidden",boxShadow:"0 15px 50px rgba(0, 0, 0, 0.6)",border:"2px solid rgba(255, 255, 255, 0.2)",transition:"all 0.3s ease",_hover:{transform:"translateY(-5px)",boxShadow:"0 20px 60px rgba(30, 144, 255, 0.4)",borderColor:"rgba(30, 144, 255, 0.5)"},_before:{content:'""',position:"absolute",inset:0,bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%)",zIndex:1,pointerEvents:"none"},children:[l.jsx(V,{src:n,alt:"Фото",width:"100%",height:"100%",objectFit:"cover",position:"relative",zIndex:0}),l.jsx(S,{position:"absolute",bottom:0,left:0,right:0,height:"60px",bg:"linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)",zIndex:2})]})})]})]}),Jt=({variant:e="gradient",color:r="#1E90FF",...n})=>e==="gradient"?l.jsx(S,{position:"relative",py:{base:6,md:8},...n,children:l.jsxs(ya,{spacing:4,justify:"center",align:"center",children:[l.jsx(S,{flex:1,height:"2px",bg:"linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)"}),l.jsx(S,{width:{base:"60px",md:"200px"},height:"3px",bg:`linear-gradient(90deg, transparent, ${r}, #00BFFF, ${r}, transparent)`,borderRadius:"full",boxShadow:`0 0 20px ${r}, 0 0 40px ${r}`,position:"relative",_before:{content:'""',position:"absolute",inset:"-2px",bg:`linear-gradient(90deg, transparent, ${r}, #00BFFF, ${r}, transparent)`,borderRadius:"full",filter:"blur(8px)",opacity:.6,zIndex:-1}}),l.jsx(S,{flex:1,height:"2px",bg:"linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)"})]})}):e==="glow"?l.jsx(S,{position:"relative",py:{base:6,md:8},...n,children:l.jsx(S,{width:"100%",height:"1px",bg:`linear-gradient(90deg, transparent, ${r}, transparent)`,position:"relative",_before:{content:'""',position:"absolute",left:"50%",top:"50%",transform:"translate(-50%, -50%)",width:"100px",height:"100px",bg:r,borderRadius:"full",filter:"blur(40px)",opacity:.3},_after:{content:'""',position:"absolute",left:"50%",top:"50%",transform:"translate(-50%, -50%)",width:"8px",height:"8px",bg:r,borderRadius:"full",boxShadow:`0 0 20px ${r}, 0 0 40px ${r}`}})}):e==="minimal"?l.jsx(S,{position:"relative",py:{base:6,md:8},...n,children:l.jsxs(ya,{spacing:3,justify:"center",align:"center",children:[l.jsx(S,{width:"40px",height:"1px",bg:"rgba(255, 255, 255, 0.3)"}),l.jsx(S,{width:"6px",height:"6px",bg:r,borderRadius:"full",boxShadow:`0 0 10px ${r}`}),l.jsx(S,{width:"40px",height:"1px",bg:"rgba(255, 255, 255, 0.3)"})]})}):e==="double"?l.jsxs(S,{position:"relative",py:{base:8,md:10},...n,children:[l.jsx(S,{width:"100%",height:"1px",bg:"linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)",mb:2}),l.jsxs(ya,{spacing:2,justify:"center",align:"center",children:[l.jsx(S,{width:"12px",height:"12px",border:"2px solid",borderColor:r,borderRadius:"full",position:"relative",_before:{content:'""',position:"absolute",inset:"-4px",border:"1px solid",borderColor:r,borderRadius:"full",opacity:.5}}),l.jsx(S,{width:"60px",height:"2px",bg:`linear-gradient(90deg, transparent, ${r}, transparent)`}),l.jsx(S,{width:"8px",height:"8px",bg:r,borderRadius:"full",boxShadow:`0 0 15px ${r}`}),l.jsx(S,{width:"60px",height:"2px",bg:`linear-gradient(90deg, transparent, ${r}, transparent)`}),l.jsx(S,{width:"12px",height:"12px",border:"2px solid",borderColor:r,borderRadius:"full",position:"relative",_before:{content:'""',position:"absolute",inset:"-4px",border:"1px solid",borderColor:r,borderRadius:"full",opacity:.5}})]}),l.jsx(S,{width:"100%",height:"1px",bg:"linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)",mt:2})]}):null,ht=({title:e,subtitle:r,description:n,items:i=[],images:c=[],videos:u=[],pdfFiles:d=[],textColor:p="white",maxColumns:g,wideImages:m=[],imageColumns:b={},imageRows:x={},fourInRow:y=!1})=>{const j=c.filter(R=>R&&R.trim()!==""),w=u.filter(R=>R&&R.trim()!==""),C=c.length,E=u.length;return l.jsxs(le,{spacing:{base:6,md:8},align:"stretch",children:[e&&e.trim()!==""&&l.jsxs(S,{position:"relative",px:{base:6,md:8},py:{base:6,md:8},bg:"rgba(0, 0, 0, 0.35)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,width:"100%",height:"4px",bg:"linear-gradient(90deg, transparent, #1E90FF, #00BFFF, #1E90FF, transparent)"},children:[l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:p,textAlign:"center",mb:r?3:0,fontWeight:"600",letterSpacing:"1px",children:e}),r&&l.jsx(ae,{fontSize:{base:"md",md:"lg"},color:p,textAlign:"center",opacity:.9,fontWeight:"300",children:r})]}),(n||i.length>0)&&l.jsxs(S,{position:"relative",px:{base:6,md:10,lg:12},py:{base:6,md:8},bg:"rgba(0, 0, 0, 0.3)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",_before:{content:'""',position:"absolute",left:0,top:"20%",width:"5px",height:"60%",bg:"linear-gradient(180deg, #1E90FF 0%, #00BFFF 50%, #1E90FF 100%)",borderRadius:"0 8px 8px 0",boxShadow:"0 0 25px rgba(30, 144, 255, 0.7)"},children:[n&&l.jsx(ae,{fontSize:{base:"md",md:"lg"},color:p,lineHeight:"2",textAlign:"justify",fontWeight:"300",letterSpacing:"0.5px",mb:i.length>0?6:0,pl:{base:4,md:6},children:n}),i.length>0&&l.jsx(gf,{spacing:4,pl:{base:8,md:10},children:i.map((R,A)=>l.jsx(s3,{fontSize:{base:"md",md:"lg"},color:p,lineHeight:"1.8",position:"relative",pl:{base:6,md:8},_before:{content:'""',position:"absolute",left:0,top:"0.6em",width:"8px",height:"8px",bg:"#1E90FF",borderRadius:"full",boxShadow:"0 0 10px rgba(30, 144, 255, 0.8)"},children:R},A))})]}),d.length>0&&l.jsx(le,{spacing:4,align:"stretch",children:d.map((R,A)=>{const k=R.split("/").pop()||`Документ ${A+1}.pdf`;return l.jsxs(S,{bg:"rgba(0, 0, 0, 0.3)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",children:[l.jsxs(S,{px:{base:4,md:6},py:3,bg:"rgba(30, 144, 255, 0.1)",borderBottom:"1px solid rgba(255, 255, 255, 0.1)",display:"flex",alignItems:"center",gap:3,children:[l.jsx(S,{width:"40px",height:"40px",bg:"linear-gradient(135deg, #1E90FF 0%, #00BFFF 100%)",borderRadius:"lg",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,children:l.jsx(ae,{fontSize:"xl",lineHeight:"1",children:"📄"})}),l.jsx(ae,{color:p,fontSize:{base:"sm",md:"md"},fontWeight:"500",flex:1,children:k}),l.jsx(o3,{href:R,target:"_blank",rel:"noopener noreferrer",color:"#1E90FF",fontSize:{base:"xs",md:"sm"},_hover:{color:"#00BFFF",textDecoration:"underline"},children:"Відкрити в новій вкладці"})]}),l.jsx(S,{width:"100%",height:{base:"500px",md:"700px",lg:"900px"},position:"relative",bg:"rgba(0, 0, 0, 0.2)",children:l.jsx(S,{as:"iframe",src:`${R}#toolbar=0&navpanes=0&scrollbar=0`,width:"100%",height:"100%",border:"none",style:{display:"block"},title:k,allow:"fullscreen"})})]},A)})}),w.length>0&&l.jsx(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)",md:E>=2?"repeat(2, 1fr)":"1fr",lg:E>=2?"repeat(2, 1fr)":"1fr"},gap:{base:4,md:6},mb:j.length>0?6:0,children:w.map((R,A)=>l.jsx(ne,{children:l.jsx(S,{position:"relative",width:"100%",height:{base:"250px",md:"350px",lg:"400px"},borderRadius:"2xl",overflow:"hidden",boxShadow:"0 15px 50px rgba(0, 0, 0, 0.6)",border:"2px solid rgba(255, 255, 255, 0.2)",transition:"all 0.3s ease",_hover:{transform:"translateY(-8px) scale(1.02)",boxShadow:"0 20px 60px rgba(30, 144, 255, 0.5)",borderColor:"rgba(30, 144, 255, 0.6)"},children:l.jsx(S,{as:"video",src:R,controls:!0,autoPlay:!1,loop:!0,muted:!0,playsInline:!0,preload:"metadata",width:"100%",height:"100%",objectFit:"cover",style:{display:"block",borderRadius:"16px"},children:"Ваш браузер не підтримує відео."})})},A))}),j.length>0&&l.jsx(Ce,{templateColumns:{base:"1fr",sm:g===2?"1fr":"repeat(2, 1fr)",md:g===2?"repeat(2, 1fr)":j.some(A=>(b[A]||0)===5&&(x[A]||0)===4)?"repeat(10, 1fr)":j.some(k=>(b[k]||0)>=3&&(x[k]||0)===2)?"repeat(4, 1fr)":C>=3?"repeat(3, 1fr)":"repeat(2, 1fr)",lg:g===2?"repeat(2, 1fr)":j.some(k=>(b[k]||0)===5&&(x[k]||0)===4)?"repeat(10, 1fr)":j.some(k=>(b[k]||0)>=3&&(x[k]||0)===2)||C===4&&y?"repeat(4, 1fr)":C===4||C>=4||C===3?"repeat(3, 1fr)":"repeat(2, 1fr)"},gap:{base:4,md:6},children:j.map((R,A)=>{const k=b[R],H=x[R],B=m.includes(R),J=k||(B?2:1),G=H||1,ce=j.includes("/HGPA_Boiko/Boichenko_HGPA/images/DSC_2949.JPG")||j.includes("/HGPA_Boiko/Boichenko_HGPA/images/DSC_3034 (1).JPG");let re,de,me=J,be=G;const Ie=b[j[0]]===5&&x[j[0]]===4,et=R==="/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_15-10-07.jpg"&&J===2&&C===5,tt=R==="/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-31-18.jpg"&&J===2;return A===0&&J===5&&G===4?(re=1,de=1,me=5,be=4):A===1&&Ie?(re=6,de=1,me=5,be=2):A===2&&Ie?(re=6,de=3,me=5,be=2):A===3&&Ie?(re=1,de=5,me=5,be=2):A===4&&Ie?(re=6,de=5,me=5,be=2):et?(re=1,de=2,me=2,be=1):A===4&&C===5&&b[j[3]]===2&&(re=3,de=2,me=1,be=1),l.jsx(ne,{gridColumn:re||me>1?{md:re?`${re} / span ${me}`:`span ${me}`,lg:re?`${re} / span ${me}`:`span ${me}`}:void 0,gridRow:de||be>1?{md:de?`${de} / span ${be}`:`span ${be}`,lg:de?`${de} / span ${be}`:`span ${be}`}:void 0,alignSelf:et?"end":void 0,children:l.jsxs(S,{position:"relative",width:"100%",height:(()=>{const q=R==="/HGPA_Boiko/Boichenko_HGPA/images/20230908_135948.jpg"||R==="/HGPA_Boiko/Boichenko_HGPA/images/20230908_140344.jpg",se=q?"320px":"400px";let ue,xe;if(R==="/HGPA_Boiko/Boichenko_HGPA/images/20230908_140344.jpg"&&be===2?(ue="300px",xe="400px"):q?(ue="380px",xe="420px"):g===2&&me===1?(ue="400px",xe="450px"):g===2&&me===2?(ue="450px",xe="500px"):be===4?(ue="800px",xe="900px"):be===2?(ue="450px",xe="500px"):be===1?(ue="340px",xe="400px"):be>1?(ue="650px",xe="750px"):C===4&&y?(ue="800px",xe="800px"):(ue="500px",xe="550px"),ce){const Me=X=>parseInt(X.replace("px","")),M=X=>`${Math.round(Me(X)*.8)}px`;return{base:M(se),md:M(ue),lg:M(xe)}}return{base:se,md:ue,lg:xe}})(),borderRadius:"2xl",overflow:"hidden",boxShadow:"0 15px 50px rgba(0, 0, 0, 0.6)",border:"2px solid rgba(255, 255, 255, 0.2)",transition:"all 0.3s ease",_hover:{transform:"translateY(-8px) scale(1.02)",boxShadow:"0 20px 60px rgba(30, 144, 255, 0.5)",borderColor:"rgba(30, 144, 255, 0.6)",_before:{opacity:0}},_before:{content:'""',position:"absolute",inset:0,bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%)",zIndex:1,pointerEvents:"none",transition:"opacity 0.3s ease"},children:[l.jsx(V,{src:R,alt:`Фото ${A+1}`,width:"100%",height:"100%",objectFit:y&&C===4?"contain":"cover",objectPosition:et||tt?"center":J>1?"top":"center",position:"relative",zIndex:0}),l.jsx(S,{position:"absolute",bottom:0,left:0,right:0,height:"80px",bg:"linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent)",zIndex:2,opacity:0,transition:"opacity 0.3s ease",_groupHover:{opacity:1}})]})},A)})})]})},Ft=({imageSrc:e,imageAlt:r="Донація крові",objectFit:n="cover",objectPosition:i="top",maxWidth:c,height:u})=>{const d=u||{base:"200px",sm:"250px",md:"350px",lg:"580px"};return l.jsx(S,{flex:1,width:c||"100%",height:d,borderRadius:"lg",overflow:"hidden",boxShadow:"xl",mx:c?"auto":void 0,mt:c?{base:6,md:8}:void 0,children:l.jsx(V,{src:e,alt:r,width:"100%",height:n==="contain"?"auto":"100%",maxHeight:n==="contain"?{base:"400px",sm:"500px",md:"700px",lg:"900px"}:void 0,objectFit:n,objectPosition:i,borderRadius:"lg"})})},NH=()=>{const e=Nn();return l.jsx(Vn,{isLoading:e,children:l.jsx(S,{bgImage:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_04-19-57.jpg",bgSize:"cover",bgPosition:"95% center",bgRepeat:"no-repeat",bgAttachment:"fixed",minHeight:"100vh",position:"relative",css:{backgroundAttachment:"fixed"},_before:{content:'""',position:"fixed",top:0,left:0,right:0,bottom:0,bg:"rgba(0, 0, 0, 0.4)",zIndex:0,pointerEvents:"none"},children:l.jsxs(dt,{maxW:"1200px",p:8,position:"relative",zIndex:1,children:[l.jsx(ht,{title:"Наставник 31ф Артем БОЙЧЕНКО",textColor:"white",maxColumns:2}),l.jsxs(le,{spacing:8,align:"stretch",children:[l.jsx(Tn,{text:"У 2023 році я став наставником групи 11ф Харківського педагогічного фахового коледжу. Під час знайомства з колективом стало зрозуміло, що мені випала нагода працювати з надзвичайно здібними та різносторонніми здобувачами освіти — від відмінників навчання до майстрів спорту. Кожен із них вирізняється активністю, енергійністю та прагненням до розвитку. За час спільної роботи ми взяли участь і здобули перемоги та відзнаки більш ніж у двадцяти заходах. Освітній процес залишається динамічним, змістовним і продовжується",image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_04-20-09.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_04-20-14.jpg",textColor:"white"}),l.jsx(S,{position:"relative",bg:"rgba(0, 0, 0, 0.3)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",mb:{base:6,md:8},children:l.jsx(S,{position:"relative",width:"100%",borderRadius:"16px",overflow:"hidden",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"600px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/Міжнародний_день_спорту_на_благо_розвитку_та_миру!_КЗ_Харківська.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:"Ознайомлення з Харківським фаховим педагогічним коледжем здобувачів освіти 11ф групи",subtitle:"",items:["Знайомство з адміністрацією та педагогічним складом коледжу"],images:["/HGPA_Boiko/Boichenko_HGPA/images/20230908_141603.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20230908_134945.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20230908_135127.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20230908_135427.jpg"],textColor:"white",maxColumns:2}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:'Марафон активної спортивної діяльності "BEACTIVE DAY"',subtitle:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/BEACTIVE DAY Ukraine 2024 certyfikat.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20230908_135948.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20230908_140344.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20230908_140807.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_04-53-12.jpg"],imageColumns:{"/HGPA_Boiko/Boichenko_HGPA/images/BEACTIVE DAY Ukraine 2024 certyfikat.jpg":5},imageRows:{"/HGPA_Boiko/Boichenko_HGPA/images/BEACTIVE DAY Ukraine 2024 certyfikat.jpg":4},textColor:"white"}),l.jsx(Jt,{variant:"glow",color:"#00BFFF"}),l.jsx(ht,{title:"Організація та проведення спортивних ігор зі студентами 11ф групи",images:["/HGPA_Boiko/Boichenko_HGPA/images/IMG-8bbe59796943dad7ef56d1d5e29ce674-V.jpg","/HGPA_Boiko/Boichenko_HGPA/images/IMG-628a15a2ad56f1267928e565cc3b9b50-V.jpg","/HGPA_Boiko/Boichenko_HGPA/images/IMG-1115dbaaebdb352a409f44dbad06d17c-V.jpg"],videos:["/HGPA_Boiko/Boichenko_HGPA/videos/video_2025-12-18_13-32-51.mp4","/HGPA_Boiko/Boichenko_HGPA/videos/video_2025-12-18_13-32-56.mp4"],textColor:"white"}),l.jsx(ht,{title:"Онлайн-зустріч з капітаном української збірної з баскетболу Ільєю Сидоровим",images:["/HGPA_Boiko/Boichenko_HGPA/images/IMG-7dcbd58bfd7e17b2add8de4521f2773f-V.jpg","/HGPA_Boiko/Boichenko_HGPA/images/Screenshot_20231115_105749_Zoom.jpg","/HGPA_Boiko/Boichenko_HGPA/images/IMG-b7e0c6d6ab616b15156071fa66fc3859-V.jpg","/HGPA_Boiko/Boichenko_HGPA/images/Screenshot_20231115_114434_Zoom.jpg"],textColor:"white",fourInRow:!0}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:'Лекція на тему "Олімпійський рух в Україні"',images:["/HGPA_Boiko/Boichenko_HGPA/images/IMG-715151bca80afeddf03361810a0e618d-V.jpg","/HGPA_Boiko/Boichenko_HGPA/images/IMG-5b6d40c84058ca91c769b647f22ba3a3-V.jpg","/HGPA_Boiko/Boichenko_HGPA/images/IMG-64149606c25450c3845dc3f067784730-V.jpg","/HGPA_Boiko/Boichenko_HGPA/images/DSC_2949.JPG","/HGPA_Boiko/Boichenko_HGPA/images/DSC_3034 (1).JPG"],imageColumns:{"/HGPA_Boiko/Boichenko_HGPA/images/DSC_3034 (1).JPG":2},textColor:"white"}),l.jsx(Jt,{variant:"glow",color:"#00BFFF"}),l.jsx(ht,{title:'Участь у онлайн челенджі "Підтримай БК "Прометей""',images:["/HGPA_Boiko/Boichenko_HGPA/images/20240426_134426.jpg","/HGPA_Boiko/Boichenko_HGPA/images/IMG-8cb4c59468a96754936d6d67146d7d2a-V.jpg"],textColor:"white"}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20240426_134340.jpg",objectFit:"cover",objectPosition:"center",maxWidth:"60%"})}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:"Підтримка олімпійського руху!",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-28-40.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-28-44.jpg"],textColor:"white"}),l.jsx(Jt,{variant:"glow",color:"#00BFFF"}),l.jsx(ht,{title:"Тренування команди коледжу з міні-футболу",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-31-05.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-31-10.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-39-17.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-31-18.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-31-22.jpg"],imageColumns:{"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-31-18.jpg":2},textColor:"white"}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:'Участь та перемога у "Олімпійській вікторині" серед команд закладів вищої та середньої освіти м.Харкова',images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-41-18.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-41-29.jpg"],videos:["/HGPA_Boiko/Boichenko_HGPA/videos/IMG_4003.MOV","/HGPA_Boiko/Boichenko_HGPA/videos/IMG_4007.MOV"],textColor:"white"}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:"Саджання дерева миру! Підтримання олімпійських цінностей!",images:["/HGPA_Boiko/Boichenko_HGPA/images/DSC_3874.JPG","/HGPA_Boiko/Boichenko_HGPA/images/DSC_3927.JPG"],textColor:"white"}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:"Вітаємо Ярослава Колеснікова, студента 3 курсу  31ф групи ,відділення соціальної роботи, фізичної культури та музичного мистецтва бронзового призера чемпіонату України зі стрибків на подвійному міні-батуті",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-55-30.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-55-25.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_14-55-35.jpg"],textColor:"white",fourInRow:!0}),l.jsx(Tn,{text:"27-28 жовтня 2025 року м.Дніпро відбувся  чемпіонат України зі стрибків на подвійному міні-батуті серед чоловіків вікової групи 2008 та старші, на якому спортсмен Харківщини здобув  нагороду, зокрема «бронзу». Участь у змаганнях взяли 20 спортсмени з шести областей України та Києва, а за його підсумками в особистому заліку  Колесніков Ярослав посів 3 місце",textColor:"white"}),l.jsx(ht,{title:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/DSC_9437.JPG","",""],textColor:"white",imageColumns:{"/HGPA_Boiko/Boichenko_HGPA/images/DSC_9437.JPG":3}}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:'Підготовка до флешмобу "Рухайся разом з нами"',videos:["/HGPA_Boiko/Boichenko_HGPA/videos/video-90d93b88fa5c675daca2c086c474f20f-V.mp4","/HGPA_Boiko/Boichenko_HGPA/videos/video-a62f6d59b208a44d1d7034c42a0c7f4c-V.mp4","/HGPA_Boiko/Boichenko_HGPA/videos/video-a7638112db5f17168f13d7dc39038ce5-V.mp4","/HGPA_Boiko/Boichenko_HGPA/videos/video-c19f3c78cde65b261d6b874b8e0ba6a7-V.mp4"],textColor:"white"}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-28489fec0f8898fe05cedad9d3be161c-V.jpg",objectFit:"cover",objectPosition:"center",maxWidth:"90%"})}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:'Відвідування оздоровчого центру "Espina" та тренувального процесу ФК "Металіст"!',images:["/HGPA_Boiko/Boichenko_HGPA/images/20251211_151441.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20251211_163444.jpg"],textColor:"white"}),l.jsx(ht,{title:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/20251211_133251.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20251211_132745.jpg","/HGPA_Boiko/Boichenko_HGPA/images/20251211_130618.jpg"],textColor:"white"}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(Tn,{text:"27 січня 2026 року в Харківському педагогічному фаховому коледжі відбувся спортивний захід із лижної підготовки та рухової активності, приурочений до Всеукраїнської церемонії «Свято Олімпійського прапора». Цей день став справжнім святом спорту, єдності та здорового способу життя.",textColor:"white"}),l.jsx(Tn,{text:` У спортивному дійстві взяли активну участь здобувачі освіти, викладачі, співпрацівники  Харківського педагогічного фахового коледжу. 
+`,
+  OH = () => {
+    const e = Nn(),
+      [r, n] = _.useState(!1);
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsxs(S, {
+        height: { base: "calc(100vh - 64px)", md: "100vh" },
+        overflow: "hidden",
+        position: "relative",
+        children: [
+          l.jsx(BH, {}),
+          l.jsx(Vc, {
+            "aria-label": "Зворотній зв'язок",
+            position: "fixed",
+            bottom: { base: "20px", md: "30px" },
+            right: { base: "20px", md: "30px" },
+            w: { base: "60px", md: "70px" },
+            h: { base: "60px", md: "70px" },
+            minW: { base: "60px", md: "70px" },
+            minH: { base: "60px", md: "70px" },
+            borderRadius: "full",
+            bgGradient: "linear(to-r, #FF6B35, #FF8C42, #FFA500)",
+            color: "white",
+            icon: l.jsx(EH, { boxSize: { base: "24px", md: "28px" } }),
+            boxShadow: "0 4px 15px rgba(255, 107, 53, 0.4)",
+            animation: `${x5} 2s ease-in-out infinite`,
+            _hover: {
+              bgGradient: "linear(to-r, #FF8C42, #FFA500, #FFB347)",
+              transform: "scale(1.1)",
+              boxShadow: "0 8px 25px rgba(255, 107, 53, 0.6)",
+              animation: `${x5} 0.5s ease-in-out infinite`,
+            },
+            _active: { transform: "scale(0.95)" },
+            transition: "all 0.3s",
+            zIndex: 20,
+            onClick: () => n(!0),
+          }),
+          l.jsx(DH, { isOpen: r, onClose: () => n(!1) }),
+        ],
+      }),
+    });
+  },
+  $H = () => {
+    const e = Nn();
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsx(S, {
+        children: l.jsx(S, {
+          bg: "white",
+          py: { base: 6, md: 10 },
+          px: { base: 4, md: 8 },
+          children: l.jsx(dt, {
+            maxW: "1200px",
+            children: l.jsxs(ya, {
+              spacing: { base: 6, md: 10 },
+              align: "start",
+              flexDirection: { base: "column", md: "row" },
+              mb: 8,
+              children: [
+                l.jsx(S, {
+                  flex: { base: "1", md: "0 0 350px" },
+                  width: { base: "100%", md: "350px" },
+                  mb: { base: 6, md: 0 },
+                  children: l.jsx(S, {
+                    borderRadius: "xl",
+                    overflow: "hidden",
+                    boxShadow: "2xl",
+                    position: "relative",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, transparent 100%)",
+                      zIndex: 1,
+                      pointerEvents: "none",
+                    },
+                    children: l.jsx(V, {
+                      src: "/Boichenko_HGPA/images/photo_2025-12-13_17-38-33.jpg",
+                      alt: "Бойченко Артем Васильович",
+                      width: "100%",
+                      height: "auto",
+                      objectFit: "cover",
+                      display: "block",
+                    }),
+                  }),
+                }),
+                l.jsx(S, {
+                  flex: 1,
+                  width: "100%",
+                  children: l.jsxs(le, {
+                    align: "start",
+                    spacing: 6,
+                    children: [
+                      l.jsxs(S, {
+                        width: "100%",
+                        bg: "white",
+                        p: { base: 6, md: 8 },
+                        position: "relative",
+                        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                        children: [
+                          l.jsxs(S, {
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            pointerEvents: "none",
+                            children: [
+                              l.jsx(S, {
+                                position: "absolute",
+                                top: 0,
+                                left: "40px",
+                                right: "40px",
+                                height: "2px",
+                                bg: "linear-gradient(90deg, transparent, #1E90FF, #1E90FF, transparent)",
+                              }),
+                              l.jsx(S, {
+                                position: "absolute",
+                                top: "40px",
+                                right: 0,
+                                bottom: "40px",
+                                width: "2px",
+                                bg: "linear-gradient(180deg, transparent, #1E90FF, #1E90FF, transparent)",
+                              }),
+                              l.jsx(S, {
+                                position: "absolute",
+                                bottom: 0,
+                                left: "40px",
+                                right: "40px",
+                                height: "2px",
+                                bg: "linear-gradient(90deg, transparent, #1E90FF, #1E90FF, transparent)",
+                              }),
+                              l.jsx(S, {
+                                position: "absolute",
+                                top: "40px",
+                                left: 0,
+                                bottom: "40px",
+                                width: "2px",
+                                bg: "linear-gradient(180deg, transparent, #1E90FF, #1E90FF, transparent)",
+                              }),
+                            ],
+                          }),
+                          l.jsx(Re, {
+                            size: { base: "xl", md: "2xl" },
+                            mb: 6,
+                            color: "#2C3E50",
+                            fontWeight: "700",
+                            textAlign: { base: "center", md: "left" },
+                            fontFamily: "Georgia, serif",
+                            letterSpacing: "0.5px",
+                            children: "Бойченко Артем Васильович",
+                          }),
+                          l.jsxs(le, {
+                            align: { base: "center", md: "start" },
+                            spacing: 4,
+                            mt: 6,
+                            children: [
+                              l.jsx(S, {
+                                width: "100%",
+                                py: 3,
+                                px: 4,
+                                borderLeft: "4px solid #1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                                transition: "all 0.3s",
+                                _hover: {
+                                  bg: "rgba(30, 144, 255, 0.1)",
+                                  transform: "translateX(4px)",
+                                },
+                                children: l.jsx(ae, {
+                                  fontSize: { base: "md", md: "lg" },
+                                  color: "#2C3E50",
+                                  fontWeight: "600",
+                                  letterSpacing: "0.3px",
+                                  children: "Кандидат педагогічних наук",
+                                }),
+                              }),
+                              l.jsx(S, {
+                                width: "100%",
+                                py: 3,
+                                px: 4,
+                                borderLeft: "4px solid #1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                                transition: "all 0.3s",
+                                _hover: {
+                                  bg: "rgba(30, 144, 255, 0.1)",
+                                  transform: "translateX(4px)",
+                                },
+                                children: l.jsx(ae, {
+                                  fontSize: { base: "md", md: "lg" },
+                                  color: "#2C3E50",
+                                  fontWeight: "600",
+                                  letterSpacing: "0.3px",
+                                  children: "Викладач вищої категорії",
+                                }),
+                              }),
+                              l.jsx(S, {
+                                width: "100%",
+                                py: 3,
+                                px: 4,
+                                borderLeft: "4px solid #1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                                transition: "all 0.3s",
+                                _hover: {
+                                  bg: "rgba(30, 144, 255, 0.1)",
+                                  transform: "translateX(4px)",
+                                },
+                                children: l.jsx(ae, {
+                                  fontSize: { base: "md", md: "lg" },
+                                  color: "#2C3E50",
+                                  fontWeight: "600",
+                                  letterSpacing: "0.3px",
+                                  children: "Докторант",
+                                }),
+                              }),
+                            ],
+                          }),
+                        ],
+                      }),
+                      l.jsx(U0, { borderColor: "#1E90FF", borderWidth: "2px" }),
+                      l.jsxs(S, {
+                        width: "100%",
+                        children: [
+                          l.jsx(Re, {
+                            size: { base: "md", md: "lg" },
+                            mb: 4,
+                            color: "#1E90FF",
+                            children: "Освіта та кваліфікація",
+                          }),
+                          l.jsxs(le, {
+                            align: "start",
+                            spacing: 4,
+                            children: [
+                              l.jsxs(S, {
+                                pl: 4,
+                                borderLeft: "3px solid #1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                                p: 4,
+                                borderRadius: "md",
+                                width: "100%",
+                                children: [
+                                  l.jsx(ae, {
+                                    fontWeight: "bold",
+                                    mb: 2,
+                                    color: "gray.800",
+                                    children: "2008 рік",
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: { base: "sm", md: "md" },
+                                    color: "gray.700",
+                                    lineHeight: "1.8",
+                                    children:
+                                      'Закінчив Харківський національний педагогічний університет імені Г.С. Сковороди. Отримав базову вищу освіту за напрямом "Педагогічна освіта". Кваліфікація: бакалавр педагогічної освіти, вчитель фізичної культури для початкової школи.',
+                                  }),
+                                ],
+                              }),
+                              l.jsxs(S, {
+                                pl: 4,
+                                borderLeft: "3px solid #1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                                p: 4,
+                                borderRadius: "md",
+                                width: "100%",
+                                children: [
+                                  l.jsx(ae, {
+                                    fontWeight: "bold",
+                                    mb: 2,
+                                    color: "gray.800",
+                                    children: "2009 рік",
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: { base: "sm", md: "md" },
+                                    color: "gray.700",
+                                    lineHeight: "1.8",
+                                    children:
+                                      'Закінчив Харківський національний педагогічний університет імені Г.С. Сковороди. Отримав повну вищу освіту за спеціальністю "Педагогіка і методика середньої освіти. Фізична культура". Кваліфікація: викладач фізичної культури.',
+                                  }),
+                                ],
+                              }),
+                              l.jsxs(S, {
+                                pl: 4,
+                                borderLeft: "3px solid #1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                                p: 4,
+                                borderRadius: "md",
+                                width: "100%",
+                                children: [
+                                  l.jsx(ae, {
+                                    fontWeight: "bold",
+                                    mb: 2,
+                                    color: "gray.800",
+                                    children: "2018 рік",
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: { base: "sm", md: "md" },
+                                    color: "gray.700",
+                                    lineHeight: "1.8",
+                                    children:
+                                      "Захистив кандидатську дисертацію за спеціальністю 13.00.02 - теорія та методика навчання (фізична культура, основи здоров'я).",
+                                  }),
+                                ],
+                              }),
+                              l.jsxs(S, {
+                                pl: 4,
+                                borderLeft: "3px solid #1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                                p: 4,
+                                borderRadius: "md",
+                                width: "100%",
+                                children: [
+                                  l.jsx(ae, {
+                                    fontWeight: "bold",
+                                    mb: 2,
+                                    color: "gray.800",
+                                    children: "2023 рік",
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: { base: "sm", md: "md" },
+                                    color: "gray.700",
+                                    lineHeight: "1.8",
+                                    children: "Навчається в докторантурі.",
+                                  }),
+                                ],
+                              }),
+                            ],
+                          }),
+                        ],
+                      }),
+                      l.jsx(U0, { borderColor: "#1E90FF", borderWidth: "2px" }),
+                      l.jsxs(S, {
+                        width: "100%",
+                        children: [
+                          l.jsx(Re, {
+                            size: { base: "md", md: "lg" },
+                            mb: 4,
+                            color: "#1E90FF",
+                            children: "Професійна діяльність та досягнення",
+                          }),
+                          l.jsx(S, {
+                            pl: 4,
+                            borderLeft: "3px solid #1E90FF",
+                            bg: "rgba(30, 144, 255, 0.05)",
+                            p: 4,
+                            borderRadius: "md",
+                            width: "100%",
+                            children: l.jsxs(le, {
+                              align: "start",
+                              spacing: 3,
+                              children: [
+                                l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "gray.700",
+                                  lineHeight: "1.8",
+                                  children:
+                                    "Активно бере участь у навчально-методичній роботі відділення соціальної роботи, фізичної культури та музичного мистецтва.",
+                                }),
+                                l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "gray.700",
+                                  lineHeight: "1.8",
+                                  children:
+                                    "Має понад 40 наукових публікацій у фахових та міжнародних виданнях.",
+                                }),
+                                l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "gray.700",
+                                  lineHeight: "1.8",
+                                  children:
+                                    "Володіє науковими публікаціями, які індексуються в наукометричних базах даних.",
+                                }),
+                                l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "gray.700",
+                                  lineHeight: "1.8",
+                                  children:
+                                    "Опублікував понад 30 наукових робіт у співавторстві зі студентами.",
+                                }),
+                              ],
+                            }),
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                }),
+              ],
+            }),
+          }),
+        }),
+      }),
+    });
+  },
+  LH = () => {
+    const e = Nn(),
+      { isOpen: r, onOpen: n, onClose: i } = Vb(),
+      [c, u] = _.useState(null),
+      d = [
+        {
+          id: 1,
+          title: "Навчальна програма",
+          description:
+            "Робоча програма навчальної дисципліни 'Фізична культура'",
+          filePath: "/Boichenko_HGPA/documents/31ф. Фізична культура.docx",
+          type: "docx",
+          icon: Jd,
+        },
+        {
+          id: 2,
+          title: "Лекційний матеріал 31Ф",
+          description: "",
+          filePath: "/Boichenko_HGPA/documents/Лекції 31 ф.doc",
+          type: "doc",
+          icon: Jd,
+        },
+        {
+          id: 3,
+          title: "Практичні заняття 31Ф",
+          description: "",
+          filePath: "/Boichenko_HGPA/documents/практичні 31ф 6 сем..docx",
+          type: "docx",
+          icon: Jd,
+        },
+      ],
+      p = (b, x, y) => {
+        y === "pdf"
+          ? (u({ filePath: b, title: x, type: y }), n())
+          : window.open(b, "_blank");
+      },
+      g = () => {
+        if (c) {
+          const b = document.createElement("a");
+          (b.href = c.filePath),
+            (b.download = c.filePath.split("/").pop() || "document"),
+            document.body.appendChild(b),
+            b.click(),
+            document.body.removeChild(b);
+        }
+      },
+      m = () => {
+        c && window.open(c.filePath, "_blank");
+      };
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsxs(S, {
+        children: [
+          l.jsx(S, {
+            bgImage:
+              "/Boichenko_HGPA/images/Metalist_Stadium_Kharkiv.jpg",
+            bgSize: "cover",
+            bgPosition: "center",
+            bgRepeat: "no-repeat",
+            bgAttachment: "fixed",
+            minHeight: { base: "calc(100vh - 64px)", md: "100vh" },
+            position: "relative",
+            _before: {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              bg: "rgba(0, 0, 0, 0.6)",
+              zIndex: 0,
+            },
+            children: l.jsx(S, {
+              position: "relative",
+              zIndex: 1,
+              py: { base: 6, md: 10 },
+              px: { base: 4, md: 8 },
+              children: l.jsx(dt, {
+                maxW: "1200px",
+                children: l.jsxs(le, {
+                  spacing: 8,
+                  align: "stretch",
+                  children: [
+                    l.jsx(S, {
+                      textAlign: "center",
+                      mb: 8,
+                      children: l.jsx(Re, {
+                        size: { base: "xl", md: "2xl" },
+                        color: "#F0FFFF",
+                        fontWeight: "bold",
+                        mb: 4,
+                        position: "relative",
+                        display: "inline-block",
+                        _after: {
+                          content: '""',
+                          position: "absolute",
+                          bottom: "-14px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "80px",
+                          height: "4px",
+                          bg: "linear-gradient(90deg, #1E90FF, #00BFFF)",
+                          borderRadius: "full",
+                        },
+                        children: "Навчально-методичний комплекс",
+                      }),
+                    }),
+                    l.jsx(Ce, {
+                      templateColumns: {
+                        base: "1fr",
+                        md: "repeat(2, 1fr)",
+                        lg: "repeat(3, 1fr)",
+                      },
+                      gap: { base: 4, md: 6 },
+                      mt: 2,
+                      children: d.map((b) =>
+                        l.jsx(
+                          ne,
+                          {
+                            children: l.jsxs(S, {
+                              bg: "white",
+                              borderRadius: "xl",
+                              p: 6,
+                              boxShadow: "lg",
+                              border: "2px solid",
+                              borderColor: "gray.200",
+                              cursor: "pointer",
+                              transition: "all 0.3s ease",
+                              _hover: {
+                                transform: "translateY(-8px)",
+                                boxShadow: "xl",
+                                borderColor: "#1E90FF",
+                                bg: "rgba(30, 144, 255, 0.05)",
+                              },
+                              onClick: () => p(b.filePath, b.title, b.type),
+                              height: "100%",
+                              display: "flex",
+                              flexDirection: "column",
+                              position: "relative",
+                              overflow: "hidden",
+                              _before: {
+                                content: '""',
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                height: "4px",
+                                bg: "linear-gradient(90deg, #1E90FF, #00BFFF)",
+                                transform: "scaleX(0)",
+                                transformOrigin: "left",
+                                transition: "transform 0.3s ease",
+                                _groupHover: { transform: "scaleX(1)" },
+                              },
+                              sx: {
+                                "&:hover::before": { transform: "scaleX(1)" },
+                              },
+                              children: [
+                                l.jsx(S, {
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  w: "80px",
+                                  h: "80px",
+                                  bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",
+                                  borderRadius: "xl",
+                                  mb: 4,
+                                  mx: "auto",
+                                  children: l.jsx(ta, {
+                                    as: b.icon,
+                                    w: 10,
+                                    h: 10,
+                                    color: "#1E90FF",
+                                  }),
+                                }),
+                                l.jsx(Re, {
+                                  size: { base: "md", md: "lg" },
+                                  mb: 3,
+                                  color: "#1E90FF",
+                                  textAlign: "center",
+                                  fontWeight: "bold",
+                                  children: b.title,
+                                }),
+                                l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "#1E90FF",
+                                  textAlign: "center",
+                                  lineHeight: "1.6",
+                                  children: b.description,
+                                }),
+                                l.jsx(S, {
+                                  mt: 4,
+                                  pt: 4,
+                                  borderTop: "1px solid",
+                                  borderColor: "gray.200",
+                                  textAlign: "center",
+                                  children: l.jsx(ae, {
+                                    fontSize: "sm",
+                                    color: "#1E90FF",
+                                    fontWeight: "600",
+                                    _hover: { textDecoration: "underline" },
+                                    children: "Відкрити документ →",
+                                  }),
+                                }),
+                              ],
+                            }),
+                          },
+                          b.id
+                        )
+                      ),
+                    }),
+                    l.jsxs(S, {
+                      children: [
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            md: "repeat(3, 1fr)",
+                          },
+                          gap: { base: 4, md: 6 },
+                          mt: 8,
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsxs(S, {
+                                as: "a",
+                                href: "https://repository.khpa.edu.ua/collections/33b593f9-dd8e-4d6d-8aca-deeba5158f0e/search?f.author=%D0%91%D0%BE%D0%B9%D1%87%D0%B5%D0%BD%D0%BA%D0%BE,%20%D0%90%D1%80%D1%82%D0%B5%D0%BC,equals&spc.page=1",
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                                bg: "white",
+                                borderRadius: "xl",
+                                p: 6,
+                                boxShadow: "lg",
+                                border: "2px solid",
+                                borderColor: "gray.200",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                                _hover: {
+                                  transform: "translateY(-8px)",
+                                  boxShadow: "xl",
+                                  borderColor: "#1E90FF",
+                                  bg: "rgba(30, 144, 255, 0.05)",
+                                },
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                textAlign: "center",
+                                textDecoration: "none",
+                                children: [
+                                  l.jsx(S, {
+                                    w: "60px",
+                                    h: "60px",
+                                    bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",
+                                    borderRadius: "xl",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    mb: 4,
+                                    children: l.jsx(ta, {
+                                      as: ec,
+                                      w: 8,
+                                      h: 8,
+                                      color: "#1E90FF",
+                                    }),
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: { base: "sm", md: "md" },
+                                    fontWeight: "600",
+                                    color: "#1E90FF",
+                                    _hover: { textDecoration: "underline" },
+                                    children: "Репозиторій 1",
+                                  }),
+                                ],
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsxs(S, {
+                                as: "a",
+                                href: "https://repository.khpa.edu.ua/collections/6ccde0bf-6531-4bfb-b9f1-bb060933d504/search?f.author=%D0%91%D0%BE%D0%B9%D1%87%D0%B5%D0%BD%D0%BA%D0%BE,%20%D0%90%D1%80%D1%82%D0%B5%D0%BC,equals&spc.page=1",
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                                bg: "white",
+                                borderRadius: "xl",
+                                p: 6,
+                                boxShadow: "lg",
+                                border: "2px solid",
+                                borderColor: "gray.200",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                                _hover: {
+                                  transform: "translateY(-8px)",
+                                  boxShadow: "xl",
+                                  borderColor: "#1E90FF",
+                                  bg: "rgba(30, 144, 255, 0.05)",
+                                },
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                textAlign: "center",
+                                textDecoration: "none",
+                                children: [
+                                  l.jsx(S, {
+                                    w: "60px",
+                                    h: "60px",
+                                    bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",
+                                    borderRadius: "xl",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    mb: 4,
+                                    children: l.jsx(ta, {
+                                      as: ec,
+                                      w: 8,
+                                      h: 8,
+                                      color: "#1E90FF",
+                                    }),
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: { base: "sm", md: "md" },
+                                    fontWeight: "600",
+                                    color: "#1E90FF",
+                                    _hover: { textDecoration: "underline" },
+                                    children: "Репозиторій 2",
+                                  }),
+                                ],
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsxs(S, {
+                                as: "a",
+                                href: "https://repository.khpa.edu.ua/collections/79000d67-7121-4a4d-9c0a-7126c52a8afe/search?f.author=%D0%A1%D1%83%D1%80%D0%BE%D0%B2%D0%BE%D0%B2,%20%D0%9E%D0%BB%D0%B5%D0%BA%D1%81%D1%96%D0%B9,equals&spc.page=1",
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                                bg: "white",
+                                borderRadius: "xl",
+                                p: 6,
+                                boxShadow: "lg",
+                                border: "2px solid",
+                                borderColor: "gray.200",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease",
+                                _hover: {
+                                  transform: "translateY(-8px)",
+                                  boxShadow: "xl",
+                                  borderColor: "#1E90FF",
+                                  bg: "rgba(30, 144, 255, 0.05)",
+                                },
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                textAlign: "center",
+                                textDecoration: "none",
+                                children: [
+                                  l.jsx(S, {
+                                    w: "60px",
+                                    h: "60px",
+                                    bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",
+                                    borderRadius: "xl",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    mb: 4,
+                                    children: l.jsx(ta, {
+                                      as: ec,
+                                      w: 8,
+                                      h: 8,
+                                      color: "#1E90FF",
+                                    }),
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: { base: "sm", md: "md" },
+                                    fontWeight: "600",
+                                    color: "#1E90FF",
+                                    _hover: { textDecoration: "underline" },
+                                    children: "Репозиторій 3",
+                                  }),
+                                ],
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            md: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 6, md: 8 },
+                          mt: 8,
+                          px: { base: 4, md: 6 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                maxW: { base: "100%", md: "300px" },
+                                width: "100%",
+                                mx: "auto",
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "2xl",
+                                position: "relative",
+                                bg: "black",
+                                border: "4px solid",
+                                borderColor: "gray.200",
+                                _hover: {
+                                  transform: "translateY(-6px)",
+                                  boxShadow: "2xl",
+                                  borderColor: "#1E90FF",
+                                  transition: "all 0.3s ease",
+                                },
+                                children: l.jsxs("video", {
+                                  src: "/Boichenko_HGPA/videos/video-503fdf3b7823f9746a8ad5fc42de960b-V.mp4",
+                                  controls: !0,
+                                  controlsList: "nodownload",
+                                  autoPlay: !0,
+                                  loop: !0,
+                                  muted: !0,
+                                  playsInline: !0,
+                                  preload: "auto",
+                                  style: {
+                                    width: "100%",
+                                    height: "auto",
+                                    display: "block",
+                                    minHeight: "300px",
+                                  },
+                                  onError: (b) => {
+                                    console.error("Video error:", b);
+                                    const x = b.target;
+                                    x.error &&
+                                      (console.error(
+                                        "Video error code:",
+                                        x.error.code
+                                      ),
+                                      console.error(
+                                        "Video error message:",
+                                        x.error.message
+                                      ));
+                                  },
+                                  children: [
+                                    l.jsx("source", {
+                                      src: "/Boichenko_HGPA/videos/video-503fdf3b7823f9746a8ad5fc42de960b-V.mp4",
+                                      type: "video/mp4",
+                                    }),
+                                    "Ваш браузер не підтримує відео.",
+                                  ],
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                maxW: { base: "100%", md: "300px" },
+                                width: "100%",
+                                mx: "auto",
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "2xl",
+                                position: "relative",
+                                bg: "black",
+                                border: "4px solid",
+                                borderColor: "gray.200",
+                                _hover: {
+                                  transform: "translateY(-6px)",
+                                  boxShadow: "2xl",
+                                  borderColor: "#1E90FF",
+                                  transition: "all 0.3s ease",
+                                },
+                                children: l.jsxs("video", {
+                                  src: "/Boichenko_HGPA/videos/video-586b132e47c28d96bf79ca4681a1e71d-V.mp4",
+                                  controls: !0,
+                                  controlsList: "nodownload",
+                                  autoPlay: !0,
+                                  loop: !0,
+                                  muted: !0,
+                                  playsInline: !0,
+                                  preload: "auto",
+                                  style: {
+                                    width: "100%",
+                                    height: "auto",
+                                    display: "block",
+                                    minHeight: "300px",
+                                  },
+                                  onError: (b) => {
+                                    console.error("Video error:", b);
+                                    const x = b.target;
+                                    x.error &&
+                                      (console.error(
+                                        "Video error code:",
+                                        x.error.code
+                                      ),
+                                      console.error(
+                                        "Video error message:",
+                                        x.error.message
+                                      ));
+                                  },
+                                  children: [
+                                    l.jsx("source", {
+                                      src: "/Boichenko_HGPA/videos/video-586b132e47c28d96bf79ca4681a1e71d-V.mp4",
+                                      type: "video/mp4",
+                                    }),
+                                    "Ваш браузер не підтримує відео.",
+                                  ],
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    l.jsx(U0, {
+                      my: 12,
+                      borderColor: "gray.300",
+                      borderWidth: "2px",
+                    }),
+                    l.jsxs(S, {
+                      children: [
+                        l.jsx(Re, {
+                          size: { base: "lg", md: "xl" },
+                          color: "#F0FFFF",
+                          fontWeight: "bold",
+                          mb: 6,
+                          textAlign: "center",
+                          position: "relative",
+                          pb: 4,
+                          _after: {
+                            content: '""',
+                            position: "absolute",
+                            bottom: 0,
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            width: "100px",
+                            height: "3px",
+                            bg: "linear-gradient(90deg, #1E90FF, #00BFFF)",
+                            borderRadius: "full",
+                          },
+                          children:
+                            "Приклади різних видів загальної фізичної підготовки",
+                        }),
+                        l.jsx(S, {
+                          mt: 8,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                          px: { base: 4, md: 6 },
+                          children: l.jsxs(le, {
+                            spacing: 4,
+                            align: "center",
+                            width: "100%",
+                            children: [
+                              l.jsx(S, {
+                                maxW: {
+                                  base: "100%",
+                                  md: "700px",
+                                  lg: "800px",
+                                },
+                                width: "100%",
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "2xl",
+                                position: "relative",
+                                bg: "black",
+                                border: "4px solid",
+                                borderColor: "gray.200",
+                                _hover: {
+                                  transform: "translateY(-6px)",
+                                  boxShadow: "2xl",
+                                  borderColor: "#1E90FF",
+                                  transition: "all 0.3s ease",
+                                },
+                                children: l.jsxs("video", {
+                                  src: "/Boichenko_HGPA/videos/video_2025-12-14_22-41-45.mp4",
+                                  controls: !0,
+                                  controlsList: "download",
+                                  autoPlay: !0,
+                                  loop: !0,
+                                  muted: !0,
+                                  playsInline: !0,
+                                  preload: "auto",
+                                  style: {
+                                    width: "100%",
+                                    height: "auto",
+                                    display: "block",
+                                    minHeight: "300px",
+                                  },
+                                  onError: (b) => {
+                                    console.error("Video error:", b);
+                                    const x = b.target;
+                                    x.error &&
+                                      (console.error(
+                                        "Video error code:",
+                                        x.error.code
+                                      ),
+                                      console.error(
+                                        "Video error message:",
+                                        x.error.message
+                                      ));
+                                  },
+                                  children: [
+                                    l.jsx("source", {
+                                      src: "/Boichenko_HGPA/videos/video_2025-12-14_22-41-45.mp4",
+                                      type: "video/mp4",
+                                    }),
+                                    "Ваш браузер не підтримує відео.",
+                                  ],
+                                }),
+                              }),
+                              l.jsx(S, {
+                                textAlign: "center",
+                                children: l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "#F0FFFF",
+                                  fontWeight: "500",
+                                  children: "Спеціально-фізична підготовка",
+                                }),
+                              }),
+                            ],
+                          }),
+                        }),
+                      ],
+                    }),
+                    l.jsx(S, {
+                      children: l.jsx(S, {
+                        mt: 8,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                        px: { base: 4, md: 6 },
+                        children: l.jsxs(le, {
+                          spacing: 4,
+                          align: "center",
+                          width: "100%",
+                          children: [
+                            l.jsx(S, {
+                              maxW: { base: "100%", md: "300px", lg: "300px" },
+                              width: "100%",
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "2xl",
+                              position: "relative",
+                              bg: "black",
+                              border: "4px solid",
+                              borderColor: "gray.200",
+                              _hover: {
+                                transform: "translateY(-6px)",
+                                boxShadow: "2xl",
+                                borderColor: "#1E90FF",
+                                transition: "all 0.3s ease",
+                              },
+                              children: l.jsxs("video", {
+                                src: "/Boichenko_HGPA/videos/video_2025-12-14_22-41-59.mp4",
+                                controls: !0,
+                                controlsList: "download",
+                                autoPlay: !0,
+                                loop: !0,
+                                muted: !0,
+                                playsInline: !0,
+                                preload: "auto",
+                                style: {
+                                  width: "100%",
+                                  height: "auto",
+                                  display: "block",
+                                  minHeight: "300px",
+                                },
+                                onError: (b) => {
+                                  console.error("Video error:", b);
+                                  const x = b.target;
+                                  x.error &&
+                                    (console.error(
+                                      "Video error code:",
+                                      x.error.code
+                                    ),
+                                    console.error(
+                                      "Video error message:",
+                                      x.error.message
+                                    ));
+                                },
+                                children: [
+                                  l.jsx("source", {
+                                    src: "/Boichenko_HGPA/videos/video_2025-12-14_22-41-59.mp4",
+                                    type: "video/mp4",
+                                  }),
+                                  "Ваш браузер не підтримує відео.",
+                                ],
+                              }),
+                            }),
+                            l.jsx(S, {
+                              textAlign: "center",
+                              children: l.jsx(ae, {
+                                fontSize: { base: "sm", md: "md" },
+                                color: "#F0FFFF",
+                                fontWeight: "500",
+                                children: "Загально-фізична підготовка",
+                              }),
+                            }),
+                          ],
+                        }),
+                      }),
+                    }),
+                    l.jsx(S, {
+                      children: l.jsxs(Ce, {
+                        templateColumns: { base: "1fr", md: "repeat(2, 1fr)" },
+                        gap: { base: 6, md: 8 },
+                        mt: 8,
+                        px: { base: 4, md: 6 },
+                        children: [
+                          l.jsxs(ne, {
+                            children: [
+                              l.jsx(S, {
+                                maxW: { base: "100%", md: "450px" },
+                                width: "100%",
+                                mx: "auto",
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "2xl",
+                                position: "relative",
+                                bg: "black",
+                                border: "4px solid",
+                                borderColor: "gray.200",
+                                _hover: {
+                                  transform: "translateY(-6px)",
+                                  boxShadow: "2xl",
+                                  borderColor: "#1E90FF",
+                                  transition: "all 0.3s ease",
+                                },
+                                children: l.jsxs("video", {
+                                  src: "/Boichenko_HGPA/videos/video_2021-01-26_14-36-00.mp4",
+                                  controls: !0,
+                                  controlsList: "download",
+                                  autoPlay: !0,
+                                  loop: !0,
+                                  muted: !0,
+                                  playsInline: !0,
+                                  preload: "auto",
+                                  style: {
+                                    width: "100%",
+                                    height: "auto",
+                                    display: "block",
+                                    minHeight: "300px",
+                                  },
+                                  onError: (b) => {
+                                    console.error("Video error:", b);
+                                    const x = b.target;
+                                    x.error &&
+                                      (console.error(
+                                        "Video error code:",
+                                        x.error.code
+                                      ),
+                                      console.error(
+                                        "Video error message:",
+                                        x.error.message
+                                      ));
+                                  },
+                                  children: [
+                                    l.jsx("source", {
+                                      src: "/Boichenko_HGPA/videos/video_2021-01-26_14-36-00.mp4",
+                                      type: "video/mp4",
+                                    }),
+                                    "Ваш браузер не підтримує відео.",
+                                  ],
+                                }),
+                              }),
+                              l.jsx(S, {
+                                mt: 4,
+                                textAlign: "center",
+                                children: l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "#F0FFFF",
+                                  fontWeight: "500",
+                                  children:
+                                    "Комплекс ЗРВ на місці та в русі (1)",
+                                }),
+                              }),
+                            ],
+                          }),
+                          l.jsxs(ne, {
+                            children: [
+                              l.jsx(S, {
+                                maxW: { base: "100%", md: "450px" },
+                                width: "100%",
+                                mx: "auto",
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "2xl",
+                                position: "relative",
+                                bg: "black",
+                                border: "4px solid",
+                                borderColor: "gray.200",
+                                _hover: {
+                                  transform: "translateY(-6px)",
+                                  boxShadow: "2xl",
+                                  borderColor: "#1E90FF",
+                                  transition: "all 0.3s ease",
+                                },
+                                children: l.jsxs("video", {
+                                  src: "/Boichenko_HGPA/videos/video_2021-01-26_14-36-03.mp4",
+                                  controls: !0,
+                                  controlsList: "download",
+                                  autoPlay: !0,
+                                  loop: !0,
+                                  muted: !0,
+                                  playsInline: !0,
+                                  preload: "auto",
+                                  style: {
+                                    width: "100%",
+                                    height: "auto",
+                                    display: "block",
+                                    minHeight: "300px",
+                                  },
+                                  onError: (b) => {
+                                    console.error("Video error:", b);
+                                    const x = b.target;
+                                    x.error &&
+                                      (console.error(
+                                        "Video error code:",
+                                        x.error.code
+                                      ),
+                                      console.error(
+                                        "Video error message:",
+                                        x.error.message
+                                      ));
+                                  },
+                                  children: [
+                                    l.jsx("source", {
+                                      src: "/Boichenko_HGPA/videos/video_2021-01-26_14-36-03.mp4",
+                                      type: "video/mp4",
+                                    }),
+                                    "Ваш браузер не підтримує відео.",
+                                  ],
+                                }),
+                              }),
+                              l.jsx(S, {
+                                mt: 4,
+                                textAlign: "center",
+                                children: l.jsx(ae, {
+                                  fontSize: { base: "sm", md: "md" },
+                                  color: "#F0FFFF",
+                                  fontWeight: "500",
+                                  children:
+                                    "Комплекс. ЗРВ на місці та в русі (2)",
+                                }),
+                              }),
+                            ],
+                          }),
+                        ],
+                      }),
+                    }),
+                  ],
+                }),
+              }),
+            }),
+          }),
+          l.jsxs(nu, {
+            isOpen: r,
+            onClose: i,
+            size: "full",
+            children: [
+              l.jsx(iu, { bg: "blackAlpha.800" }),
+              l.jsxs(bf, {
+                maxW: "100vw",
+                maxH: "100vh",
+                m: 0,
+                borderRadius: 0,
+                children: [
+                  l.jsxs(Ib, {
+                    bg: "#1E90FF",
+                    color: "white",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    children: [
+                      l.jsx(ae, { children: c?.title || "Перегляд документа" }),
+                      l.jsxs(ya, {
+                        spacing: 2,
+                        children: [
+                          l.jsx(no, {
+                            leftIcon: l.jsx(g5, {}),
+                            size: "sm",
+                            colorScheme: "whiteAlpha",
+                            variant: "solid",
+                            onClick: g,
+                            children: "Скачати",
+                          }),
+                          l.jsx(no, {
+                            leftIcon: l.jsx(ec, {}),
+                            size: "sm",
+                            colorScheme: "whiteAlpha",
+                            variant: "solid",
+                            onClick: m,
+                            children: "Відкрити в новій вкладці",
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                  l.jsx(lu, { color: "white" }),
+                  l.jsx(ou, {
+                    p: 0,
+                    bg: "gray.100",
+                    children:
+                      c &&
+                      l.jsx(S, {
+                        width: "100%",
+                        height: "calc(100vh - 80px)",
+                        position: "relative",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        bg: "white",
+                        children:
+                          c.type === "pdf"
+                            ? l.jsx("iframe", {
+                                src: c.filePath,
+                                width: "100%",
+                                height: "100%",
+                                style: { border: "none" },
+                                title: "Document Preview",
+                              })
+                            : l.jsxs(le, {
+                                spacing: 6,
+                                p: 8,
+                                textAlign: "center",
+                                children: [
+                                  l.jsx(S, {
+                                    w: "120px",
+                                    h: "120px",
+                                    borderRadius: "full",
+                                    bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(30, 144, 255, 0.2))",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    mx: "auto",
+                                    children: l.jsx(ta, {
+                                      as: Jd,
+                                      w: 16,
+                                      h: 16,
+                                      color: "#1E90FF",
+                                    }),
+                                  }),
+                                  l.jsx(Re, {
+                                    size: "lg",
+                                    color: "gray.700",
+                                    children: c.title,
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: "md",
+                                    color: "gray.600",
+                                    maxW: "500px",
+                                    children:
+                                      "Word документи не можуть бути переглянуті безпосередньо в браузері. Рекомендуємо конвертувати документ у PDF для перегляду. Або використайте один з варіантів нижче.",
+                                  }),
+                                  l.jsxs(le, {
+                                    spacing: 4,
+                                    mt: 4,
+                                    children: [
+                                      l.jsx(no, {
+                                        leftIcon: l.jsx(ec, {}),
+                                        colorScheme: "blue",
+                                        size: "lg",
+                                        width: "100%",
+                                        maxW: "400px",
+                                        onClick: m,
+                                        children: "Відкрити в новій вкладці",
+                                      }),
+                                      l.jsx(no, {
+                                        leftIcon: l.jsx(g5, {}),
+                                        variant: "outline",
+                                        colorScheme: "blue",
+                                        size: "lg",
+                                        width: "100%",
+                                        maxW: "400px",
+                                        onClick: g,
+                                        children: "Скачати документ",
+                                      }),
+                                    ],
+                                  }),
+                                ],
+                              }),
+                      }),
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      }),
+    });
+  },
+  Tn = ({ text: e, image1: r, image2: n, textColor: i = "white" }) =>
+    l.jsxs(le, {
+      spacing: { base: 6, md: 8 },
+      align: "stretch",
+      mb: { base: 6, md: 8 },
+      children: [
+        l.jsxs(S, {
+          mt: { base: 0, md: 10 },
+          position: "relative",
+          px: { base: 6, md: 10, lg: 12 },
+          py: { base: 8, md: 10 },
+          bg: "rgba(0, 0, 0, 0.35)",
+          backdropFilter: "blur(15px)",
+          borderRadius: "2xl",
+          border: "1px solid rgba(255, 255, 255, 0.15)",
+          boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+          overflow: "hidden",
+          _before: {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "4px",
+            bg: "linear-gradient(90deg, transparent, #1E90FF, #00BFFF, #1E90FF, transparent)",
+          },
+          _after: {
+            content: '""',
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            height: "4px",
+            bg: "linear-gradient(90deg, transparent, #1E90FF, #00BFFF, #1E90FF, transparent)",
+          },
+          children: [
+            l.jsx(S, {
+              position: "absolute",
+              left: 0,
+              top: "20%",
+              width: "5px",
+              height: "60%",
+              bg: "linear-gradient(180deg, #1E90FF 0%, #00BFFF 50%, #1E90FF 100%)",
+              borderRadius: "0 8px 8px 0",
+              boxShadow: "0 0 25px rgba(30, 144, 255, 0.7)",
+            }),
+            l.jsx(ae, {
+              fontSize: { base: "md", md: "lg", lg: "xl" },
+              color: i,
+              lineHeight: "2.3",
+              textAlign: "justify",
+              fontWeight: "300",
+              letterSpacing: "0.8px",
+              position: "relative",
+              zIndex: 1,
+              pl: { base: 4, md: 6 },
+              children: e,
+            }),
+          ],
+        }),
+        (r || n) &&
+          l.jsxs(Ce, {
+            templateColumns: { base: "1fr", md: r && n ? "1fr 1fr" : "1fr" },
+            gap: { base: 4, md: 6 },
+            mt: 2,
+            children: [
+              r &&
+                l.jsx(ne, {
+                  children: l.jsxs(S, {
+                    position: "relative",
+                    width: "100%",
+                    height: { base: "300px", md: "400px", lg: "500px" },
+                    borderRadius: "2xl",
+                    overflow: "hidden",
+                    boxShadow: "0 15px 50px rgba(0, 0, 0, 0.6)",
+                    border: "2px solid rgba(255, 255, 255, 0.2)",
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-5px)",
+                      boxShadow: "0 20px 60px rgba(30, 144, 255, 0.4)",
+                      borderColor: "rgba(30, 144, 255, 0.5)",
+                    },
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      inset: 0,
+                      bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%)",
+                      zIndex: 1,
+                      pointerEvents: "none",
+                    },
+                    children: [
+                      l.jsx(V, {
+                        src: r,
+                        alt: "Фото",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        position: "relative",
+                        zIndex: 0,
+                      }),
+                      l.jsx(S, {
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: "60px",
+                        bg: "linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)",
+                        zIndex: 2,
+                      }),
+                    ],
+                  }),
+                }),
+              n &&
+                l.jsx(ne, {
+                  children: l.jsxs(S, {
+                    position: "relative",
+                    width: "100%",
+                    height: { base: "300px", md: "400px", lg: "500px" },
+                    borderRadius: "2xl",
+                    overflow: "hidden",
+                    boxShadow: "0 15px 50px rgba(0, 0, 0, 0.6)",
+                    border: "2px solid rgba(255, 255, 255, 0.2)",
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-5px)",
+                      boxShadow: "0 20px 60px rgba(30, 144, 255, 0.4)",
+                      borderColor: "rgba(30, 144, 255, 0.5)",
+                    },
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      inset: 0,
+                      bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%)",
+                      zIndex: 1,
+                      pointerEvents: "none",
+                    },
+                    children: [
+                      l.jsx(V, {
+                        src: n,
+                        alt: "Фото",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        position: "relative",
+                        zIndex: 0,
+                      }),
+                      l.jsx(S, {
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: "60px",
+                        bg: "linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent)",
+                        zIndex: 2,
+                      }),
+                    ],
+                  }),
+                }),
+            ],
+          }),
+      ],
+    }),
+  Jt = ({ variant: e = "gradient", color: r = "#1E90FF", ...n }) =>
+    e === "gradient"
+      ? l.jsx(S, {
+          position: "relative",
+          py: { base: 6, md: 8 },
+          ...n,
+          children: l.jsxs(ya, {
+            spacing: 4,
+            justify: "center",
+            align: "center",
+            children: [
+              l.jsx(S, {
+                flex: 1,
+                height: "2px",
+                bg: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
+              }),
+              l.jsx(S, {
+                width: { base: "60px", md: "200px" },
+                height: "3px",
+                bg: `linear-gradient(90deg, transparent, ${r}, #00BFFF, ${r}, transparent)`,
+                borderRadius: "full",
+                boxShadow: `0 0 20px ${r}, 0 0 40px ${r}`,
+                position: "relative",
+                _before: {
+                  content: '""',
+                  position: "absolute",
+                  inset: "-2px",
+                  bg: `linear-gradient(90deg, transparent, ${r}, #00BFFF, ${r}, transparent)`,
+                  borderRadius: "full",
+                  filter: "blur(8px)",
+                  opacity: 0.6,
+                  zIndex: -1,
+                },
+              }),
+              l.jsx(S, {
+                flex: 1,
+                height: "2px",
+                bg: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)",
+              }),
+            ],
+          }),
+        })
+      : e === "glow"
+      ? l.jsx(S, {
+          position: "relative",
+          py: { base: 6, md: 8 },
+          ...n,
+          children: l.jsx(S, {
+            width: "100%",
+            height: "1px",
+            bg: `linear-gradient(90deg, transparent, ${r}, transparent)`,
+            position: "relative",
+            _before: {
+              content: '""',
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "100px",
+              height: "100px",
+              bg: r,
+              borderRadius: "full",
+              filter: "blur(40px)",
+              opacity: 0.3,
+            },
+            _after: {
+              content: '""',
+              position: "absolute",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "8px",
+              height: "8px",
+              bg: r,
+              borderRadius: "full",
+              boxShadow: `0 0 20px ${r}, 0 0 40px ${r}`,
+            },
+          }),
+        })
+      : e === "minimal"
+      ? l.jsx(S, {
+          position: "relative",
+          py: { base: 6, md: 8 },
+          ...n,
+          children: l.jsxs(ya, {
+            spacing: 3,
+            justify: "center",
+            align: "center",
+            children: [
+              l.jsx(S, {
+                width: "40px",
+                height: "1px",
+                bg: "rgba(255, 255, 255, 0.3)",
+              }),
+              l.jsx(S, {
+                width: "6px",
+                height: "6px",
+                bg: r,
+                borderRadius: "full",
+                boxShadow: `0 0 10px ${r}`,
+              }),
+              l.jsx(S, {
+                width: "40px",
+                height: "1px",
+                bg: "rgba(255, 255, 255, 0.3)",
+              }),
+            ],
+          }),
+        })
+      : e === "double"
+      ? l.jsxs(S, {
+          position: "relative",
+          py: { base: 8, md: 10 },
+          ...n,
+          children: [
+            l.jsx(S, {
+              width: "100%",
+              height: "1px",
+              bg: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)",
+              mb: 2,
+            }),
+            l.jsxs(ya, {
+              spacing: 2,
+              justify: "center",
+              align: "center",
+              children: [
+                l.jsx(S, {
+                  width: "12px",
+                  height: "12px",
+                  border: "2px solid",
+                  borderColor: r,
+                  borderRadius: "full",
+                  position: "relative",
+                  _before: {
+                    content: '""',
+                    position: "absolute",
+                    inset: "-4px",
+                    border: "1px solid",
+                    borderColor: r,
+                    borderRadius: "full",
+                    opacity: 0.5,
+                  },
+                }),
+                l.jsx(S, {
+                  width: "60px",
+                  height: "2px",
+                  bg: `linear-gradient(90deg, transparent, ${r}, transparent)`,
+                }),
+                l.jsx(S, {
+                  width: "8px",
+                  height: "8px",
+                  bg: r,
+                  borderRadius: "full",
+                  boxShadow: `0 0 15px ${r}`,
+                }),
+                l.jsx(S, {
+                  width: "60px",
+                  height: "2px",
+                  bg: `linear-gradient(90deg, transparent, ${r}, transparent)`,
+                }),
+                l.jsx(S, {
+                  width: "12px",
+                  height: "12px",
+                  border: "2px solid",
+                  borderColor: r,
+                  borderRadius: "full",
+                  position: "relative",
+                  _before: {
+                    content: '""',
+                    position: "absolute",
+                    inset: "-4px",
+                    border: "1px solid",
+                    borderColor: r,
+                    borderRadius: "full",
+                    opacity: 0.5,
+                  },
+                }),
+              ],
+            }),
+            l.jsx(S, {
+              width: "100%",
+              height: "1px",
+              bg: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)",
+              mt: 2,
+            }),
+          ],
+        })
+      : null,
+  ht = ({
+    title: e,
+    subtitle: r,
+    description: n,
+    items: i = [],
+    images: c = [],
+    videos: u = [],
+    pdfFiles: d = [],
+    textColor: p = "white",
+    maxColumns: g,
+    wideImages: m = [],
+    imageColumns: b = {},
+    imageRows: x = {},
+    fourInRow: y = !1,
+  }) => {
+    const j = c.filter((R) => R && R.trim() !== ""),
+      w = u.filter((R) => R && R.trim() !== ""),
+      C = c.length,
+      E = u.length;
+    return l.jsxs(le, {
+      spacing: { base: 6, md: 8 },
+      align: "stretch",
+      children: [
+        e &&
+          e.trim() !== "" &&
+          l.jsxs(S, {
+            position: "relative",
+            px: { base: 6, md: 8 },
+            py: { base: 6, md: 8 },
+            bg: "rgba(0, 0, 0, 0.35)",
+            backdropFilter: "blur(15px)",
+            borderRadius: "2xl",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+            overflow: "hidden",
+            _before: {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "4px",
+              bg: "linear-gradient(90deg, transparent, #1E90FF, #00BFFF, #1E90FF, transparent)",
+            },
+            children: [
+              l.jsx(Re, {
+                size: { base: "lg", md: "xl", lg: "2xl" },
+                color: p,
+                textAlign: "center",
+                mb: r ? 3 : 0,
+                fontWeight: "600",
+                letterSpacing: "1px",
+                children: e,
+              }),
+              r &&
+                l.jsx(ae, {
+                  fontSize: { base: "md", md: "lg" },
+                  color: p,
+                  textAlign: "center",
+                  opacity: 0.9,
+                  fontWeight: "300",
+                  children: r,
+                }),
+            ],
+          }),
+        (n || i.length > 0) &&
+          l.jsxs(S, {
+            position: "relative",
+            px: { base: 6, md: 10, lg: 12 },
+            py: { base: 6, md: 8 },
+            bg: "rgba(0, 0, 0, 0.3)",
+            backdropFilter: "blur(15px)",
+            borderRadius: "2xl",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+            overflow: "hidden",
+            _before: {
+              content: '""',
+              position: "absolute",
+              left: 0,
+              top: "20%",
+              width: "5px",
+              height: "60%",
+              bg: "linear-gradient(180deg, #1E90FF 0%, #00BFFF 50%, #1E90FF 100%)",
+              borderRadius: "0 8px 8px 0",
+              boxShadow: "0 0 25px rgba(30, 144, 255, 0.7)",
+            },
+            children: [
+              n &&
+                l.jsx(ae, {
+                  fontSize: { base: "md", md: "lg" },
+                  color: p,
+                  lineHeight: "2",
+                  textAlign: "justify",
+                  fontWeight: "300",
+                  letterSpacing: "0.5px",
+                  mb: i.length > 0 ? 6 : 0,
+                  pl: { base: 4, md: 6 },
+                  children: n,
+                }),
+              i.length > 0 &&
+                l.jsx(gf, {
+                  spacing: 4,
+                  pl: { base: 8, md: 10 },
+                  children: i.map((R, A) =>
+                    l.jsx(
+                      s3,
+                      {
+                        fontSize: { base: "md", md: "lg" },
+                        color: p,
+                        lineHeight: "1.8",
+                        position: "relative",
+                        pl: { base: 6, md: 8 },
+                        _before: {
+                          content: '""',
+                          position: "absolute",
+                          left: 0,
+                          top: "0.6em",
+                          width: "8px",
+                          height: "8px",
+                          bg: "#1E90FF",
+                          borderRadius: "full",
+                          boxShadow: "0 0 10px rgba(30, 144, 255, 0.8)",
+                        },
+                        children: R,
+                      },
+                      A
+                    )
+                  ),
+                }),
+            ],
+          }),
+        d.length > 0 &&
+          l.jsx(le, {
+            spacing: 4,
+            align: "stretch",
+            children: d.map((R, A) => {
+              const k = R.split("/").pop() || `Документ ${A + 1}.pdf`;
+              return l.jsxs(
+                S,
+                {
+                  bg: "rgba(0, 0, 0, 0.3)",
+                  backdropFilter: "blur(15px)",
+                  borderRadius: "2xl",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+                  overflow: "hidden",
+                  children: [
+                    l.jsxs(S, {
+                      px: { base: 4, md: 6 },
+                      py: 3,
+                      bg: "rgba(30, 144, 255, 0.1)",
+                      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 3,
+                      children: [
+                        l.jsx(S, {
+                          width: "40px",
+                          height: "40px",
+                          bg: "linear-gradient(135deg, #1E90FF 0%, #00BFFF 100%)",
+                          borderRadius: "lg",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                          children: l.jsx(ae, {
+                            fontSize: "xl",
+                            lineHeight: "1",
+                            children: "📄",
+                          }),
+                        }),
+                        l.jsx(ae, {
+                          color: p,
+                          fontSize: { base: "sm", md: "md" },
+                          fontWeight: "500",
+                          flex: 1,
+                          children: k,
+                        }),
+                        l.jsx(o3, {
+                          href: R,
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          color: "#1E90FF",
+                          fontSize: { base: "xs", md: "sm" },
+                          _hover: {
+                            color: "#00BFFF",
+                            textDecoration: "underline",
+                          },
+                          children: "Відкрити в новій вкладці",
+                        }),
+                      ],
+                    }),
+                    l.jsx(S, {
+                      width: "100%",
+                      height: { base: "500px", md: "700px", lg: "900px" },
+                      position: "relative",
+                      bg: "rgba(0, 0, 0, 0.2)",
+                      children: l.jsx(S, {
+                        as: "iframe",
+                        src: `${R}#toolbar=0&navpanes=0&scrollbar=0`,
+                        width: "100%",
+                        height: "100%",
+                        border: "none",
+                        style: { display: "block" },
+                        title: k,
+                        allow: "fullscreen",
+                      }),
+                    }),
+                  ],
+                },
+                A
+              );
+            }),
+          }),
+        w.length > 0 &&
+          l.jsx(Ce, {
+            templateColumns: {
+              base: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: E >= 2 ? "repeat(2, 1fr)" : "1fr",
+              lg: E >= 2 ? "repeat(2, 1fr)" : "1fr",
+            },
+            gap: { base: 4, md: 6 },
+            mb: j.length > 0 ? 6 : 0,
+            children: w.map((R, A) =>
+              l.jsx(
+                ne,
+                {
+                  children: l.jsx(S, {
+                    position: "relative",
+                    width: "100%",
+                    height: { base: "250px", md: "350px", lg: "400px" },
+                    borderRadius: "2xl",
+                    overflow: "hidden",
+                    boxShadow: "0 15px 50px rgba(0, 0, 0, 0.6)",
+                    border: "2px solid rgba(255, 255, 255, 0.2)",
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-8px) scale(1.02)",
+                      boxShadow: "0 20px 60px rgba(30, 144, 255, 0.5)",
+                      borderColor: "rgba(30, 144, 255, 0.6)",
+                    },
+                    children: l.jsx(S, {
+                      as: "video",
+                      src: R,
+                      controls: !0,
+                      autoPlay: !1,
+                      loop: !0,
+                      muted: !0,
+                      playsInline: !0,
+                      preload: "metadata",
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      style: { display: "block", borderRadius: "16px" },
+                      children: "Ваш браузер не підтримує відео.",
+                    }),
+                  }),
+                },
+                A
+              )
+            ),
+          }),
+        j.length > 0 &&
+          l.jsx(Ce, {
+            templateColumns: {
+              base: "1fr",
+              sm: g === 2 ? "1fr" : "repeat(2, 1fr)",
+              md:
+                g === 2
+                  ? "repeat(2, 1fr)"
+                  : j.some((A) => (b[A] || 0) === 5 && (x[A] || 0) === 4)
+                  ? "repeat(10, 1fr)"
+                  : j.some((k) => (b[k] || 0) >= 3 && (x[k] || 0) === 2)
+                  ? "repeat(4, 1fr)"
+                  : C >= 3
+                  ? "repeat(3, 1fr)"
+                  : "repeat(2, 1fr)",
+              lg:
+                g === 2
+                  ? "repeat(2, 1fr)"
+                  : j.some((k) => (b[k] || 0) === 5 && (x[k] || 0) === 4)
+                  ? "repeat(10, 1fr)"
+                  : j.some((k) => (b[k] || 0) >= 3 && (x[k] || 0) === 2) ||
+                    (C === 4 && y)
+                  ? "repeat(4, 1fr)"
+                  : C === 4 || C >= 4 || C === 3
+                  ? "repeat(3, 1fr)"
+                  : "repeat(2, 1fr)",
+            },
+            gap: { base: 4, md: 6 },
+            children: j.map((R, A) => {
+              const k = b[R],
+                H = x[R],
+                B = m.includes(R),
+                J = k || (B ? 2 : 1),
+                G = H || 1,
+                ce =
+                  j.includes(
+                    "/Boichenko_HGPA/images/DSC_2949.JPG"
+                  ) ||
+                  j.includes(
+                    "/Boichenko_HGPA/images/DSC_3034 (1).JPG"
+                  );
+              let re,
+                de,
+                me = J,
+                be = G;
+              const Ie = b[j[0]] === 5 && x[j[0]] === 4,
+                et =
+                  R ===
+                    "/Boichenko_HGPA/images/photo_2025-12-18_15-10-07.jpg" &&
+                  J === 2 &&
+                  C === 5,
+                tt =
+                  R ===
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-31-18.jpg" &&
+                  J === 2;
+              return (
+                A === 0 && J === 5 && G === 4
+                  ? ((re = 1), (de = 1), (me = 5), (be = 4))
+                  : A === 1 && Ie
+                  ? ((re = 6), (de = 1), (me = 5), (be = 2))
+                  : A === 2 && Ie
+                  ? ((re = 6), (de = 3), (me = 5), (be = 2))
+                  : A === 3 && Ie
+                  ? ((re = 1), (de = 5), (me = 5), (be = 2))
+                  : A === 4 && Ie
+                  ? ((re = 6), (de = 5), (me = 5), (be = 2))
+                  : et
+                  ? ((re = 1), (de = 2), (me = 2), (be = 1))
+                  : A === 4 &&
+                    C === 5 &&
+                    b[j[3]] === 2 &&
+                    ((re = 3), (de = 2), (me = 1), (be = 1)),
+                l.jsx(
+                  ne,
+                  {
+                    gridColumn:
+                      re || me > 1
+                        ? {
+                            md: re ? `${re} / span ${me}` : `span ${me}`,
+                            lg: re ? `${re} / span ${me}` : `span ${me}`,
+                          }
+                        : void 0,
+                    gridRow:
+                      de || be > 1
+                        ? {
+                            md: de ? `${de} / span ${be}` : `span ${be}`,
+                            lg: de ? `${de} / span ${be}` : `span ${be}`,
+                          }
+                        : void 0,
+                    alignSelf: et ? "end" : void 0,
+                    children: l.jsxs(S, {
+                      position: "relative",
+                      width: "100%",
+                      height: (() => {
+                        const q =
+                            R ===
+                              "/Boichenko_HGPA/images/20230908_135948.jpg" ||
+                            R ===
+                              "/Boichenko_HGPA/images/20230908_140344.jpg",
+                          se = q ? "320px" : "400px";
+                        let ue, xe;
+                        if (
+                          (R ===
+                            "/Boichenko_HGPA/images/20230908_140344.jpg" &&
+                          be === 2
+                            ? ((ue = "300px"), (xe = "400px"))
+                            : q
+                            ? ((ue = "380px"), (xe = "420px"))
+                            : g === 2 && me === 1
+                            ? ((ue = "400px"), (xe = "450px"))
+                            : g === 2 && me === 2
+                            ? ((ue = "450px"), (xe = "500px"))
+                            : be === 4
+                            ? ((ue = "800px"), (xe = "900px"))
+                            : be === 2
+                            ? ((ue = "450px"), (xe = "500px"))
+                            : be === 1
+                            ? ((ue = "340px"), (xe = "400px"))
+                            : be > 1
+                            ? ((ue = "650px"), (xe = "750px"))
+                            : C === 4 && y
+                            ? ((ue = "800px"), (xe = "800px"))
+                            : ((ue = "500px"), (xe = "550px")),
+                          ce)
+                        ) {
+                          const Me = (X) => parseInt(X.replace("px", "")),
+                            M = (X) => `${Math.round(Me(X) * 0.8)}px`;
+                          return { base: M(se), md: M(ue), lg: M(xe) };
+                        }
+                        return { base: se, md: ue, lg: xe };
+                      })(),
+                      borderRadius: "2xl",
+                      overflow: "hidden",
+                      boxShadow: "0 15px 50px rgba(0, 0, 0, 0.6)",
+                      border: "2px solid rgba(255, 255, 255, 0.2)",
+                      transition: "all 0.3s ease",
+                      _hover: {
+                        transform: "translateY(-8px) scale(1.02)",
+                        boxShadow: "0 20px 60px rgba(30, 144, 255, 0.5)",
+                        borderColor: "rgba(30, 144, 255, 0.6)",
+                        _before: { opacity: 0 },
+                      },
+                      _before: {
+                        content: '""',
+                        position: "absolute",
+                        inset: 0,
+                        bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(0, 191, 255, 0.1) 100%)",
+                        zIndex: 1,
+                        pointerEvents: "none",
+                        transition: "opacity 0.3s ease",
+                      },
+                      children: [
+                        l.jsx(V, {
+                          src: R,
+                          alt: `Фото ${A + 1}`,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: y && C === 4 ? "contain" : "cover",
+                          objectPosition:
+                            et || tt ? "center" : J > 1 ? "top" : "center",
+                          position: "relative",
+                          zIndex: 0,
+                        }),
+                        l.jsx(S, {
+                          position: "absolute",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: "80px",
+                          bg: "linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent)",
+                          zIndex: 2,
+                          opacity: 0,
+                          transition: "opacity 0.3s ease",
+                          _groupHover: { opacity: 1 },
+                        }),
+                      ],
+                    }),
+                  },
+                  A
+                )
+              );
+            }),
+          }),
+      ],
+    });
+  },
+  Ft = ({
+    imageSrc: e,
+    imageAlt: r = "Донація крові",
+    objectFit: n = "cover",
+    objectPosition: i = "top",
+    maxWidth: c,
+    height: u,
+  }) => {
+    const d = u || { base: "200px", sm: "250px", md: "350px", lg: "580px" };
+    return l.jsx(S, {
+      flex: 1,
+      width: c || "100%",
+      height: d,
+      borderRadius: "lg",
+      overflow: "hidden",
+      boxShadow: "xl",
+      mx: c ? "auto" : void 0,
+      mt: c ? { base: 6, md: 8 } : void 0,
+      children: l.jsx(V, {
+        src: e,
+        alt: r,
+        width: "100%",
+        height: n === "contain" ? "auto" : "100%",
+        maxHeight:
+          n === "contain"
+            ? { base: "400px", sm: "500px", md: "700px", lg: "900px" }
+            : void 0,
+        objectFit: n,
+        objectPosition: i,
+        borderRadius: "lg",
+      }),
+    });
+  },
+  NH = () => {
+    const e = Nn();
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsx(S, {
+        bgImage:
+          "/Boichenko_HGPA/images/photo_2025-12-18_04-19-57.jpg",
+        bgSize: "cover",
+        bgPosition: "95% center",
+        bgRepeat: "no-repeat",
+        bgAttachment: "fixed",
+        minHeight: "100vh",
+        position: "relative",
+        css: { backgroundAttachment: "fixed" },
+        _before: {
+          content: '""',
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          bg: "rgba(0, 0, 0, 0.4)",
+          zIndex: 0,
+          pointerEvents: "none",
+        },
+        children: l.jsxs(dt, {
+          maxW: "1200px",
+          p: 8,
+          position: "relative",
+          zIndex: 1,
+          children: [
+            l.jsx(ht, {
+              title: "Наставник 31ф Артем БОЙЧЕНКО",
+              textColor: "white",
+              maxColumns: 2,
+            }),
+            l.jsxs(le, {
+              spacing: 8,
+              align: "stretch",
+              children: [
+                l.jsx(Tn, {
+                  text: "У 2023 році я став наставником групи 11ф Харківського педагогічного фахового коледжу. Під час знайомства з колективом стало зрозуміло, що мені випала нагода працювати з надзвичайно здібними та різносторонніми здобувачами освіти — від відмінників навчання до майстрів спорту. Кожен із них вирізняється активністю, енергійністю та прагненням до розвитку. За час спільної роботи ми взяли участь і здобули перемоги та відзнаки більш ніж у двадцяти заходах. Освітній процес залишається динамічним, змістовним і продовжується",
+                  image1:
+                    "/Boichenko_HGPA/images/photo_2025-12-18_04-20-09.jpg",
+                  image2:
+                    "/Boichenko_HGPA/images/photo_2025-12-18_04-20-14.jpg",
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  position: "relative",
+                  bg: "rgba(0, 0, 0, 0.3)",
+                  backdropFilter: "blur(15px)",
+                  borderRadius: "2xl",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+                  overflow: "hidden",
+                  mb: { base: 6, md: 8 },
+                  children: l.jsx(S, {
+                    position: "relative",
+                    width: "100%",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    children: l.jsxs("video", {
+                      controls: !0,
+                      style: {
+                        display: "block",
+                        width: "100%",
+                        height: "auto",
+                        maxHeight: "600px",
+                        objectFit: "contain",
+                      },
+                      preload: "metadata",
+                      children: [
+                        l.jsx("source", {
+                          src: "/Boichenko_HGPA/videos/Міжнародний_день_спорту_на_благо_розвитку_та_миру!_КЗ_Харківська.mp4",
+                          type: "video/mp4",
+                        }),
+                        "Ваш браузер не підтримує відео тег.",
+                      ],
+                    }),
+                  }),
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title:
+                    "Ознайомлення з Харківським фаховим педагогічним коледжем здобувачів освіти 11ф групи",
+                  subtitle: "",
+                  items: [
+                    "Знайомство з адміністрацією та педагогічним складом коледжу",
+                  ],
+                  images: [
+                    "/Boichenko_HGPA/images/20230908_141603.jpg",
+                    "/Boichenko_HGPA/images/20230908_134945.jpg",
+                    "/Boichenko_HGPA/images/20230908_135127.jpg",
+                    "/Boichenko_HGPA/images/20230908_135427.jpg",
+                  ],
+                  textColor: "white",
+                  maxColumns: 2,
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title:
+                    'Марафон активної спортивної діяльності "BEACTIVE DAY"',
+                  subtitle: "",
+                  images: [
+                    "/Boichenko_HGPA/images/BEACTIVE DAY Ukraine 2024 certyfikat.jpg",
+                    "/Boichenko_HGPA/images/20230908_135948.jpg",
+                    "/Boichenko_HGPA/images/20230908_140344.jpg",
+                    "/Boichenko_HGPA/images/20230908_140807.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_04-53-12.jpg",
+                  ],
+                  imageColumns: {
+                    "/Boichenko_HGPA/images/BEACTIVE DAY Ukraine 2024 certyfikat.jpg": 5,
+                  },
+                  imageRows: {
+                    "/Boichenko_HGPA/images/BEACTIVE DAY Ukraine 2024 certyfikat.jpg": 4,
+                  },
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "glow", color: "#00BFFF" }),
+                l.jsx(ht, {
+                  title:
+                    "Організація та проведення спортивних ігор зі студентами 11ф групи",
+                  images: [
+                    "/Boichenko_HGPA/images/IMG-8bbe59796943dad7ef56d1d5e29ce674-V.jpg",
+                    "/Boichenko_HGPA/images/IMG-628a15a2ad56f1267928e565cc3b9b50-V.jpg",
+                    "/Boichenko_HGPA/images/IMG-1115dbaaebdb352a409f44dbad06d17c-V.jpg",
+                  ],
+                  videos: [
+                    "/Boichenko_HGPA/videos/video_2025-12-18_13-32-51.mp4",
+                    "/Boichenko_HGPA/videos/video_2025-12-18_13-32-56.mp4",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title:
+                    "Онлайн-зустріч з капітаном української збірної з баскетболу Ільєю Сидоровим",
+                  images: [
+                    "/Boichenko_HGPA/images/IMG-7dcbd58bfd7e17b2add8de4521f2773f-V.jpg",
+                    "/Boichenko_HGPA/images/Screenshot_20231115_105749_Zoom.jpg",
+                    "/Boichenko_HGPA/images/IMG-b7e0c6d6ab616b15156071fa66fc3859-V.jpg",
+                    "/Boichenko_HGPA/images/Screenshot_20231115_114434_Zoom.jpg",
+                  ],
+                  textColor: "white",
+                  fourInRow: !0,
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title: 'Лекція на тему "Олімпійський рух в Україні"',
+                  images: [
+                    "/Boichenko_HGPA/images/IMG-715151bca80afeddf03361810a0e618d-V.jpg",
+                    "/Boichenko_HGPA/images/IMG-5b6d40c84058ca91c769b647f22ba3a3-V.jpg",
+                    "/Boichenko_HGPA/images/IMG-64149606c25450c3845dc3f067784730-V.jpg",
+                    "/Boichenko_HGPA/images/DSC_2949.JPG",
+                    "/Boichenko_HGPA/images/DSC_3034 (1).JPG",
+                  ],
+                  imageColumns: {
+                    "/Boichenko_HGPA/images/DSC_3034 (1).JPG": 2,
+                  },
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "glow", color: "#00BFFF" }),
+                l.jsx(ht, {
+                  title: 'Участь у онлайн челенджі "Підтримай БК "Прометей""',
+                  images: [
+                    "/Boichenko_HGPA/images/20240426_134426.jpg",
+                    "/Boichenko_HGPA/images/IMG-8cb4c59468a96754936d6d67146d7d2a-V.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  px: { base: 2, md: 4 },
+                  children: l.jsx(Ft, {
+                    imageSrc:
+                      "/Boichenko_HGPA/images/20240426_134340.jpg",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    maxWidth: "60%",
+                  }),
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title: "Підтримка олімпійського руху!",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-28-40.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-28-44.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "glow", color: "#00BFFF" }),
+                l.jsx(ht, {
+                  title: "Тренування команди коледжу з міні-футболу",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-31-05.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-31-10.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-39-17.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-31-18.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-31-22.jpg",
+                  ],
+                  imageColumns: {
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-31-18.jpg": 2,
+                  },
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title:
+                    'Участь та перемога у "Олімпійській вікторині" серед команд закладів вищої та середньої освіти м.Харкова',
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-41-18.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-41-29.jpg",
+                  ],
+                  videos: [
+                    "/Boichenko_HGPA/videos/IMG_4003.MOV",
+                    "/Boichenko_HGPA/videos/IMG_4007.MOV",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title:
+                    "Саджання дерева миру! Підтримання олімпійських цінностей!",
+                  images: [
+                    "/Boichenko_HGPA/images/DSC_3874.JPG",
+                    "/Boichenko_HGPA/images/DSC_3927.JPG",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title:
+                    "Вітаємо Ярослава Колеснікова, студента 3 курсу  31ф групи ,відділення соціальної роботи, фізичної культури та музичного мистецтва бронзового призера чемпіонату України зі стрибків на подвійному міні-батуті",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-55-30.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-55-25.jpg",
+                    "/Boichenko_HGPA/images/photo_2025-12-18_14-55-35.jpg",
+                  ],
+                  textColor: "white",
+                  fourInRow: !0,
+                }),
+                l.jsx(Tn, {
+                  text: "27-28 жовтня 2025 року м.Дніпро відбувся  чемпіонат України зі стрибків на подвійному міні-батуті серед чоловіків вікової групи 2008 та старші, на якому спортсмен Харківщини здобув  нагороду, зокрема «бронзу». Участь у змаганнях взяли 20 спортсмени з шести областей України та Києва, а за його підсумками в особистому заліку  Колесніков Ярослав посів 3 місце",
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  images: [
+                    "/Boichenko_HGPA/images/DSC_9437.JPG",
+                    "",
+                    "",
+                  ],
+                  textColor: "white",
+                  imageColumns: {
+                    "/Boichenko_HGPA/images/DSC_9437.JPG": 3,
+                  },
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title: 'Підготовка до флешмобу "Рухайся разом з нами"',
+                  videos: [
+                    "/Boichenko_HGPA/videos/video-90d93b88fa5c675daca2c086c474f20f-V.mp4",
+                    "/Boichenko_HGPA/videos/video-a62f6d59b208a44d1d7034c42a0c7f4c-V.mp4",
+                    "/Boichenko_HGPA/videos/video-a7638112db5f17168f13d7dc39038ce5-V.mp4",
+                    "/Boichenko_HGPA/videos/video-c19f3c78cde65b261d6b874b8e0ba6a7-V.mp4",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  px: { base: 2, md: 4 },
+                  children: l.jsx(Ft, {
+                    imageSrc:
+                      "/Boichenko_HGPA/images/IMG-28489fec0f8898fe05cedad9d3be161c-V.jpg",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    maxWidth: "90%",
+                  }),
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title:
+                    'Відвідування оздоровчого центру "Espina" та тренувального процесу ФК "Металіст"!',
+                  images: [
+                    "/Boichenko_HGPA/images/20251211_151441.jpg",
+                    "/Boichenko_HGPA/images/20251211_163444.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  images: [
+                    "/Boichenko_HGPA/images/20251211_133251.jpg",
+                    "/Boichenko_HGPA/images/20251211_132745.jpg",
+                    "/Boichenko_HGPA/images/20251211_130618.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(Tn, {
+                  text: "27 січня 2026 року в Харківському педагогічному фаховому коледжі відбувся спортивний захід із лижної підготовки та рухової активності, приурочений до Всеукраїнської церемонії «Свято Олімпійського прапора». Цей день став справжнім святом спорту, єдності та здорового способу життя.",
+                  textColor: "white",
+                }),
+                l.jsx(Tn, {
+                  text: ` У спортивному дійстві взяли активну участь здобувачі освіти, викладачі, співпрацівники  Харківського педагогічного фахового коледжу. 
                 Програма заходу включала різноманітні вправи з лижної підготовки та рухливі спортивні активності, що сприяли розвитку витривалості, спритності й командного духу.
                 Завершенням активної частини свята стало спільне частування: учасники куштували смачну кашу та зігрілися гарячим чаєм зі смаколиками, що додало особливого затишку. 
-                Особлива вдячність працівникам їдальні, які, попри вимкнення електроенергії, приготували смачний обід і створили теплу, по-домашньому затишну атмосферу.`,textColor:"white"}),l.jsx(Tn,{text:"Цей спортивний день залишив по собі яскраві враження, гарний настрій і ще раз підтвердив, що спорт є важливим складником здорового, активного й згуртованого академічного життя, джерелом сили духу, незламності та віри у світле майбутнє. Разом до Перемоги!",textColor:"white"}),l.jsx(S,{position:"relative",bg:"rgba(0, 0, 0, 0.3)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",mb:{base:6,md:8},children:l.jsx(S,{position:"relative",width:"100%",borderRadius:"16px",overflow:"hidden",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"600px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/IMG_3243.MOV",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})}),l.jsx(ht,{title:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-08-12.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-08-23.jpg"],textColor:"white"}),l.jsx(ht,{title:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-08-18.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-08-28.jpg"],textColor:"white"}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-08-32.jpg",objectFit:"cover",objectPosition:"center",maxWidth:"100%"})}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(Tn,{text:"29 січня 2026 року в  Харківському педагогічному фаховому коледжі відбулася товариська гра з волейболу здобувачів освіти та викладачів, присвячена Всеукраїнській церемонії «Свято Олімпійського прапора».",textColor:"white"}),l.jsx(Tn,{text:"Цей захід обʼєднав гравців навколо ідей здорового способу життя, фізичного розвитку та підтримки олімпійських цінностей, сприяв популяризації фізичної культури серед студентської молоді, формуванню відповідального ставлення до власного здоров'я й активного способу життя.",textColor:"white"}),l.jsx(Tn,{text:`Традиційно захід розпочався зі вшанування памʼяті загиблих героїв хвилиною мовчання.
+                Особлива вдячність працівникам їдальні, які, попри вимкнення електроенергії, приготували смачний обід і створили теплу, по-домашньому затишну атмосферу.`,
+                  textColor: "white",
+                }),
+                l.jsx(Tn, {
+                  text: "Цей спортивний день залишив по собі яскраві враження, гарний настрій і ще раз підтвердив, що спорт є важливим складником здорового, активного й згуртованого академічного життя, джерелом сили духу, незламності та віри у світле майбутнє. Разом до Перемоги!",
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  position: "relative",
+                  bg: "rgba(0, 0, 0, 0.3)",
+                  backdropFilter: "blur(15px)",
+                  borderRadius: "2xl",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+                  overflow: "hidden",
+                  mb: { base: 6, md: 8 },
+                  children: l.jsx(S, {
+                    position: "relative",
+                    width: "100%",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    children: l.jsxs("video", {
+                      controls: !0,
+                      style: {
+                        display: "block",
+                        width: "100%",
+                        height: "auto",
+                        maxHeight: "600px",
+                        objectFit: "contain",
+                      },
+                      preload: "metadata",
+                      children: [
+                        l.jsx("source", {
+                          src: "/Boichenko_HGPA/videos/IMG_3243.MOV",
+                          type: "video/mp4",
+                        }),
+                        "Ваш браузер не підтримує відео тег.",
+                      ],
+                    }),
+                  }),
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-08-12.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-08-23.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-08-18.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-08-28.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  px: { base: 2, md: 4 },
+                  children: l.jsx(Ft, {
+                    imageSrc:
+                      "/Boichenko_HGPA/images/photo_2026-02-04_00-08-32.jpg",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    maxWidth: "100%",
+                  }),
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(Tn, {
+                  text: "29 січня 2026 року в  Харківському педагогічному фаховому коледжі відбулася товариська гра з волейболу здобувачів освіти та викладачів, присвячена Всеукраїнській церемонії «Свято Олімпійського прапора».",
+                  textColor: "white",
+                }),
+                l.jsx(Tn, {
+                  text: "Цей захід обʼєднав гравців навколо ідей здорового способу життя, фізичного розвитку та підтримки олімпійських цінностей, сприяв популяризації фізичної культури серед студентської молоді, формуванню відповідального ставлення до власного здоров'я й активного способу життя.",
+                  textColor: "white",
+                }),
+                l.jsx(Tn, {
+                  text: `Традиційно захід розпочався зі вшанування памʼяті загиблих героїв хвилиною мовчання.
 Програма зустрічі передбачала активну рухову діяльність та проведення волейбольних матчів між командами.
-Студенти продемонстрували високий рівень спортивної підготовленості, технічну майстерність і справжній командний дух.`,textColor:"white"}),l.jsx(Tn,{text:`За підсумками товариської зустрічі всіх здобувачів освіти нагороджено дипломами, що стало приємним визнанням їхньої наполегливості та спортивних досягнень. /n Дякуємо учасникам за теплу, дружню атмосферу та позитивні враження.
-Бажаємо нових спортивних звершень!`,textColor:"white"}),l.jsx(S,{position:"relative",bg:"rgba(0, 0, 0, 0.3)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",mb:{base:6,md:8},children:l.jsx(S,{position:"relative",width:"100%",borderRadius:"16px",overflow:"hidden",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"600px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})}),l.jsx(ht,{title:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-20-19.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-20-33.jpg"],textColor:"white"}),l.jsx(ht,{title:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-20-28.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-20-40.jpg"],textColor:"white"}),l.jsx(ht,{title:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-20-45.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-04_00-20-50.jpg"],textColor:"white"}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:"13 лютого 2026",subtitle:"Відкрите заняття з 31ф. Дисципліна «Фізична культура»",textColor:"white"}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-05-43.jpg",objectFit:"cover",objectPosition:"center",maxWidth:"90%"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-05-49.jpg",objectFit:"cover",objectPosition:"center",maxWidth:"90%"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-06-03.jpg",objectFit:"cover",objectPosition:"center",maxWidth:"90%"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-05-57.jpg",objectFit:"cover",objectPosition:"center",maxWidth:"90%"})}),l.jsxs(S,{display:"grid",gridTemplateColumns:{base:"1fr",md:"repeat(3, 1fr)"},gap:{base:2,md:4},px:{base:2,md:4},mt:{base:2,md:4},children:[l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-06-09.jpg",objectFit:"cover",objectPosition:"center"}),l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-06-14.jpg",objectFit:"cover",objectPosition:"center"}),l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-06-30.jpg",objectFit:"cover",objectPosition:"center"})]}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:"20 лютого 2026",subtitle:"Разом з нашими здобувачами освіти і викладачами академії пані Ірчія за допомогою «речей з шафи», кофтинки, жилета, футболки, шкарпеток...  викладала портрет Лесі Українки,  української поетки, чій 155-й рік народження цьогоріч  святкує не тільки Україна, а і уся світова літературна спільнота",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-23_09-16-25.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-23_09-16-24.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-23_09-16-26.jpg"],imageColumns:{"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-23_09-16-25.jpg":5},imageRows:{"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-23_09-16-25.jpg":4},textColor:"white"}),l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-20_13-49-05.jpg",imageAlt:""}),l.jsx(Jt,{variant:"gradient",color:"#1E90FF"}),l.jsx(ht,{title:"06 березня 2026",subtitle:"В академії відбувся святковий концерт з нагоди Міжнародного жіночого дня. Хвилиною мовчання учасники заходу вшанували пам’ять усіх Героїв, які загинули в боях за рідну землю та внаслідок російської агресії проти України. Серед них і наші студенти, випускники, їхні батьки та рідні колег.",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-47-01.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-47-20.jpg"],textColor:"white"}),l.jsx(ht,{title:"",subtitle:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-53-07.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-47-27.jpg"],textColor:"white"}),l.jsx(ht,{title:"",subtitle:"",images:["/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_14-53-02.jpg","/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_15-00-18.jpg"],textColor:"white"}),l.jsx(S,{position:"relative",bg:"rgba(0, 0, 0, 0.3)",backdropFilter:"blur(15px)",borderRadius:"2xl",border:"1px solid rgba(255, 255, 255, 0.15)",boxShadow:"0 10px 40px rgba(0, 0, 0, 0.5)",overflow:"hidden",mb:{base:6,md:8},children:l.jsx(S,{position:"relative",width:"100%",borderRadius:"16px",overflow:"hidden",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"600px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2026-03-09_14-47-08.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})}),l.jsx(S,{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",position:"relative",py:20,sx:{"@keyframes shimmer":{"0%":{backgroundPosition:"200% 0"},"100%":{backgroundPosition:"-200% 0"}}},children:l.jsx(Re,{fontSize:{base:"3xl",md:"5xl",lg:"7xl",xl:"8xl"},fontWeight:"bold",textAlign:"center",color:"white",letterSpacing:"wide",lineHeight:"1.2",sx:{background:"linear-gradient(90deg, #ffffff 0%, #1E90FF 25%, #00BFFF 50%, #1E90FF 75%, #ffffff 100%)",backgroundSize:"200% 100%",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",backgroundClip:"text",filter:"drop-shadow(0 0 30px rgba(30, 144, 255, 0.8))",animation:"shimmer 6s ease-in-out infinite"},px:{base:4,md:8},children:"31ф - зі спортом НАЗАВЖДИ!"})})]})]})})})},Tt=()=>l.jsx(S,{my:{base:6,md:20},px:{base:2,md:4},display:"flex",justifyContent:"center",alignItems:"center",children:l.jsx(S,{width:{base:"60px",md:"80%"},height:"4px",bg:"linear-gradient(90deg, transparent, #00BFFF, transparent)",borderRadius:"full",position:"relative",_before:{content:'""',position:"absolute",left:"50%",top:"50%",transform:"translate(-50%, -50%)",width:"12px",height:"12px",bg:"#00BFFF",borderRadius:"50%",border:"2px solid white",boxShadow:"0 0 0 2px #00BFFF"}})}),_r=({image1:e,image2:r,image1Position:n="top",image2Position:i="center"})=>l.jsx(S,{mt:{base:3,md:6},px:{base:2,md:4},children:l.jsxs(ya,{spacing:{base:3,md:4},align:"stretch",flexDirection:{base:"column",sm:"row"},width:"100%",children:[l.jsx(S,{flex:1,width:"100%",height:{base:"200px",sm:"250px",md:"350px",lg:"580px"},borderRadius:"lg",overflow:"hidden",boxShadow:"xl",children:l.jsx(V,{src:`${e}`,alt:"Донація крові",width:"100%",height:"100%",objectFit:"cover",objectPosition:n})}),l.jsx(S,{flex:1,width:"100%",height:{base:"200px",sm:"250px",md:"350px",lg:"580px"},borderRadius:"lg",overflow:"hidden",boxShadow:"xl",children:l.jsx(V,{src:`${r}`,alt:"Донація крові",width:"100%",height:"100%",objectFit:"cover",objectPosition:i})})]})}),VH=({image1:e,image2:r,image3:n,image4:i})=>l.jsx(S,{mt:{base:4,md:6},px:{base:2,md:4},pb:{base:4,md:6},children:l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)",md:"repeat(2, 1fr)",lg:"repeat(4, 1fr)"},gap:{base:3,md:4},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"lg",overflow:"hidden",boxShadow:"md",_hover:{transform:"scale(1.05)",boxShadow:"xl"},transition:"all 0.3s",cursor:"pointer",children:l.jsx(V,{src:`${e}`,alt:"Донація крові",width:"100%",height:{base:"180px",sm:"200px",md:"220px",lg:"200px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"lg",overflow:"hidden",boxShadow:"md",_hover:{transform:"scale(1.05)",boxShadow:"xl"},transition:"all 0.3s",cursor:"pointer",children:l.jsx(V,{src:`${r}`,alt:"Донація крові",width:"100%",height:{base:"180px",sm:"200px",md:"220px",lg:"200px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"lg",overflow:"hidden",boxShadow:"md",_hover:{transform:"scale(1.05)",boxShadow:"xl"},transition:"all 0.3s",cursor:"pointer",children:l.jsx(V,{src:`${n}`,alt:"Донація крові",width:"100%",height:{base:"180px",sm:"200px",md:"220px",lg:"200px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"lg",overflow:"hidden",boxShadow:"md",_hover:{transform:"scale(1.05)",boxShadow:"xl"},transition:"all 0.3s",cursor:"pointer",children:l.jsx(V,{src:`${i}`,alt:"Донація крові",width:"100%",height:{base:"180px",sm:"200px",md:"220px",lg:"200px"},objectFit:"cover"})})})]})}),jt=({text:e,textColor:r="gray.700"})=>l.jsx(S,{position:"relative",mt:{base:4,md:12},pl:{base:6,md:8},pr:{base:4,md:6},py:{base:4,md:6},bg:"rgba(30, 144, 255, 0.05)",borderRadius:"lg",borderLeft:"4px solid #00BFFF",_before:{content:'"\\201C"',position:"absolute",left:{base:"8px",md:"12px"},top:{base:"8px",md:"12px"},fontSize:{base:"3xl",md:"4xl"},color:"#00BFFF",fontFamily:"Georgia, serif",lineHeight:1},_after:{content:'"\\201D"',position:"absolute",right:{base:"8px",md:"12px"},bottom:{base:"8px",md:"12px"},fontSize:{base:"3xl",md:"4xl"},color:"#00BFFF",fontFamily:"Georgia, serif",lineHeight:1},children:l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"2xl"},color:r,lineHeight:"2",fontWeight:"medium",fontStyle:"italic",children:e})}),wg=({title:e,imageSrc:r,imageAlt:n="Донація крові",imagePosition:i="right",children:c})=>{const u=r&&r.trim()!=="",d=l.jsxs(S,{flex:1,width:"100%",children:[e&&l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF",children:e}),c]}),p=l.jsx(S,{flex:1,width:"100%",children:l.jsx(S,{height:{base:"200px",sm:"250px",md:"400px",lg:"450px"},mt:{base:4,md:12},borderRadius:"lg",overflow:"hidden",boxShadow:"md",display:"flex",alignItems:"center",justifyContent:"center",children:l.jsx(V,{src:r,alt:n,width:"100%",height:"auto",maxHeight:{base:"300px",sm:"400px",md:"600px",lg:"700px"},objectFit:"contain",borderRadius:"lg"})})});return u?l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsx(ya,{spacing:{base:4,md:8},align:"start",flexDirection:{base:"column",md:i==="left"?"row-reverse":"row"},children:i==="left"?l.jsxs(l.Fragment,{children:[p,d]}):l.jsxs(l.Fragment,{children:[d,p]})})}):l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:d})},er=({title:e,imageSrc:r,imageAlt:n="Донація крові",imagePosition:i="right",objectPosition:c="top",children:u})=>{const d=l.jsxs(S,{flex:1,width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF",children:e}),u]}),p=l.jsx(S,{flex:1,width:"100%",children:l.jsx(S,{height:{base:"200px",sm:"250px",md:"350px",lg:"580px"},borderRadius:"lg",overflow:"hidden",boxShadow:"xl",children:l.jsx(V,{src:r,alt:n,width:"100%",height:"100%",objectFit:"cover",objectPosition:c})})});return l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsx(ya,{spacing:{base:4,md:8},align:"start",flexDirection:{base:"column",md:"row"},children:i==="left"?l.jsxs(l.Fragment,{children:[p,d]}):l.jsxs(l.Fragment,{children:[d,p]})})})},HH=({title:e,videoSrc:r,imagePosition:n="right",children:i})=>{const c=l.jsxs(S,{flex:1,width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF",children:e}),i]}),u=l.jsx(S,{flex:1,width:"100%",children:l.jsx(S,{height:{base:"200px",sm:"250px",md:"350px",lg:"580px"},borderRadius:"lg",overflow:"hidden",boxShadow:"xl",position:"relative",children:l.jsx("video",{src:r,controls:!0,autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"metadata",style:{width:"100%",height:"100%",objectFit:"cover",borderRadius:"8px",display:"block"},children:"Ваш браузер не підтримує відео."})})});return l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsx(ya,{spacing:{base:4,md:8},align:"start",flexDirection:{base:"column",md:n==="left"?"row-reverse":"row"},children:n==="left"?l.jsxs(l.Fragment,{children:[u,c]}):l.jsxs(l.Fragment,{children:[c,u]})})})},t0=({imageSrc:e,videoSrc:r,imageAlt:n="Донація крові",imageObjectPosition:i="top"})=>{const c=e&&e.trim()!=="",u=r&&r.trim()!=="",d=!c||!u;return l.jsx(S,{mt:{base:3,md:6},px:{base:2,md:4},children:l.jsxs(ya,{spacing:{base:3,md:4},align:"stretch",flexDirection:{base:"column",sm:"row"},width:"100%",justifyContent:d?"center":"flex-start",children:[c&&l.jsx(S,{flex:d?"0 1 auto":1,width:d?{base:"100%",sm:"auto",md:"70%",lg:"60%"}:"100%",maxWidth:d?{base:"100%",md:"800px"}:"none",height:{base:"200px",sm:"250px",md:"350px",lg:"580px"},borderRadius:"lg",overflow:"hidden",boxShadow:"xl",children:l.jsx(V,{src:e,alt:n,width:"100%",height:"100%",objectFit:"cover",objectPosition:i})}),u&&l.jsx(S,{flex:d?"0 1 auto":1,width:d?{base:"100%",sm:"auto",md:"70%",lg:"60%"}:"100%",maxWidth:d?{base:"100%",md:"800px"}:"none",height:{base:"200px",sm:"250px",md:"350px",lg:"580px"},borderRadius:"lg",overflow:"hidden",boxShadow:"xl",position:"relative",children:l.jsx("video",{src:r,controls:!0,autoPlay:!0,loop:!0,muted:!0,playsInline:!0,preload:"metadata",style:{width:"100%",height:"100%",objectFit:"cover",borderRadius:"8px",display:"block"},children:"Ваш браузер не підтримує відео."})})]})})},_g=({image1:e,image2:r,image3:n,alt:i="Донація крові"})=>l.jsx(S,{mt:{base:4,md:6},px:{base:2,md:4},pb:{base:4,md:6},children:l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(1, 1fr)",md:"repeat(2, 1fr)",lg:"repeat(3, 1fr)"},gap:{base:3,md:4},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"lg",overflow:"hidden",boxShadow:"md",_hover:{transform:"scale(1.05)",boxShadow:"xl"},transition:"all 0.3s",cursor:"pointer",children:l.jsx(V,{src:e,alt:i,width:"100%",height:{base:"180px",sm:"200px",md:"220px",lg:"300px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"lg",overflow:"hidden",boxShadow:"md",_hover:{transform:"scale(1.05)",boxShadow:"xl"},transition:"all 0.3s",cursor:"pointer",children:l.jsx(V,{src:r,alt:i,width:"100%",height:{base:"180px",sm:"200px",md:"220px",lg:"300px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"lg",overflow:"hidden",boxShadow:"md",_hover:{transform:"scale(1.05)",boxShadow:"xl"},transition:"all 0.3s",cursor:"pointer",children:l.jsx(V,{src:n,alt:i,width:"100%",height:{base:"180px",sm:"200px",md:"220px",lg:"300px"},objectFit:"cover"})})})]})}),Cg=({text:e,italicText:r,italicText2:n,italicText3:i,textColor:c="gray.700",italicTextColor:u})=>l.jsxs(S,{position:"relative",pl:{base:5,md:6},pr:{base:4,md:5},py:{base:4,md:5},bg:"linear-gradient(135deg, rgba(30, 144, 255, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%)",borderRadius:"lg",borderLeft:"4px solid #1E90FF",mb:{base:4,md:5},boxShadow:"0 2px 8px rgba(30, 144, 255, 0.1)",_before:{position:"absolute",left:{base:"12px",md:"16px"},top:{base:"12px",md:"16px"},fontSize:{base:"4xl",md:"5xl"},color:"#1E90FF",fontFamily:"Georgia, serif",lineHeight:1,opacity:.3},children:[l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"lg"},color:c,lineHeight:"1.9",mb:r?{base:4,md:5}:0,textAlign:"justify",children:e}),r&&l.jsx(S,{position:"relative",children:l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"lg"},color:u||c,lineHeight:"1.9",textAlign:"justify",fontStyle:"italic",children:r})}),n&&l.jsx(S,{position:"relative",children:l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"lg"},color:u||c,lineHeight:"1.9",textAlign:"justify",fontStyle:"italic",children:n})}),i&&l.jsx(S,{position:"relative",children:l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"lg"},color:u||c,lineHeight:"1.9",textAlign:"justify",fontStyle:"italic",children:i})})]}),IH=()=>{const e=Nn(),[r,n]=_.useState("blood"),i=c=>{n(r===c?null:c)};return l.jsx(Vn,{isLoading:e,children:l.jsxs(S,{children:[l.jsx(S,{bgImage:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_02-48-38.jpg",bgSize:"cover",bgPosition:"center",bgRepeat:"no-repeat",py:{base:8,md:20},px:{base:4,md:40},height:"250px",position:"relative",_before:{content:'""',position:"absolute",top:0,left:0,right:0,bottom:0,zIndex:0},children:l.jsx(dt,{maxW:"1200px",position:"relative",zIndex:1,children:l.jsx(Re,{size:{base:"xl",md:"3xl"},mb:4,color:"#FFFF00",textAlign:"center",display:"none",children:"Волонтерська діяльність"})})}),l.jsx(S,{bg:r==="zsu"?"transparent":"#FFFF00",bgImage:r==="zsu"?"/HGPA_Boiko/Boichenko_HGPA/images/maxresdefault.jpg":void 0,bgSize:"cover",bgPosition:"center",bgRepeat:"no-repeat",bgAttachment:r==="zsu"?"fixed":"scroll",minHeight:r==="zsu"?"100vh":{base:"calc(100vh - 64px)",md:"100vh"},py:{base:6,md:10},transition:"background-image 0.5s ease-in-out, background-color 0.5s ease-in-out, min-height 0.5s ease-in-out",position:"relative",css:{backgroundAttachment:r==="zsu"?"fixed":"scroll"},_before:r==="zsu"?{content:'""',position:"fixed",top:0,left:0,right:0,bottom:0,bg:"rgba(0, 0, 0, 0.5)",zIndex:0,pointerEvents:"none"}:{},children:l.jsx(dt,{maxW:"100%",px:{base:4,md:8},position:"relative",zIndex:1,children:l.jsxs(S,{mb:10,children:[l.jsx(Re,{size:{base:"xl",md:"xl"},mb:r==="zsu"?0:8,color:"#00BFFF",textAlign:"center",fontWeight:"bold",textTransform:"uppercase",letterSpacing:"wide",position:"relative",opacity:r==="zsu"?0:1,maxHeight:r==="zsu"?"0":"99999px",overflow:"hidden",pb:r==="zsu"?0:4,transition:"opacity 0.5s ease-in-out, max-height 0.5s ease-in-out, padding 0.5s ease-in-out, margin 0.5s ease-in-out",_after:{content:'""',position:"absolute",bottom:0,left:"50%",transform:"translateX(-50%)",width:"80px",height:"4px",bg:"#00BFFF",borderRadius:"full"},children:"Напрямки діяльності"}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(3, 1fr)"},gap:{base:4,md:4},mb:6,children:[l.jsx(ne,{children:l.jsx(S,{p:4,bg:"#8B0000",borderRadius:"md",textAlign:"center",fontWeight:"900",cursor:"pointer",onClick:()=>i("blood"),transition:"all 0.3s",_hover:{transform:"scale(1.02)",boxShadow:"lg"},border:r==="blood"?"4px solid white":"3px solid transparent",height:"100%",children:l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"2xl"},color:"white",children:"ДОНАЦІЯ КРОВІ ТА КОМПОНЕНТІВ КРОВІ"})})}),l.jsx(ne,{children:l.jsx(S,{p:4,bgImage:"/HGPA_Boiko/Boichenko_HGPA/images/pixel.jpg",bgSize:"cover",bgPosition:"center",bgRepeat:"no-repeat",borderRadius:"md",textAlign:"center",fontWeight:"900",cursor:"pointer",onClick:()=>i("zsu"),transition:"all 0.3s",_hover:{transform:"scale(1.02)",boxShadow:"lg"},border:r==="zsu"?"4px solid white":"3px solid transparent",height:"100%",position:"relative",_before:{content:'""',position:"absolute",top:0,left:0,right:0,bottom:0,borderRadius:"md",zIndex:0},children:l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"2xl"},color:"white",mt:5,position:"relative",zIndex:1,children:"ДОПОМОГА ЗСУ"})})}),l.jsx(ne,{children:l.jsx(S,{p:4,bg:"#00BFFF",borderRadius:"md",textAlign:"center",fontWeight:"900",my:"center",cursor:"pointer",onClick:()=>i("vpo"),transition:"all 0.3s",_hover:{transform:"scale(1.02)",boxShadow:"lg"},border:r==="vpo"?"4px solid white":"3px solid transparent",height:"100%",children:l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"2xl"},color:"white",mt:5,children:"ДОПОМОГА ВПО"})})})]}),l.jsxs(le,{spacing:4,align:"stretch",children:[l.jsx(S,{children:l.jsxs(S,{maxHeight:r==="blood"?"99999px":"0",overflow:"hidden",opacity:r==="blood"?1:0,transform:r==="blood"?"translateY(0)":"translateY(-20px)",transition:"all 0.5s ease-in-out",children:[l.jsx(wg,{title:"Червень 2022 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-01-22.jpg",children:l.jsx(Cg,{text:"В червні 2022 року педагогічний колектив Харківського педагогічного фахового коледжу прийняв участь у процедурі здачі крові Збройним силам України. Це був той старт, який згуртував наш колектив на подальші донації, які тривають і на теперішній час.",italicText:"Це зайвий раз підтверджує, що наш колектив попри всі негаразди та наслідки, які ми відчуваємо, проживаючи в прифронтовому місті воюючої країни, уособлюємо собою незламність та непохитність справжніх українців."})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-00-40.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-00-24.jpg"}),l.jsx(VH,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-00-55.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-01-14.jpg",image3:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-01-22.jpg",image4:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-01-05.jpg"}),l.jsx(Tt,{}),l.jsx(er,{title:"Грудень 2022 року. (Частина 1)",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-06-38.jpg",imagePosition:"left",children:l.jsx(jt,{text:'Проходження дистанції під назвою "Донація" триває!'})}),l.jsx(t0,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-a1c33ce14a7b9ceb5f155eb7edd2f764-V.jpg",videoSrc:"/HGPA_Boiko/Boichenko_HGPA/videos/video-f93c711a01c679562aa21496bf2bbe6a-V.mp4",imageObjectPosition:"top"}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-06-28.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-06-33.jpg"}),l.jsx(Tt,{}),l.jsx(er,{title:"Березень 2023 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-7fd09b8f0d295833e92a95a3b80b6b10-V.jpg",imagePosition:"left",children:l.jsx(jt,{text:"Життя триває, здача крові теж!"})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-f1957acd9c63eac41685740a75451c04-V.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-86c0d048641847d982b6d68a0e077c83-V.jpg"}),l.jsx(Tt,{}),l.jsx(er,{title:"Червень 2023 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-29-07.jpg",objectPosition:"center",children:l.jsx(jt,{text:"Ми залишаємось в незламному місті Харків!"})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-29-12.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-29-16.jpg"}),l.jsx(Tt,{}),l.jsx(er,{title:"Вересень 2023 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-38-04.jpg",objectPosition:"center",children:l.jsx(jt,{text:'Команді Харківського педагогічного фахового коледжу вручили " Посвідчення донора крові та компонентів крові"'})}),l.jsx(t0,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-38-10.jpg",videoSrc:"/HGPA_Boiko/Boichenko_HGPA/videos/video-61a6608367bb61f112f6b1c90e48d7ac-V (2).mp4",imageObjectPosition:"top"}),l.jsx(Tt,{}),l.jsx(er,{title:"Грудень 2023 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-53-18.jpg",imagePosition:"left",children:l.jsx(jt,{text:"Впевнено крокуємо шляхом донора крові та компонентів крові!"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_12-53-13.jpg",objectFit:"cover",objectPosition:"top"})}),l.jsx(Tt,{}),l.jsx(er,{title:"Квітень 2024 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-809149563fe3ed1ea89b30b0a971ea40-V.jpg",objectPosition:"top",children:l.jsx(jt,{text:'Долучилися з колегами до здачі плазми. Відчуття дещо інші, але ми "Незламні".'})}),l.jsx(_g,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-5edec2bed9cd2e31353d5ff337d97b69-V.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-be1e196f34d728ab34f16d5f70d965f1-V.jpg",image3:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-f844ee1e452d4335ad3085b00c21c629-V.jpg"}),l.jsx(Tt,{}),l.jsx(er,{title:"Червень 2024 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20240910_150302.jpg",imagePosition:"left",objectPosition:"top",children:l.jsx(jt,{text:"Настрій непохитний!"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20240910_150328.jpg",objectFit:"contain"})}),l.jsx(Tt,{}),l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsxs(S,{flex:1,width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF",children:"Жовтень 2024 року"}),l.jsx(jt,{text:"Пригостили смаколиками та надихнули на подальшу донацію."})]})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/20240910_151205.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/20230921_153614.jpg",image1Position:"center"}),l.jsx(Tt,{}),l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsxs(S,{flex:1,width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF",children:"Січень 2025 року"}),l.jsx(jt,{text:'"Доторкнись до серця, стань донором" - це не вислів, це МІСІЯ!'})]})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/20240312_121239.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/20240312_133635.jpg",image2Position:"top"}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-bbf3532f907da7b743aa775a998c2944-V.jpg",objectFit:"contain",maxWidth:"40%"})}),l.jsx(Tt,{}),l.jsx(er,{title:"Лютий 2026 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-25_13-44-19.jpg",imagePosition:"left",objectPosition:"top",children:l.jsx(jt,{text:"Твоя кров – чиєсь життя!"})}),l.jsx(wg,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-02-25_11-18-28.jpg",children:l.jsx(Cg,{text:"25 лютого викладачі, співпрацівники та студенти академії долучилися до традиційної донорської ініціативи «Твоя кров – чиєсь життя» в Комунальному некомерційному підприємстві Харківської обласної ради «Обласний центр служби крові».",italicText:"Чотири роки українці виборюють свою свободу та незалежність, тому потреба в донорській крові залишається надзвичайно гострою, адже вона щодня рятує життя поранених Захисників і Захисниць, допомагає цивільним, які постраждали від обстрілів, та підтримує всіх, хто потребує невідкладної медичної допомоги."})}),l.jsx(S,{pb:{base:4,md:6}})]})}),l.jsx(S,{children:l.jsxs(S,{maxHeight:r==="zsu"?"99999px":"0",overflow:"hidden",opacity:r==="zsu"?1:0,transform:r==="zsu"?"translateY(0)":"translateY(-20px)",transition:"all 0.5s ease-in-out",children:[l.jsx(er,{title:"Квітень 2022 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-13_13-56-40.jpg",children:l.jsx(jt,{text:"На початку квітня 2022 року разом з колегою почали розвозити медикаменти до локацій, які здійснювали лікування поранених військовослужбовців збройних сил України.",textColor:"#F0FFFF"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-14817382b4f144e8ab50bb4c0ae24fb7-V.jpg",objectFit:"contain",height:{base:"200px",sm:"400px",md:"500px",lg:"700px"}})}),l.jsx(Tt,{}),l.jsx(er,{title:"Грудень 2023 року",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20240216_145058.jpg",imagePosition:"left",children:l.jsx(jt,{text:"В грудні 2023 року разом із здобувачами освіти 11ф, куратором якої я є долучилися до плетіння маскувальних сіток для батальйону Морскої піхоти.",textColor:"#F0FFFF"})}),l.jsx(_g,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-f1173bdc4374014c76cf16556b146678-V.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/20240305_114605.jpg",image3:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-d6d8e398a7648b8a17800e60b450c8c5-V.jpg"}),l.jsx(t0,{imageSrc:"",videoSrc:"/HGPA_Boiko/Boichenko_HGPA/videos/video-2b0f91642ae83842f8ad7199b2cf7bf8-V.mp4",imageObjectPosition:"top"}),l.jsx(Tt,{}),l.jsx(HH,{title:"",videoSrc:"/HGPA_Boiko/Boichenko_HGPA/videos/video-ea14db049ee12a94875d0f360ee5fe3f-V.mp4",children:l.jsx(jt,{text:"Закриття збору на підрозділ 'Кракен' з колегами та здобувачами освіти.",textColor:"#F0FFFF"})}),l.jsx(Tt,{}),l.jsx(er,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG_20251203_162951_710.jpg",imagePosition:"left",children:l.jsx(jt,{text:"Організація та проведення зборів засобів особистої гігієни для 4 роти 127 Харківської важкої механізованої бригади.",textColor:"#F0FFFF"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/IMG_20251203_163028_329.jpg",objectFit:"contain"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-28-35.jpg",objectFit:"contain",maxWidth:"80%"})})]})}),l.jsx(S,{children:l.jsxs(S,{maxHeight:r==="vpo"?"99999px":"0",overflow:"hidden",opacity:r==="vpo"?1:0,transform:r==="vpo"?"translateY(0)":"translateY(-20px)",transition:"all 0.5s ease-in-out",children:[l.jsx(wg,{title:"",imageSrc:"",children:l.jsx(Cg,{text:"Внаслідок обстрілів Основ'янського району де розташований Харківський педагогічний фаховий коледж були пошкоджені корпуси, гуртожиток. Тому на початку травня 2022 року викладачі, студенти, волонтери зібралися для прибирання та ліквідації наслідків вибухів.",italicText:"За тиждень ми впорались із поставленим завданням і об’єкти стали придатні до проживання. Розпорядженням міського голови м.Харкова було вирішено перемістити людей з метрополітену до гуртожитку коледжу. Заходи логістики та доставкою продуктів, речей та всього необхідного здійснювали наші викладачі. Яскравий приклад міцного та дружнього колективу."})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_02-48-57.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_02-49-01.jpg",image1Position:"center"}),l.jsx(Tt,{}),l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsxs(S,{flex:1,width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF",children:"Квітень 2022 року"}),l.jsx(jt,{text:"Прибирання сміття та закривання контурів вікон."})]})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/20220516_125913.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/20220517_123631.jpg",image1Position:"center"}),l.jsx(Tt,{}),l.jsx(er,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20220524_091730.jpg",imagePosition:"left",children:l.jsx(jt,{text:"Перевезення внутрішньо переміщених осіб до гуртожитку."})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20220524_091647.jpg",objectFit:"contain",maxWidth:"80%"})}),l.jsx(Tt,{}),l.jsx(er,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20220524_095024.jpg",children:l.jsx(jt,{text:"Супроводження внутрішньо переміщених осіб до лікарні."})}),l.jsx(Tt,{}),l.jsx(er,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20230530_103305.jpg",imagePosition:"left",children:l.jsx(jt,{text:"Доставка гуманітарної допомоги до гуртожитку для внутрішньо переміщених осіб."})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/20220531_100311.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/20220531_101301.jpg",image1Position:"center"}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/20230512_132645.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/20230512_132744.jpg",image1Position:"center"}),l.jsx(Tt,{}),l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsxs(S,{flex:1,width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF"}),l.jsx(jt,{text:"Передача гуманітарної допомоги людям , які постраждали внаслідок знищення греблі Каховської гідроелектростанції."})]})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/20230613_132314.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/20230613_133451.jpg",image1Position:"center"}),l.jsx(Tt,{}),l.jsx(er,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/20220402_120131.jpg",imagePosition:"right",children:l.jsx(jt,{text:"Допомога внутрішньо переміщеним особам - продуктами харчування"})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-1dc22b1e906af4f10fe6179350b5fc6b-V.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-dfaf44106364ab70d5d777499099a594-V.jpg",image2Position:"top"}),l.jsx(Tt,{}),l.jsx(S,{px:{base:2,md:4},py:{base:2,md:4},children:l.jsxs(S,{flex:1,width:"100%",children:[l.jsx(Re,{size:{base:"md",md:"lg"},mb:{base:3,md:4},color:"#1E90FF"}),l.jsx(jt,{text:"Ранкова руханка з дітьми ВПО в дитячому таборі 'Лелека' м.Затока на волонтерських засадах."})]})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-03-41.jpg",objectFit:"contain",maxWidth:"80%",height:"80%"})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-03-36.jpg",objectFit:"contain",maxWidth:"80%",height:"80%"})}),l.jsx(Tt,{}),l.jsx(er,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-10-51.jpg",imagePosition:"left",objectPosition:"bottom",children:l.jsx(jt,{text:"Дитячо-оздоровчий табір 'Смерека' в с.Орявчик Львівської області. Оздоровлення дітей ВПО."})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-10-45.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-10-55.jpg",image1Position:"center"}),l.jsx(_g,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-11-01.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-11-15.jpg",image3:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-11-05.jpg"}),l.jsx(t0,{imageSrc:"",videoSrc:"/HGPA_Boiko/Boichenko_HGPA/videos/video-f60d738215e6931429320d7746b49e36-V.mp4",imageObjectPosition:"top"}),l.jsx(Tt,{}),l.jsx(er,{title:"",imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-19-46.jpg",imagePosition:"left",objectPosition:"center",children:l.jsx(jt,{text:"Зимовий відпочинок та оздоровлення дітей ВПО."})}),l.jsx(S,{px:{base:2,md:4},children:l.jsx(Ft,{imageSrc:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-19-36.jpg",objectFit:"contain",maxWidth:"80%",height:"80%"})}),l.jsx(_r,{image1:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-19-54.jpg",image2:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-19-41.jpg",image1Position:"center"})]})})]})]})})})]})})},kt=()=>l.jsx(S,{my:{base:8,md:12,lg:16},px:{base:4,md:8},display:"flex",justifyContent:"center",alignItems:"center",position:"relative",children:l.jsx(S,{width:{base:"80%",md:"70%",lg:"60%"},height:"6px",bg:"linear-gradient(90deg, transparent, #0057B7 20%, #FFD700 50%, #0057B7 80%, transparent)",borderRadius:"full",position:"relative",boxShadow:"0 2px 8px rgba(0, 87, 183, 0.3)",_before:{content:'""',position:"absolute",left:"50%",top:"50%",transform:"translate(-50%, -50%)",width:"20px",height:"20px",bg:"linear-gradient(135deg, #0057B7, #FFD700)",borderRadius:"50%",border:"4px solid white",boxShadow:"0 0 0 3px rgba(0, 87, 183, 0.3), 0 4px 12px rgba(0, 87, 183, 0.4)"},_after:{content:'""',position:"absolute",left:"50%",top:"50%",transform:"translate(-50%, -50%)",width:"8px",height:"8px",bg:"#FFD700",borderRadius:"50%",boxShadow:"0 0 8px rgba(255, 215, 0, 0.6)"}})}),PH=()=>{const e=Nn();return l.jsx(Vn,{isLoading:e,children:l.jsxs(S,{children:[l.jsx(S,{py:{base:8,md:10},px:{base:4,md:8},position:"relative",bgImage:"/HGPA_Boiko/Boichenko_HGPA/images/flag-7041215_1280.jpg",bgSize:"cover",bgPosition:"center",bgRepeat:"no-repeat",_before:{content:'""',position:"absolute",top:0,left:0,right:0,bottom:0,zIndex:0},children:l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsxs(le,{spacing:8,align:"center",children:[l.jsx(S,{textAlign:"center",opacity:0,animation:"fadeIn 1s ease-out forwards",sx:{"@keyframes fadeIn":{"0%":{opacity:0,transform:"translateY(-20px)"},"100%":{opacity:1,transform:"translateY(0)"}}},children:l.jsxs(ae,{fontSize:{base:"xl",md:"2xl",lg:"3xl"},fontWeight:"900",color:"white",textAlign:"center",lineHeight:"1.6",textShadow:"2px 2px 8px rgba(0, 0, 0, 0.5)",letterSpacing:"wide",children:["Бажаю кожному завтра прокинутись зі словами ",l.jsx("br",{}),l.jsx(ae,{as:"span",fontSize:{base:"2xl",md:"3xl",lg:"4xl"},color:"#FFFF00",textShadow:"3px 3px 6px rgba(0, 0, 0, 0.7)",display:"inline-block",mt:2,children:'" МИ ПЕРЕМОГЛИ ! "'})]})}),l.jsxs(S,{display:"flex",alignItems:"center",justifyContent:"center",gap:3,flexWrap:"wrap",bg:"rgba(255, 255, 255, 0.95)",borderRadius:"full",px:{base:6,md:8},py:{base:4,md:5},boxShadow:"0 8px 24px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 12px 32px rgba(0, 0, 0, 0.4)"},children:[l.jsx(S,{borderRadius:"full",p:{base:"3px",md:"4px"},bg:"linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",boxShadow:"0 4px 12px rgba(255, 215, 0, 0.4)",transition:"all 0.3s ease",_hover:{transform:"scale(1.15) rotate(5deg)",boxShadow:"0 6px 16px rgba(255, 215, 0, 0.6)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo.jpg",alt:"Україна",w:{base:"32px",md:"40px",lg:"50px"},h:{base:"32px",md:"40px",lg:"50px"},borderRadius:"full",objectFit:"cover",border:"2px solid white"})}),l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"4xl"},fontWeight:"900",color:"black",children:"Слава Україні !"}),l.jsx(ae,{fontSize:{base:"2xl",md:"3xl",lg:"4xl"},filter:"drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))",children:"💛💙"})]})]})})}),l.jsxs(S,{bgImage:"/HGPA_Boiko/Boichenko_HGPA/images/m6dgrmziukxstr0xzhlk6sj798hofap0.jpg",bgSize:"cover",bgPosition:"center",bgRepeat:"no-repeat",bgAttachment:"fixed",minHeight:"100vh",position:"relative",_before:{content:'""',position:"absolute",top:0,left:0,right:0,bottom:0,bg:"rgba(0, 0, 0, 0)",zIndex:0},children:[l.jsx(dt,{maxW:"900px",py:{base:12,md:16,lg:6},px:{base:6,md:8},position:"relative",zIndex:1,children:l.jsxs(le,{spacing:10,align:"stretch",children:[l.jsx(S,{textAlign:"center",position:"relative",children:l.jsx(Re,{size:{base:"xl",md:"2xl",lg:"3xl"},color:"white",textAlign:"center",fontWeight:"900",textShadow:"3px 3px 8px rgba(0, 0, 0, 0.7)",letterSpacing:"wide",position:"relative",pb:4,_after:{content:'""',position:"absolute",bottom:0,left:"50%",transform:"translateX(-50%)",width:"120px",height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700)",borderRadius:"full",boxShadow:"0 2px 8px rgba(255, 215, 0, 0.5)"},children:"Патріотичне виховання"})}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsx(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:l.jsx(S,{bg:"linear-gradient(135deg, rgba(0, 87, 183, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%)",borderRadius:"xl",p:{base:6,md:8},border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",children:l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"4xl"},lineHeight:"2",color:"gray.800",textAlign:"center",fontWeight:"900",fontStyle:"italic",letterSpacing:"1px",children:"Пишаємося та висловлюємо велику шану, повагу випускникам, які стали на захист України!"})})})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsxs(S,{textAlign:"center",children:[l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},fontWeight:"700",color:"#0057B7",mb:2,children:"03 грудня"}),l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"lg"},color:"gray.600",fontStyle:"italic",children:"напередодні Дня Збройних Сил України"})]}),l.jsx(S,{bg:"rgba(0, 87, 183, 0.05)",borderRadius:"xl",p:{base:6,md:8},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Захід розпочався ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"хвилиною мовчання"})," в пам'ять про всіх Героїв, які віддали життя за незалежність і свободу нашої держави, а також про цивільних, що загинули внаслідок російської агресії. Серед них – наші студенти, випускники, а також рідні викладачів і співпрацівників академії та структурних підрозділів."]})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#FFD700",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:[l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Галина Федорівна Пономарьова"}),", ректор академії, висловила Григорію та всім захисникам і захисницям слова глибокої вдячності та вручила Подяку за високе почуття патріотизму, вагомий внесок у наближення Перемоги, гідний приклад самовідданості та героїзму."]})}),l.jsx(S,{bg:"linear-gradient(135deg, rgba(0, 87, 183, 0.15) 0%, rgba(255, 215, 0, 0.15) 100%)",borderRadius:"xl",p:{base:6,md:8},border:"2px solid",borderColor:"rgba(0, 87, 183, 0.3)",children:l.jsxs(le,{spacing:4,align:"stretch",children:[l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:"Щиро пишаємося нашими захисниками і захисницями, їхньою мужністю, незламністю та відданістю Україні, адже саме завдяки їхній силі й жертовності ми щодня наближаємося до Перемоги."}),l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:"Дякуємо всім учасникам акції за небайдужість, активну участь і готовність підтримувати наших захисників у цей непростий для країни час. Зустріч стала важливим нагадуванням про єдність українців, про силу спільної підтримки та про те, що кожен воїн – наш Герой, за якого ми молимося та якого чекаємо з перемогою."})]})})]})})]})}),l.jsxs(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:6,md:8,lg:10},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",maxW:"100%",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},children:[l.jsx(le,{spacing:6,position:"relative",zIndex:2,children:l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)",md:"repeat(4, 1fr)",lg:"repeat(4, 1fr)"},gap:{base:4,md:5},w:"100%",children:[l.jsx(ne,{colSpan:{base:1,sm:1,md:2,lg:2},children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-22_15-22-34.jpg",alt:"Зустріч з Григорієм Антощенком",width:"100%",height:{base:"250px",sm:"280px",md:"300px",lg:"350px"},objectFit:"cover"})})}),l.jsx(ne,{colSpan:{base:1,sm:1,md:2,lg:2},children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-22_15-22-21.jpg",alt:"Зустріч з Григорієм Антощенком",width:"100%",height:{base:"250px",sm:"280px",md:"300px",lg:"350px"},objectFit:"cover"})})}),l.jsx(ne,{colSpan:{base:1,sm:1,md:1,lg:1},children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-22_15-22-25.jpg",alt:"Зустріч з Григорієм Антощенком",width:"100%",height:{base:"200px",sm:"220px",md:"280px",lg:"280px"},objectFit:"cover"})})}),l.jsx(ne,{colSpan:{base:1,sm:1,md:2,lg:2},children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-22_15-22-13.jpg",alt:"Зустріч з Григорієм Антощенком",width:"100%",height:{base:"200px",sm:"220px",md:"280px",lg:"280px"},objectFit:"cover"})})}),l.jsx(ne,{colSpan:{base:1,sm:1,md:1,lg:1},children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-22_15-22-29.jpg",alt:"Зустріч з Григорієм Антощенком",width:"100%",height:{base:"200px",sm:"220px",md:"280px",lg:"280px"},objectFit:"cover"})})})]})}),l.jsx(le,{spacing:6,position:"relative",zIndex:2,mt:10,children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 8px 32px rgba(0, 0, 0, 0.4)",w:"30%",maxW:"40%",bg:"black",position:"relative",children:l.jsx("video",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/IMG_1788.MP4",controls:!0,controlsList:"nodownload",style:{width:"100%",height:"auto",display:"block",minHeight:"400px"},onError:r=>{console.error("Video error:",r)},children:"Ваш браузер не підтримує відео."})})}),l.jsx(S,{mt:10,bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:6,md:8,lg:10},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},children:l.jsxs(le,{spacing:8,position:"relative",zIndex:2,children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 8px 32px rgba(0, 0, 0, 0.4)",w:"100%",maxW:{base:"100%",md:"800px",lg:"900px"},mx:"auto",bg:"black",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_03-28-35.jpg",alt:"Зустріч з Григорієм Антощенком",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{position:"relative",w:"100%",maxW:{base:"100%",md:"800px",lg:"900px"},mx:"auto",pl:{base:6,md:8},pr:{base:4,md:6},py:{base:6,md:8},bg:"linear-gradient(135deg, rgba(0, 87, 183, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%)",borderRadius:"xl",borderLeft:"6px solid",borderColor:"#0057B7",_before:{content:'"\\201C"',position:"absolute",left:{base:"12px",md:"16px"},top:{base:"12px",md:"16px"},fontSize:{base:"4xl",md:"5xl",lg:"6xl"},color:"#0057B7",fontFamily:"Georgia, serif",lineHeight:1,opacity:.3},_after:{content:'"\\201D"',position:"absolute",right:{base:"12px",md:"16px"},bottom:{base:"12px",md:"16px"},fontSize:{base:"4xl",md:"5xl",lg:"6xl"},color:"#0057B7",fontFamily:"Georgia, serif",lineHeight:1,opacity:.3},children:l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",lineHeight:"1.8",fontWeight:"600",fontStyle:"italic",textAlign:"center",letterSpacing:"0.5px",children:"Добрий день, шановні куратори та наставники, дякуємо за активну участь в акції."}),l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",lineHeight:"1.8",fontWeight:"600",fontStyle:"italic",textAlign:"center",letterSpacing:"0.5px",children:"Все передали Григорію від нього також вдячність."}),l.jsx(S,{pt:4,pb:2,borderTop:"2px solid",borderBottom:"2px solid",borderColor:"rgba(0, 87, 183, 0.2)",children:l.jsx(ae,{fontSize:{base:"xl",md:"2xl",lg:"3xl"},color:"#0057B7",lineHeight:"1.6",fontWeight:"900",textAlign:"center",letterSpacing:"1px",bgGradient:"linear(to-r, #0057B7, #FFD700)",bgClip:"text",children:"Разом до Перемоги!"})}),l.jsxs(S,{pt:4,textAlign:"center",children:[l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},color:"gray.600",lineHeight:"1.6",fontWeight:"500",letterSpacing:"0.3px",children:"2025 рік. Випускник 2016 року."}),l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",lineHeight:"1.6",fontWeight:"700",mt:2,letterSpacing:"0.5px",children:"Григорій Антощенко"})]})]})})]})})]}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsxs(S,{textAlign:"center",children:[l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},fontWeight:"700",color:"#0057B7",mb:2,children:"2023 рік"}),l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"lg"},color:"gray.600",fontStyle:"italic",children:'З нагоди святкування "Дня працівника освіти і науки України"'})]}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Були запрошені випускники 2016 року ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Кириченко Євген"})," та ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Кошкарьов Владислав"}),". Військовослужбовці привітали педагогічний колектив та провели зустріч зі здобувачами освіти, яка носила патріотично-виховний характер."]})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:4,md:6},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-17_11-59-38.jpg",alt:"Зустріч з випускниками 2023",width:"100%",height:{base:"250px",sm:"300px",md:"300px",lg:"350px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-17_12-00-07.jpg",alt:"Зустріч з випускниками 2023",width:"100%",height:{base:"250px",sm:"300px",md:"300px",lg:"350px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/MainImgs/photo_2025-12-14_14-45-22.jpg",alt:"Зустріч з випускниками 2023",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Онлайн зустріч з батьками здобувачів освіти ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"31ф групи"}),", які проходять службу в збройних силах України."]})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)",md:"repeat(4, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-07.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-13.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-19.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-25.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-30.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-34.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-40.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-40-45.jpg",alt:"Онлайн зустріч з батьками",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})})]})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},fontWeight:"700",color:"#0057B7",mb:2,children:"2024 рік"})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Онлайн-спілкування із випускниками коледжу присвячене ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"дню збройних сил України"}),"."]})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-50-25.jpg",alt:"Онлайн-спілкування 2024",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-50-31.jpg",alt:"Онлайн-спілкування 2024",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-50-37.jpg",alt:"Онлайн-спілкування 2024",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},fontWeight:"700",color:"#0057B7",mb:2,children:"2024 рік"})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Онлайн лекція до ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"дня пам'яті Героїв Небесної Сотні"}),": події Харківського Євромайдану."]})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)",md:"repeat(4, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-54-10.jpg",alt:"Онлайн лекція 2024",width:"100%",height:{base:"300px",sm:"400px",md:"550px",lg:"500px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-54-15.jpg",alt:"Онлайн лекція 2024",width:"100%",height:{base:"300px",sm:"400px",md:"550px",lg:"500px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-54-20.jpg",alt:"Онлайн лекція 2024",width:"100%",height:{base:"300px",sm:"400px",md:"550px",lg:"500px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-54-25.jpg",alt:"Онлайн лекція 2024",width:"100%",height:{base:"300px",sm:"400px",md:"550px",lg:"500px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_18-54-30.jpg",alt:"Онлайн лекція 2024",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsxs(S,{textAlign:"center",children:[l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},fontWeight:"700",color:"#0057B7",mb:2,children:"21 листопада"}),l.jsx(ae,{fontSize:{base:"sm",md:"md",lg:"lg"},color:"gray.600",fontStyle:"italic",children:"День Гідності та Свободи"})]}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",mb:6,children:["Викладачі, співпрацівники та здобувачі освіти академії вшанували на ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Алеї Слави"})," пам'ять усіх Героїв, які віддали життя у боях за рідну землю під час російської агресії проти України. Серед них – наші студенти, випускники, а також батьки й рідні викладачів та співпрацівників Академії та її структурних підрозділів. ."]})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#FFD700",children:l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",mb:6,children:"Кожне ім'я, викарбуване на Алеї Слави, – це історія мужності, незламності та самопожертви. Їхній подвиг завжди нагадуватиме нам про ціну, яку українці заплатили й продовжують платити за мир, гідність та демократичні цінності."})}),l.jsx(S,{bg:"linear-gradient(135deg, rgba(0, 87, 183, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%)",borderRadius:"xl",p:{base:6,md:8},border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",children:l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:"Традиція вшанування пам'яті на Алеї Слави є для колективу академії важливим проявом єдності, патріотизму, відповідальності за збереження історичної пам'яті та глибокої поваги до Героїв, чиї імена назавжди вписані в історію академії."})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-18_02-03-38.jpg",alt:"День Гідності та Свободи",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Зустріч з ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Віталієм Кірієнком"})," майстром спорту з важкої атлетики, тренером та молодшим сержантом сил спеціальних операцій."]})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-13-35.jpg",alt:"Зустріч з Віталієм Кірієнком",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-13-43.jpg",alt:"Зустріч з Віталієм Кірієнком",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Нагородження батьків здобувачів освіти ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"31ф групи"})," за їхню сумлінну службу в збройних силах України."]})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-18-22.jpg",alt:"Нагородження батьків",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-18-28.jpg",alt:"Нагородження батьків",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsxs(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:[l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",mb:4,children:"Наслідування традицій та ідентичності нашого народу."}),l.jsx(ae,{fontSize:{base:"lg",md:"xl",lg:"2xl"},lineHeight:"1.8",color:"#0057B7",textAlign:"center",fontWeight:"700",fontStyle:"italic",children:'"З днем вишиванки!"'})]}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-20-50.jpg",alt:"День вишиванки",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-21-06.jpg",alt:"День вишиванки",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:["Подяка здобувачам освіти ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"31ф групи"})," за волонтерську діяльність."]})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-24-27.jpg",alt:"Подяка за волонтерську діяльність",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(ae,{fontSize:{base:"xl",md:"2xl",lg:"3xl"},fontWeight:"800",color:"#0057B7",children:"Млинці з любов’ю, донати з серцем🥞"})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:"19 лютого в академії відбувся благодійний масничний ярмарок «Млинці з любов’ю, донати з серцем!». Цей захід уже третій рік поспіль став чудовою традицією, яка не лише святкує Масницю, а й підтримує українських військових."})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"700px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/IMG_3688.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/20260219_122951.jpg",alt:"Благодійний ярмарок - фото 1",width:"100%",height:{base:"700px",sm:"700px",md:"900px",lg:"1000px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-5a97e8876081a017afd5f59eba43b875-V.jpg",alt:"Благодійний ярмарок - фото 2",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-09_13-40-29.jpg",alt:"Благодійний ярмарок - фото 3",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})})})}),l.jsx(kt,{}),l.jsx(dt,{maxW:"900px",position:"relative",zIndex:1,children:l.jsx(le,{spacing:10,align:"stretch",children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsx(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:'10.03.26. Викладачі та студенти Харківського педагогічного фахового коледжу Комунального закладу "Харківської гуманітарно-педагогічної академії" Харківської обласної ради відвідали концертну програму до "Дня державного гімну України" за участі "Студіїї квартал 95" та українських митців.'})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-16_10-14-13.jpg",alt:"Концерт до Дня державного гімну України - фото 1",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-16_10-14-18.jpg",alt:"Концерт до Дня державного гімну України - фото 2",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:4,md:6},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-16_10-14-34.jpg",alt:"Концерт до Дня державного гімну України - фото 3",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-13_11-00-47.jpg",alt:"Концерт до Дня державного гімну України - фото 4",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:4,md:6},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"500px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2026-03-16_10-14-01.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"500px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2026-03-16_10-14-08.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})})]})]})})})}),l.jsx(kt,{}),l.jsx(S,{px:{base:4,md:6,lg:8},py:{base:8,md:12,lg:16},position:"relative",zIndex:1,children:l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",maxW:"1400px",mx:"auto",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsxs(S,{textAlign:"center",py:{base:6,md:8},children:[l.jsx(ae,{fontSize:{base:"xl",md:"2xl",lg:"3xl"},lineHeight:"1.6",color:"gray.800",fontWeight:"700",mb:4,children:"Пам'ятаємо та перемагаємо!"}),l.jsx(ae,{fontSize:{base:"2xl",md:"3xl",lg:"4xl"},lineHeight:"1.4",fontWeight:"900",bgGradient:"linear(to-r, #0057B7, #FFD700)",bgClip:"text",letterSpacing:"2px",textTransform:"uppercase",children:"БОРОТЬБА ТРИВАЄ!"})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:6},maxW:"1200px",mx:"auto",w:"100%",children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-28-12.jpg",alt:"Пам'ятаємо та перемагаємо",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_19-28-17.jpg",alt:"Пам'ятаємо та перемагаємо",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},maxW:"1200px",mx:"auto",w:"100%",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-25_20-18-47.jpg",alt:"Пам'ятаємо та перемагаємо",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})})})]})]})})},UH=wa`
+Студенти продемонстрували високий рівень спортивної підготовленості, технічну майстерність і справжній командний дух.`,
+                  textColor: "white",
+                }),
+                l.jsx(Tn, {
+                  text: `За підсумками товариської зустрічі всіх здобувачів освіти нагороджено дипломами, що стало приємним визнанням їхньої наполегливості та спортивних досягнень. /n Дякуємо учасникам за теплу, дружню атмосферу та позитивні враження.
+Бажаємо нових спортивних звершень!`,
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  position: "relative",
+                  bg: "rgba(0, 0, 0, 0.3)",
+                  backdropFilter: "blur(15px)",
+                  borderRadius: "2xl",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+                  overflow: "hidden",
+                  mb: { base: 6, md: 8 },
+                  children: l.jsx(S, {
+                    position: "relative",
+                    width: "100%",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    children: l.jsxs("video", {
+                      controls: !0,
+                      style: {
+                        display: "block",
+                        width: "100%",
+                        height: "auto",
+                        maxHeight: "600px",
+                        objectFit: "contain",
+                      },
+                      preload: "metadata",
+                      children: [
+                        l.jsx("source", {
+                          src: "/Boichenko_HGPA/videos/video.mp4",
+                          type: "video/mp4",
+                        }),
+                        "Ваш браузер не підтримує відео тег.",
+                      ],
+                    }),
+                  }),
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-20-19.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-20-33.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-20-28.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-20-40.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-20-45.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-02-04_00-20-50.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title: "13 лютого 2026",
+                  subtitle:
+                    "Відкрите заняття з 31ф. Дисципліна «Фізична культура»",
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  px: { base: 2, md: 4 },
+                  children: l.jsx(Ft, {
+                    imageSrc:
+                      "/Boichenko_HGPA/images/photo_2026-03-09_14-05-43.jpg",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    maxWidth: "90%",
+                  }),
+                }),
+                l.jsx(S, {
+                  px: { base: 2, md: 4 },
+                  children: l.jsx(Ft, {
+                    imageSrc:
+                      "/Boichenko_HGPA/images/photo_2026-03-09_14-05-49.jpg",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    maxWidth: "90%",
+                  }),
+                }),
+                l.jsx(S, {
+                  px: { base: 2, md: 4 },
+                  children: l.jsx(Ft, {
+                    imageSrc:
+                      "/Boichenko_HGPA/images/photo_2026-03-09_14-06-03.jpg",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    maxWidth: "90%",
+                  }),
+                }),
+                l.jsx(S, {
+                  px: { base: 2, md: 4 },
+                  children: l.jsx(Ft, {
+                    imageSrc:
+                      "/Boichenko_HGPA/images/photo_2026-03-09_14-05-57.jpg",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    maxWidth: "90%",
+                  }),
+                }),
+                l.jsxs(S, {
+                  display: "grid",
+                  gridTemplateColumns: { base: "1fr", md: "repeat(3, 1fr)" },
+                  gap: { base: 2, md: 4 },
+                  px: { base: 2, md: 4 },
+                  mt: { base: 2, md: 4 },
+                  children: [
+                    l.jsx(Ft, {
+                      imageSrc:
+                        "/Boichenko_HGPA/images/photo_2026-03-09_14-06-09.jpg",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }),
+                    l.jsx(Ft, {
+                      imageSrc:
+                        "/Boichenko_HGPA/images/photo_2026-03-09_14-06-14.jpg",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }),
+                    l.jsx(Ft, {
+                      imageSrc:
+                        "/Boichenko_HGPA/images/photo_2026-03-09_14-06-30.jpg",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }),
+                  ],
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title: "20 лютого 2026",
+                  subtitle:
+                    "Разом з нашими здобувачами освіти і викладачами академії пані Ірчія за допомогою «речей з шафи», кофтинки, жилета, футболки, шкарпеток...  викладала портрет Лесі Українки,  української поетки, чій 155-й рік народження цьогоріч  святкує не тільки Україна, а і уся світова літературна спільнота",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-02-23_09-16-25.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-02-23_09-16-24.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-02-23_09-16-26.jpg",
+                  ],
+                  imageColumns: {
+                    "/Boichenko_HGPA/images/photo_2026-02-23_09-16-25.jpg": 5,
+                  },
+                  imageRows: {
+                    "/Boichenko_HGPA/images/photo_2026-02-23_09-16-25.jpg": 4,
+                  },
+                  textColor: "white",
+                }),
+                l.jsx(Ft, {
+                  imageSrc:
+                    "/Boichenko_HGPA/images/photo_2026-02-20_13-49-05.jpg",
+                  imageAlt: "",
+                }),
+                l.jsx(Jt, { variant: "gradient", color: "#1E90FF" }),
+                l.jsx(ht, {
+                  title: "06 березня 2026",
+                  subtitle:
+                    "В академії відбувся святковий концерт з нагоди Міжнародного жіночого дня. Хвилиною мовчання учасники заходу вшанували пам’ять усіх Героїв, які загинули в боях за рідну землю та внаслідок російської агресії проти України. Серед них і наші студенти, випускники, їхні батьки та рідні колег.",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-03-09_14-47-01.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-03-09_14-47-20.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  subtitle: "",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-03-09_14-53-07.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-03-09_14-47-27.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(ht, {
+                  title: "",
+                  subtitle: "",
+                  images: [
+                    "/Boichenko_HGPA/images/photo_2026-03-09_14-53-02.jpg",
+                    "/Boichenko_HGPA/images/photo_2026-03-09_15-00-18.jpg",
+                  ],
+                  textColor: "white",
+                }),
+                l.jsx(S, {
+                  position: "relative",
+                  bg: "rgba(0, 0, 0, 0.3)",
+                  backdropFilter: "blur(15px)",
+                  borderRadius: "2xl",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  boxShadow: "0 10px 40px rgba(0, 0, 0, 0.5)",
+                  overflow: "hidden",
+                  mb: { base: 6, md: 8 },
+                  children: l.jsx(S, {
+                    position: "relative",
+                    width: "100%",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    children: l.jsxs("video", {
+                      controls: !0,
+                      style: {
+                        display: "block",
+                        width: "100%",
+                        height: "auto",
+                        maxHeight: "600px",
+                        objectFit: "contain",
+                      },
+                      preload: "metadata",
+                      children: [
+                        l.jsx("source", {
+                          src: "/Boichenko_HGPA/videos/video_2026-03-09_14-47-08.mp4",
+                          type: "video/mp4",
+                        }),
+                        "Ваш браузер не підтримує відео тег.",
+                      ],
+                    }),
+                  }),
+                }),
+                l.jsx(S, {
+                  minHeight: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  position: "relative",
+                  py: 20,
+                  sx: {
+                    "@keyframes shimmer": {
+                      "0%": { backgroundPosition: "200% 0" },
+                      "100%": { backgroundPosition: "-200% 0" },
+                    },
+                  },
+                  children: l.jsx(Re, {
+                    fontSize: { base: "3xl", md: "5xl", lg: "7xl", xl: "8xl" },
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    color: "white",
+                    letterSpacing: "wide",
+                    lineHeight: "1.2",
+                    sx: {
+                      background:
+                        "linear-gradient(90deg, #ffffff 0%, #1E90FF 25%, #00BFFF 50%, #1E90FF 75%, #ffffff 100%)",
+                      backgroundSize: "200% 100%",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                      filter: "drop-shadow(0 0 30px rgba(30, 144, 255, 0.8))",
+                      animation: "shimmer 6s ease-in-out infinite",
+                    },
+                    px: { base: 4, md: 8 },
+                    children: "31ф - зі спортом НАЗАВЖДИ!",
+                  }),
+                }),
+              ],
+            }),
+          ],
+        }),
+      }),
+    });
+  },
+  Tt = () =>
+    l.jsx(S, {
+      my: { base: 6, md: 20 },
+      px: { base: 2, md: 4 },
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      children: l.jsx(S, {
+        width: { base: "60px", md: "80%" },
+        height: "4px",
+        bg: "linear-gradient(90deg, transparent, #00BFFF, transparent)",
+        borderRadius: "full",
+        position: "relative",
+        _before: {
+          content: '""',
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "12px",
+          height: "12px",
+          bg: "#00BFFF",
+          borderRadius: "50%",
+          border: "2px solid white",
+          boxShadow: "0 0 0 2px #00BFFF",
+        },
+      }),
+    }),
+  _r = ({
+    image1: e,
+    image2: r,
+    image1Position: n = "top",
+    image2Position: i = "center",
+  }) =>
+    l.jsx(S, {
+      mt: { base: 3, md: 6 },
+      px: { base: 2, md: 4 },
+      children: l.jsxs(ya, {
+        spacing: { base: 3, md: 4 },
+        align: "stretch",
+        flexDirection: { base: "column", sm: "row" },
+        width: "100%",
+        children: [
+          l.jsx(S, {
+            flex: 1,
+            width: "100%",
+            height: { base: "200px", sm: "250px", md: "350px", lg: "580px" },
+            borderRadius: "lg",
+            overflow: "hidden",
+            boxShadow: "xl",
+            children: l.jsx(V, {
+              src: `${e}`,
+              alt: "Донація крові",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: n,
+            }),
+          }),
+          l.jsx(S, {
+            flex: 1,
+            width: "100%",
+            height: { base: "200px", sm: "250px", md: "350px", lg: "580px" },
+            borderRadius: "lg",
+            overflow: "hidden",
+            boxShadow: "xl",
+            children: l.jsx(V, {
+              src: `${r}`,
+              alt: "Донація крові",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: i,
+            }),
+          }),
+        ],
+      }),
+    }),
+  VH = ({ image1: e, image2: r, image3: n, image4: i }) =>
+    l.jsx(S, {
+      mt: { base: 4, md: 6 },
+      px: { base: 2, md: 4 },
+      pb: { base: 4, md: 6 },
+      children: l.jsxs(Ce, {
+        templateColumns: {
+          base: "1fr",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(4, 1fr)",
+        },
+        gap: { base: 3, md: 4 },
+        children: [
+          l.jsx(ne, {
+            children: l.jsx(S, {
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "md",
+              _hover: { transform: "scale(1.05)", boxShadow: "xl" },
+              transition: "all 0.3s",
+              cursor: "pointer",
+              children: l.jsx(V, {
+                src: `${e}`,
+                alt: "Донація крові",
+                width: "100%",
+                height: {
+                  base: "180px",
+                  sm: "200px",
+                  md: "220px",
+                  lg: "200px",
+                },
+                objectFit: "cover",
+              }),
+            }),
+          }),
+          l.jsx(ne, {
+            children: l.jsx(S, {
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "md",
+              _hover: { transform: "scale(1.05)", boxShadow: "xl" },
+              transition: "all 0.3s",
+              cursor: "pointer",
+              children: l.jsx(V, {
+                src: `${r}`,
+                alt: "Донація крові",
+                width: "100%",
+                height: {
+                  base: "180px",
+                  sm: "200px",
+                  md: "220px",
+                  lg: "200px",
+                },
+                objectFit: "cover",
+              }),
+            }),
+          }),
+          l.jsx(ne, {
+            children: l.jsx(S, {
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "md",
+              _hover: { transform: "scale(1.05)", boxShadow: "xl" },
+              transition: "all 0.3s",
+              cursor: "pointer",
+              children: l.jsx(V, {
+                src: `${n}`,
+                alt: "Донація крові",
+                width: "100%",
+                height: {
+                  base: "180px",
+                  sm: "200px",
+                  md: "220px",
+                  lg: "200px",
+                },
+                objectFit: "cover",
+              }),
+            }),
+          }),
+          l.jsx(ne, {
+            children: l.jsx(S, {
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "md",
+              _hover: { transform: "scale(1.05)", boxShadow: "xl" },
+              transition: "all 0.3s",
+              cursor: "pointer",
+              children: l.jsx(V, {
+                src: `${i}`,
+                alt: "Донація крові",
+                width: "100%",
+                height: {
+                  base: "180px",
+                  sm: "200px",
+                  md: "220px",
+                  lg: "200px",
+                },
+                objectFit: "cover",
+              }),
+            }),
+          }),
+        ],
+      }),
+    }),
+  jt = ({ text: e, textColor: r = "gray.700" }) =>
+    l.jsx(S, {
+      position: "relative",
+      mt: { base: 4, md: 12 },
+      pl: { base: 6, md: 8 },
+      pr: { base: 4, md: 6 },
+      py: { base: 4, md: 6 },
+      bg: "rgba(30, 144, 255, 0.05)",
+      borderRadius: "lg",
+      borderLeft: "4px solid #00BFFF",
+      _before: {
+        content: '"\\201C"',
+        position: "absolute",
+        left: { base: "8px", md: "12px" },
+        top: { base: "8px", md: "12px" },
+        fontSize: { base: "3xl", md: "4xl" },
+        color: "#00BFFF",
+        fontFamily: "Georgia, serif",
+        lineHeight: 1,
+      },
+      _after: {
+        content: '"\\201D"',
+        position: "absolute",
+        right: { base: "8px", md: "12px" },
+        bottom: { base: "8px", md: "12px" },
+        fontSize: { base: "3xl", md: "4xl" },
+        color: "#00BFFF",
+        fontFamily: "Georgia, serif",
+        lineHeight: 1,
+      },
+      children: l.jsx(ae, {
+        fontSize: { base: "sm", md: "md", lg: "2xl" },
+        color: r,
+        lineHeight: "2",
+        fontWeight: "medium",
+        fontStyle: "italic",
+        children: e,
+      }),
+    }),
+  wg = ({
+    title: e,
+    imageSrc: r,
+    imageAlt: n = "Донація крові",
+    imagePosition: i = "right",
+    children: c,
+  }) => {
+    const u = r && r.trim() !== "",
+      d = l.jsxs(S, {
+        flex: 1,
+        width: "100%",
+        children: [
+          e &&
+            l.jsx(Re, {
+              size: { base: "md", md: "lg" },
+              mb: { base: 3, md: 4 },
+              color: "#1E90FF",
+              children: e,
+            }),
+          c,
+        ],
+      }),
+      p = l.jsx(S, {
+        flex: 1,
+        width: "100%",
+        children: l.jsx(S, {
+          height: { base: "200px", sm: "250px", md: "400px", lg: "450px" },
+          mt: { base: 4, md: 12 },
+          borderRadius: "lg",
+          overflow: "hidden",
+          boxShadow: "md",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          children: l.jsx(V, {
+            src: r,
+            alt: n,
+            width: "100%",
+            height: "auto",
+            maxHeight: { base: "300px", sm: "400px", md: "600px", lg: "700px" },
+            objectFit: "contain",
+            borderRadius: "lg",
+          }),
+        }),
+      });
+    return u
+      ? l.jsx(S, {
+          px: { base: 2, md: 4 },
+          py: { base: 2, md: 4 },
+          children: l.jsx(ya, {
+            spacing: { base: 4, md: 8 },
+            align: "start",
+            flexDirection: {
+              base: "column",
+              md: i === "left" ? "row-reverse" : "row",
+            },
+            children:
+              i === "left"
+                ? l.jsxs(l.Fragment, { children: [p, d] })
+                : l.jsxs(l.Fragment, { children: [d, p] }),
+          }),
+        })
+      : l.jsx(S, {
+          px: { base: 2, md: 4 },
+          py: { base: 2, md: 4 },
+          children: d,
+        });
+  },
+  er = ({
+    title: e,
+    imageSrc: r,
+    imageAlt: n = "Донація крові",
+    imagePosition: i = "right",
+    objectPosition: c = "top",
+    children: u,
+  }) => {
+    const d = l.jsxs(S, {
+        flex: 1,
+        width: "100%",
+        children: [
+          l.jsx(Re, {
+            size: { base: "md", md: "lg" },
+            mb: { base: 3, md: 4 },
+            color: "#1E90FF",
+            children: e,
+          }),
+          u,
+        ],
+      }),
+      p = l.jsx(S, {
+        flex: 1,
+        width: "100%",
+        children: l.jsx(S, {
+          height: { base: "200px", sm: "250px", md: "350px", lg: "580px" },
+          borderRadius: "lg",
+          overflow: "hidden",
+          boxShadow: "xl",
+          children: l.jsx(V, {
+            src: r,
+            alt: n,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: c,
+          }),
+        }),
+      });
+    return l.jsx(S, {
+      px: { base: 2, md: 4 },
+      py: { base: 2, md: 4 },
+      children: l.jsx(ya, {
+        spacing: { base: 4, md: 8 },
+        align: "start",
+        flexDirection: { base: "column", md: "row" },
+        children:
+          i === "left"
+            ? l.jsxs(l.Fragment, { children: [p, d] })
+            : l.jsxs(l.Fragment, { children: [d, p] }),
+      }),
+    });
+  },
+  HH = ({ title: e, videoSrc: r, imagePosition: n = "right", children: i }) => {
+    const c = l.jsxs(S, {
+        flex: 1,
+        width: "100%",
+        children: [
+          l.jsx(Re, {
+            size: { base: "md", md: "lg" },
+            mb: { base: 3, md: 4 },
+            color: "#1E90FF",
+            children: e,
+          }),
+          i,
+        ],
+      }),
+      u = l.jsx(S, {
+        flex: 1,
+        width: "100%",
+        children: l.jsx(S, {
+          height: { base: "200px", sm: "250px", md: "350px", lg: "580px" },
+          borderRadius: "lg",
+          overflow: "hidden",
+          boxShadow: "xl",
+          position: "relative",
+          children: l.jsx("video", {
+            src: r,
+            controls: !0,
+            autoPlay: !0,
+            loop: !0,
+            muted: !0,
+            playsInline: !0,
+            preload: "metadata",
+            style: {
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "8px",
+              display: "block",
+            },
+            children: "Ваш браузер не підтримує відео.",
+          }),
+        }),
+      });
+    return l.jsx(S, {
+      px: { base: 2, md: 4 },
+      py: { base: 2, md: 4 },
+      children: l.jsx(ya, {
+        spacing: { base: 4, md: 8 },
+        align: "start",
+        flexDirection: {
+          base: "column",
+          md: n === "left" ? "row-reverse" : "row",
+        },
+        children:
+          n === "left"
+            ? l.jsxs(l.Fragment, { children: [u, c] })
+            : l.jsxs(l.Fragment, { children: [c, u] }),
+      }),
+    });
+  },
+  t0 = ({
+    imageSrc: e,
+    videoSrc: r,
+    imageAlt: n = "Донація крові",
+    imageObjectPosition: i = "top",
+  }) => {
+    const c = e && e.trim() !== "",
+      u = r && r.trim() !== "",
+      d = !c || !u;
+    return l.jsx(S, {
+      mt: { base: 3, md: 6 },
+      px: { base: 2, md: 4 },
+      children: l.jsxs(ya, {
+        spacing: { base: 3, md: 4 },
+        align: "stretch",
+        flexDirection: { base: "column", sm: "row" },
+        width: "100%",
+        justifyContent: d ? "center" : "flex-start",
+        children: [
+          c &&
+            l.jsx(S, {
+              flex: d ? "0 1 auto" : 1,
+              width: d
+                ? { base: "100%", sm: "auto", md: "70%", lg: "60%" }
+                : "100%",
+              maxWidth: d ? { base: "100%", md: "800px" } : "none",
+              height: { base: "200px", sm: "250px", md: "350px", lg: "580px" },
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "xl",
+              children: l.jsx(V, {
+                src: e,
+                alt: n,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: i,
+              }),
+            }),
+          u &&
+            l.jsx(S, {
+              flex: d ? "0 1 auto" : 1,
+              width: d
+                ? { base: "100%", sm: "auto", md: "70%", lg: "60%" }
+                : "100%",
+              maxWidth: d ? { base: "100%", md: "800px" } : "none",
+              height: { base: "200px", sm: "250px", md: "350px", lg: "580px" },
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "xl",
+              position: "relative",
+              children: l.jsx("video", {
+                src: r,
+                controls: !0,
+                autoPlay: !0,
+                loop: !0,
+                muted: !0,
+                playsInline: !0,
+                preload: "metadata",
+                style: {
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                  display: "block",
+                },
+                children: "Ваш браузер не підтримує відео.",
+              }),
+            }),
+        ],
+      }),
+    });
+  },
+  _g = ({ image1: e, image2: r, image3: n, alt: i = "Донація крові" }) =>
+    l.jsx(S, {
+      mt: { base: 4, md: 6 },
+      px: { base: 2, md: 4 },
+      pb: { base: 4, md: 6 },
+      children: l.jsxs(Ce, {
+        templateColumns: {
+          base: "1fr",
+          sm: "repeat(1, 1fr)",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(3, 1fr)",
+        },
+        gap: { base: 3, md: 4 },
+        children: [
+          l.jsx(ne, {
+            children: l.jsx(S, {
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "md",
+              _hover: { transform: "scale(1.05)", boxShadow: "xl" },
+              transition: "all 0.3s",
+              cursor: "pointer",
+              children: l.jsx(V, {
+                src: e,
+                alt: i,
+                width: "100%",
+                height: {
+                  base: "180px",
+                  sm: "200px",
+                  md: "220px",
+                  lg: "300px",
+                },
+                objectFit: "cover",
+              }),
+            }),
+          }),
+          l.jsx(ne, {
+            children: l.jsx(S, {
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "md",
+              _hover: { transform: "scale(1.05)", boxShadow: "xl" },
+              transition: "all 0.3s",
+              cursor: "pointer",
+              children: l.jsx(V, {
+                src: r,
+                alt: i,
+                width: "100%",
+                height: {
+                  base: "180px",
+                  sm: "200px",
+                  md: "220px",
+                  lg: "300px",
+                },
+                objectFit: "cover",
+              }),
+            }),
+          }),
+          l.jsx(ne, {
+            children: l.jsx(S, {
+              borderRadius: "lg",
+              overflow: "hidden",
+              boxShadow: "md",
+              _hover: { transform: "scale(1.05)", boxShadow: "xl" },
+              transition: "all 0.3s",
+              cursor: "pointer",
+              children: l.jsx(V, {
+                src: n,
+                alt: i,
+                width: "100%",
+                height: {
+                  base: "180px",
+                  sm: "200px",
+                  md: "220px",
+                  lg: "300px",
+                },
+                objectFit: "cover",
+              }),
+            }),
+          }),
+        ],
+      }),
+    }),
+  Cg = ({
+    text: e,
+    italicText: r,
+    italicText2: n,
+    italicText3: i,
+    textColor: c = "gray.700",
+    italicTextColor: u,
+  }) =>
+    l.jsxs(S, {
+      position: "relative",
+      pl: { base: 5, md: 6 },
+      pr: { base: 4, md: 5 },
+      py: { base: 4, md: 5 },
+      bg: "linear-gradient(135deg, rgba(30, 144, 255, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%)",
+      borderRadius: "lg",
+      borderLeft: "4px solid #1E90FF",
+      mb: { base: 4, md: 5 },
+      boxShadow: "0 2px 8px rgba(30, 144, 255, 0.1)",
+      _before: {
+        position: "absolute",
+        left: { base: "12px", md: "16px" },
+        top: { base: "12px", md: "16px" },
+        fontSize: { base: "4xl", md: "5xl" },
+        color: "#1E90FF",
+        fontFamily: "Georgia, serif",
+        lineHeight: 1,
+        opacity: 0.3,
+      },
+      children: [
+        l.jsx(ae, {
+          fontSize: { base: "sm", md: "md", lg: "lg" },
+          color: c,
+          lineHeight: "1.9",
+          mb: r ? { base: 4, md: 5 } : 0,
+          textAlign: "justify",
+          children: e,
+        }),
+        r &&
+          l.jsx(S, {
+            position: "relative",
+            children: l.jsx(ae, {
+              fontSize: { base: "sm", md: "md", lg: "lg" },
+              color: u || c,
+              lineHeight: "1.9",
+              textAlign: "justify",
+              fontStyle: "italic",
+              children: r,
+            }),
+          }),
+        n &&
+          l.jsx(S, {
+            position: "relative",
+            children: l.jsx(ae, {
+              fontSize: { base: "sm", md: "md", lg: "lg" },
+              color: u || c,
+              lineHeight: "1.9",
+              textAlign: "justify",
+              fontStyle: "italic",
+              children: n,
+            }),
+          }),
+        i &&
+          l.jsx(S, {
+            position: "relative",
+            children: l.jsx(ae, {
+              fontSize: { base: "sm", md: "md", lg: "lg" },
+              color: u || c,
+              lineHeight: "1.9",
+              textAlign: "justify",
+              fontStyle: "italic",
+              children: i,
+            }),
+          }),
+      ],
+    }),
+  IH = () => {
+    const e = Nn(),
+      [r, n] = _.useState("blood"),
+      i = (c) => {
+        n(r === c ? null : c);
+      };
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsxs(S, {
+        children: [
+          l.jsx(S, {
+            bgImage:
+              "/Boichenko_HGPA/images/photo_2025-12-18_02-48-38.jpg",
+            bgSize: "cover",
+            bgPosition: "center",
+            bgRepeat: "no-repeat",
+            py: { base: 8, md: 20 },
+            px: { base: 4, md: 40 },
+            height: "250px",
+            position: "relative",
+            _before: {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 0,
+            },
+            children: l.jsx(dt, {
+              maxW: "1200px",
+              position: "relative",
+              zIndex: 1,
+              children: l.jsx(Re, {
+                size: { base: "xl", md: "3xl" },
+                mb: 4,
+                color: "#FFFF00",
+                textAlign: "center",
+                display: "none",
+                children: "Волонтерська діяльність",
+              }),
+            }),
+          }),
+          l.jsx(S, {
+            bg: r === "zsu" ? "transparent" : "#FFFF00",
+            bgImage:
+              r === "zsu"
+                ? "/Boichenko_HGPA/images/maxresdefault.jpg"
+                : void 0,
+            bgSize: "cover",
+            bgPosition: "center",
+            bgRepeat: "no-repeat",
+            bgAttachment: r === "zsu" ? "fixed" : "scroll",
+            minHeight:
+              r === "zsu"
+                ? "100vh"
+                : { base: "calc(100vh - 64px)", md: "100vh" },
+            py: { base: 6, md: 10 },
+            transition:
+              "background-image 0.5s ease-in-out, background-color 0.5s ease-in-out, min-height 0.5s ease-in-out",
+            position: "relative",
+            css: { backgroundAttachment: r === "zsu" ? "fixed" : "scroll" },
+            _before:
+              r === "zsu"
+                ? {
+                    content: '""',
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    bg: "rgba(0, 0, 0, 0.5)",
+                    zIndex: 0,
+                    pointerEvents: "none",
+                  }
+                : {},
+            children: l.jsx(dt, {
+              maxW: "100%",
+              px: { base: 4, md: 8 },
+              position: "relative",
+              zIndex: 1,
+              children: l.jsxs(S, {
+                mb: 10,
+                children: [
+                  l.jsx(Re, {
+                    size: { base: "xl", md: "xl" },
+                    mb: r === "zsu" ? 0 : 8,
+                    color: "#00BFFF",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    textTransform: "uppercase",
+                    letterSpacing: "wide",
+                    position: "relative",
+                    opacity: r === "zsu" ? 0 : 1,
+                    maxHeight: r === "zsu" ? "0" : "99999px",
+                    overflow: "hidden",
+                    pb: r === "zsu" ? 0 : 4,
+                    transition:
+                      "opacity 0.5s ease-in-out, max-height 0.5s ease-in-out, padding 0.5s ease-in-out, margin 0.5s ease-in-out",
+                    _after: {
+                      content: '""',
+                      position: "absolute",
+                      bottom: 0,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "80px",
+                      height: "4px",
+                      bg: "#00BFFF",
+                      borderRadius: "full",
+                    },
+                    children: "Напрямки діяльності",
+                  }),
+                  l.jsxs(Ce, {
+                    templateColumns: { base: "1fr", md: "repeat(3, 1fr)" },
+                    gap: { base: 4, md: 4 },
+                    mb: 6,
+                    children: [
+                      l.jsx(ne, {
+                        children: l.jsx(S, {
+                          p: 4,
+                          bg: "#8B0000",
+                          borderRadius: "md",
+                          textAlign: "center",
+                          fontWeight: "900",
+                          cursor: "pointer",
+                          onClick: () => i("blood"),
+                          transition: "all 0.3s",
+                          _hover: { transform: "scale(1.02)", boxShadow: "lg" },
+                          border:
+                            r === "blood"
+                              ? "4px solid white"
+                              : "3px solid transparent",
+                          height: "100%",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "sm", md: "md", lg: "2xl" },
+                            color: "white",
+                            children: "ДОНАЦІЯ КРОВІ ТА КОМПОНЕНТІВ КРОВІ",
+                          }),
+                        }),
+                      }),
+                      l.jsx(ne, {
+                        children: l.jsx(S, {
+                          p: 4,
+                          bgImage:
+                            "/Boichenko_HGPA/images/pixel.jpg",
+                          bgSize: "cover",
+                          bgPosition: "center",
+                          bgRepeat: "no-repeat",
+                          borderRadius: "md",
+                          textAlign: "center",
+                          fontWeight: "900",
+                          cursor: "pointer",
+                          onClick: () => i("zsu"),
+                          transition: "all 0.3s",
+                          _hover: { transform: "scale(1.02)", boxShadow: "lg" },
+                          border:
+                            r === "zsu"
+                              ? "4px solid white"
+                              : "3px solid transparent",
+                          height: "100%",
+                          position: "relative",
+                          _before: {
+                            content: '""',
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            borderRadius: "md",
+                            zIndex: 0,
+                          },
+                          children: l.jsx(ae, {
+                            fontSize: { base: "sm", md: "md", lg: "2xl" },
+                            color: "white",
+                            mt: 5,
+                            position: "relative",
+                            zIndex: 1,
+                            children: "ДОПОМОГА ЗСУ",
+                          }),
+                        }),
+                      }),
+                      l.jsx(ne, {
+                        children: l.jsx(S, {
+                          p: 4,
+                          bg: "#00BFFF",
+                          borderRadius: "md",
+                          textAlign: "center",
+                          fontWeight: "900",
+                          my: "center",
+                          cursor: "pointer",
+                          onClick: () => i("vpo"),
+                          transition: "all 0.3s",
+                          _hover: { transform: "scale(1.02)", boxShadow: "lg" },
+                          border:
+                            r === "vpo"
+                              ? "4px solid white"
+                              : "3px solid transparent",
+                          height: "100%",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "sm", md: "md", lg: "2xl" },
+                            color: "white",
+                            mt: 5,
+                            children: "ДОПОМОГА ВПО",
+                          }),
+                        }),
+                      }),
+                    ],
+                  }),
+                  l.jsxs(le, {
+                    spacing: 4,
+                    align: "stretch",
+                    children: [
+                      l.jsx(S, {
+                        children: l.jsxs(S, {
+                          maxHeight: r === "blood" ? "99999px" : "0",
+                          overflow: "hidden",
+                          opacity: r === "blood" ? 1 : 0,
+                          transform:
+                            r === "blood"
+                              ? "translateY(0)"
+                              : "translateY(-20px)",
+                          transition: "all 0.5s ease-in-out",
+                          children: [
+                            l.jsx(wg, {
+                              title: "Червень 2022 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-01-22.jpg",
+                              children: l.jsx(Cg, {
+                                text: "В червні 2022 року педагогічний колектив Харківського педагогічного фахового коледжу прийняв участь у процедурі здачі крові Збройним силам України. Це був той старт, який згуртував наш колектив на подальші донації, які тривають і на теперішній час.",
+                                italicText:
+                                  "Це зайвий раз підтверджує, що наш колектив попри всі негаразди та наслідки, які ми відчуваємо, проживаючи в прифронтовому місті воюючої країни, уособлюємо собою незламність та непохитність справжніх українців.",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-00-40.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-00-24.jpg",
+                            }),
+                            l.jsx(VH, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-00-55.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-01-14.jpg",
+                              image3:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-01-22.jpg",
+                              image4:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-01-05.jpg",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Грудень 2022 року. (Частина 1)",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-06-38.jpg",
+                              imagePosition: "left",
+                              children: l.jsx(jt, {
+                                text: 'Проходження дистанції під назвою "Донація" триває!',
+                              }),
+                            }),
+                            l.jsx(t0, {
+                              imageSrc:
+                                "/Boichenko_HGPA/images/IMG-a1c33ce14a7b9ceb5f155eb7edd2f764-V.jpg",
+                              videoSrc:
+                                "/Boichenko_HGPA/videos/video-f93c711a01c679562aa21496bf2bbe6a-V.mp4",
+                              imageObjectPosition: "top",
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-06-28.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-06-33.jpg",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Березень 2023 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/IMG-7fd09b8f0d295833e92a95a3b80b6b10-V.jpg",
+                              imagePosition: "left",
+                              children: l.jsx(jt, {
+                                text: "Життя триває, здача крові теж!",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/IMG-f1957acd9c63eac41685740a75451c04-V.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/IMG-86c0d048641847d982b6d68a0e077c83-V.jpg",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Червень 2023 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-29-07.jpg",
+                              objectPosition: "center",
+                              children: l.jsx(jt, {
+                                text: "Ми залишаємось в незламному місті Харків!",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-29-12.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-29-16.jpg",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Вересень 2023 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-38-04.jpg",
+                              objectPosition: "center",
+                              children: l.jsx(jt, {
+                                text: 'Команді Харківського педагогічного фахового коледжу вручили " Посвідчення донора крові та компонентів крові"',
+                              }),
+                            }),
+                            l.jsx(t0, {
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-38-10.jpg",
+                              videoSrc:
+                                "/Boichenko_HGPA/videos/video-61a6608367bb61f112f6b1c90e48d7ac-V (2).mp4",
+                              imageObjectPosition: "top",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Грудень 2023 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_12-53-18.jpg",
+                              imagePosition: "left",
+                              children: l.jsx(jt, {
+                                text: "Впевнено крокуємо шляхом донора крові та компонентів крові!",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/photo_2025-12-13_12-53-13.jpg",
+                                objectFit: "cover",
+                                objectPosition: "top",
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Квітень 2024 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/IMG-809149563fe3ed1ea89b30b0a971ea40-V.jpg",
+                              objectPosition: "top",
+                              children: l.jsx(jt, {
+                                text: 'Долучилися з колегами до здачі плазми. Відчуття дещо інші, але ми "Незламні".',
+                              }),
+                            }),
+                            l.jsx(_g, {
+                              image1:
+                                "/Boichenko_HGPA/images/IMG-5edec2bed9cd2e31353d5ff337d97b69-V.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/IMG-be1e196f34d728ab34f16d5f70d965f1-V.jpg",
+                              image3:
+                                "/Boichenko_HGPA/images/IMG-f844ee1e452d4335ad3085b00c21c629-V.jpg",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Червень 2024 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/20240910_150302.jpg",
+                              imagePosition: "left",
+                              objectPosition: "top",
+                              children: l.jsx(jt, {
+                                text: "Настрій непохитний!",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/20240910_150328.jpg",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              py: { base: 2, md: 4 },
+                              children: l.jsxs(S, {
+                                flex: 1,
+                                width: "100%",
+                                children: [
+                                  l.jsx(Re, {
+                                    size: { base: "md", md: "lg" },
+                                    mb: { base: 3, md: 4 },
+                                    color: "#1E90FF",
+                                    children: "Жовтень 2024 року",
+                                  }),
+                                  l.jsx(jt, {
+                                    text: "Пригостили смаколиками та надихнули на подальшу донацію.",
+                                  }),
+                                ],
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/20240910_151205.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/20230921_153614.jpg",
+                              image1Position: "center",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              py: { base: 2, md: 4 },
+                              children: l.jsxs(S, {
+                                flex: 1,
+                                width: "100%",
+                                children: [
+                                  l.jsx(Re, {
+                                    size: { base: "md", md: "lg" },
+                                    mb: { base: 3, md: 4 },
+                                    color: "#1E90FF",
+                                    children: "Січень 2025 року",
+                                  }),
+                                  l.jsx(jt, {
+                                    text: '"Доторкнись до серця, стань донором" - це не вислів, це МІСІЯ!',
+                                  }),
+                                ],
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/20240312_121239.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/20240312_133635.jpg",
+                              image2Position: "top",
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/IMG-bbf3532f907da7b743aa775a998c2944-V.jpg",
+                                objectFit: "contain",
+                                maxWidth: "40%",
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Лютий 2026 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2026-02-25_13-44-19.jpg",
+                              imagePosition: "left",
+                              objectPosition: "top",
+                              children: l.jsx(jt, {
+                                text: "Твоя кров – чиєсь життя!",
+                              }),
+                            }),
+                            l.jsx(wg, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2026-02-25_11-18-28.jpg",
+                              children: l.jsx(Cg, {
+                                text: "25 лютого викладачі, співпрацівники та студенти академії долучилися до традиційної донорської ініціативи «Твоя кров – чиєсь життя» в Комунальному некомерційному підприємстві Харківської обласної ради «Обласний центр служби крові».",
+                                italicText:
+                                  "Чотири роки українці виборюють свою свободу та незалежність, тому потреба в донорській крові залишається надзвичайно гострою, адже вона щодня рятує життя поранених Захисників і Захисниць, допомагає цивільним, які постраждали від обстрілів, та підтримує всіх, хто потребує невідкладної медичної допомоги.",
+                              }),
+                            }),
+                            l.jsx(S, { pb: { base: 4, md: 6 } }),
+                          ],
+                        }),
+                      }),
+                      l.jsx(S, {
+                        children: l.jsxs(S, {
+                          maxHeight: r === "zsu" ? "99999px" : "0",
+                          overflow: "hidden",
+                          opacity: r === "zsu" ? 1 : 0,
+                          transform:
+                            r === "zsu" ? "translateY(0)" : "translateY(-20px)",
+                          transition: "all 0.5s ease-in-out",
+                          children: [
+                            l.jsx(er, {
+                              title: "Квітень 2022 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-13_13-56-40.jpg",
+                              children: l.jsx(jt, {
+                                text: "На початку квітня 2022 року разом з колегою почали розвозити медикаменти до локацій, які здійснювали лікування поранених військовослужбовців збройних сил України.",
+                                textColor: "#F0FFFF",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/IMG-14817382b4f144e8ab50bb4c0ae24fb7-V.jpg",
+                                objectFit: "contain",
+                                height: {
+                                  base: "200px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "700px",
+                                },
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "Грудень 2023 року",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/20240216_145058.jpg",
+                              imagePosition: "left",
+                              children: l.jsx(jt, {
+                                text: "В грудні 2023 року разом із здобувачами освіти 11ф, куратором якої я є долучилися до плетіння маскувальних сіток для батальйону Морскої піхоти.",
+                                textColor: "#F0FFFF",
+                              }),
+                            }),
+                            l.jsx(_g, {
+                              image1:
+                                "/Boichenko_HGPA/images/IMG-f1173bdc4374014c76cf16556b146678-V.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/20240305_114605.jpg",
+                              image3:
+                                "/Boichenko_HGPA/images/IMG-d6d8e398a7648b8a17800e60b450c8c5-V.jpg",
+                            }),
+                            l.jsx(t0, {
+                              imageSrc: "",
+                              videoSrc:
+                                "/Boichenko_HGPA/videos/video-2b0f91642ae83842f8ad7199b2cf7bf8-V.mp4",
+                              imageObjectPosition: "top",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(HH, {
+                              title: "",
+                              videoSrc:
+                                "/Boichenko_HGPA/videos/video-ea14db049ee12a94875d0f360ee5fe3f-V.mp4",
+                              children: l.jsx(jt, {
+                                text: "Закриття збору на підрозділ 'Кракен' з колегами та здобувачами освіти.",
+                                textColor: "#F0FFFF",
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/IMG_20251203_162951_710.jpg",
+                              imagePosition: "left",
+                              children: l.jsx(jt, {
+                                text: "Організація та проведення зборів засобів особистої гігієни для 4 роти 127 Харківської важкої механізованої бригади.",
+                                textColor: "#F0FFFF",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/IMG_20251203_163028_329.jpg",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/photo_2025-12-18_03-28-35.jpg",
+                                objectFit: "contain",
+                                maxWidth: "80%",
+                              }),
+                            }),
+                          ],
+                        }),
+                      }),
+                      l.jsx(S, {
+                        children: l.jsxs(S, {
+                          maxHeight: r === "vpo" ? "99999px" : "0",
+                          overflow: "hidden",
+                          opacity: r === "vpo" ? 1 : 0,
+                          transform:
+                            r === "vpo" ? "translateY(0)" : "translateY(-20px)",
+                          transition: "all 0.5s ease-in-out",
+                          children: [
+                            l.jsx(wg, {
+                              title: "",
+                              imageSrc: "",
+                              children: l.jsx(Cg, {
+                                text: "Внаслідок обстрілів Основ'янського району де розташований Харківський педагогічний фаховий коледж були пошкоджені корпуси, гуртожиток. Тому на початку травня 2022 року викладачі, студенти, волонтери зібралися для прибирання та ліквідації наслідків вибухів.",
+                                italicText:
+                                  "За тиждень ми впорались із поставленим завданням і об’єкти стали придатні до проживання. Розпорядженням міського голови м.Харкова було вирішено перемістити людей з метрополітену до гуртожитку коледжу. Заходи логістики та доставкою продуктів, речей та всього необхідного здійснювали наші викладачі. Яскравий приклад міцного та дружнього колективу.",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_02-48-57.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_02-49-01.jpg",
+                              image1Position: "center",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              py: { base: 2, md: 4 },
+                              children: l.jsxs(S, {
+                                flex: 1,
+                                width: "100%",
+                                children: [
+                                  l.jsx(Re, {
+                                    size: { base: "md", md: "lg" },
+                                    mb: { base: 3, md: 4 },
+                                    color: "#1E90FF",
+                                    children: "Квітень 2022 року",
+                                  }),
+                                  l.jsx(jt, {
+                                    text: "Прибирання сміття та закривання контурів вікон.",
+                                  }),
+                                ],
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/20220516_125913.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/20220517_123631.jpg",
+                              image1Position: "center",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/20220524_091730.jpg",
+                              imagePosition: "left",
+                              children: l.jsx(jt, {
+                                text: "Перевезення внутрішньо переміщених осіб до гуртожитку.",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/20220524_091647.jpg",
+                                objectFit: "contain",
+                                maxWidth: "80%",
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/20220524_095024.jpg",
+                              children: l.jsx(jt, {
+                                text: "Супроводження внутрішньо переміщених осіб до лікарні.",
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/20230530_103305.jpg",
+                              imagePosition: "left",
+                              children: l.jsx(jt, {
+                                text: "Доставка гуманітарної допомоги до гуртожитку для внутрішньо переміщених осіб.",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/20220531_100311.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/20220531_101301.jpg",
+                              image1Position: "center",
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/20230512_132645.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/20230512_132744.jpg",
+                              image1Position: "center",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              py: { base: 2, md: 4 },
+                              children: l.jsxs(S, {
+                                flex: 1,
+                                width: "100%",
+                                children: [
+                                  l.jsx(Re, {
+                                    size: { base: "md", md: "lg" },
+                                    mb: { base: 3, md: 4 },
+                                    color: "#1E90FF",
+                                  }),
+                                  l.jsx(jt, {
+                                    text: "Передача гуманітарної допомоги людям , які постраждали внаслідок знищення греблі Каховської гідроелектростанції.",
+                                  }),
+                                ],
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/20230613_132314.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/20230613_133451.jpg",
+                              image1Position: "center",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/20220402_120131.jpg",
+                              imagePosition: "right",
+                              children: l.jsx(jt, {
+                                text: "Допомога внутрішньо переміщеним особам - продуктами харчування",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/IMG-1dc22b1e906af4f10fe6179350b5fc6b-V.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/IMG-dfaf44106364ab70d5d777499099a594-V.jpg",
+                              image2Position: "top",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              py: { base: 2, md: 4 },
+                              children: l.jsxs(S, {
+                                flex: 1,
+                                width: "100%",
+                                children: [
+                                  l.jsx(Re, {
+                                    size: { base: "md", md: "lg" },
+                                    mb: { base: 3, md: 4 },
+                                    color: "#1E90FF",
+                                  }),
+                                  l.jsx(jt, {
+                                    text: "Ранкова руханка з дітьми ВПО в дитячому таборі 'Лелека' м.Затока на волонтерських засадах.",
+                                  }),
+                                ],
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/photo_2025-12-18_03-03-41.jpg",
+                                objectFit: "contain",
+                                maxWidth: "80%",
+                                height: "80%",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/photo_2025-12-18_03-03-36.jpg",
+                                objectFit: "contain",
+                                maxWidth: "80%",
+                                height: "80%",
+                              }),
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-10-51.jpg",
+                              imagePosition: "left",
+                              objectPosition: "bottom",
+                              children: l.jsx(jt, {
+                                text: "Дитячо-оздоровчий табір 'Смерека' в с.Орявчик Львівської області. Оздоровлення дітей ВПО.",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-10-45.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-10-55.jpg",
+                              image1Position: "center",
+                            }),
+                            l.jsx(_g, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-11-01.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-11-15.jpg",
+                              image3:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-11-05.jpg",
+                            }),
+                            l.jsx(t0, {
+                              imageSrc: "",
+                              videoSrc:
+                                "/Boichenko_HGPA/videos/video-f60d738215e6931429320d7746b49e36-V.mp4",
+                              imageObjectPosition: "top",
+                            }),
+                            l.jsx(Tt, {}),
+                            l.jsx(er, {
+                              title: "",
+                              imageSrc:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-19-46.jpg",
+                              imagePosition: "left",
+                              objectPosition: "center",
+                              children: l.jsx(jt, {
+                                text: "Зимовий відпочинок та оздоровлення дітей ВПО.",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              px: { base: 2, md: 4 },
+                              children: l.jsx(Ft, {
+                                imageSrc:
+                                  "/Boichenko_HGPA/images/photo_2025-12-18_03-19-36.jpg",
+                                objectFit: "contain",
+                                maxWidth: "80%",
+                                height: "80%",
+                              }),
+                            }),
+                            l.jsx(_r, {
+                              image1:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-19-54.jpg",
+                              image2:
+                                "/Boichenko_HGPA/images/photo_2025-12-18_03-19-41.jpg",
+                              image1Position: "center",
+                            }),
+                          ],
+                        }),
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+            }),
+          }),
+        ],
+      }),
+    });
+  },
+  kt = () =>
+    l.jsx(S, {
+      my: { base: 8, md: 12, lg: 16 },
+      px: { base: 4, md: 8 },
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      position: "relative",
+      children: l.jsx(S, {
+        width: { base: "80%", md: "70%", lg: "60%" },
+        height: "6px",
+        bg: "linear-gradient(90deg, transparent, #0057B7 20%, #FFD700 50%, #0057B7 80%, transparent)",
+        borderRadius: "full",
+        position: "relative",
+        boxShadow: "0 2px 8px rgba(0, 87, 183, 0.3)",
+        _before: {
+          content: '""',
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "20px",
+          height: "20px",
+          bg: "linear-gradient(135deg, #0057B7, #FFD700)",
+          borderRadius: "50%",
+          border: "4px solid white",
+          boxShadow:
+            "0 0 0 3px rgba(0, 87, 183, 0.3), 0 4px 12px rgba(0, 87, 183, 0.4)",
+        },
+        _after: {
+          content: '""',
+          position: "absolute",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "8px",
+          height: "8px",
+          bg: "#FFD700",
+          borderRadius: "50%",
+          boxShadow: "0 0 8px rgba(255, 215, 0, 0.6)",
+        },
+      }),
+    }),
+  PH = () => {
+    const e = Nn();
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsxs(S, {
+        children: [
+          l.jsx(S, {
+            py: { base: 8, md: 10 },
+            px: { base: 4, md: 8 },
+            position: "relative",
+            bgImage: "/Boichenko_HGPA/images/flag-7041215_1280.jpg",
+            bgSize: "cover",
+            bgPosition: "center",
+            bgRepeat: "no-repeat",
+            _before: {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 0,
+            },
+            children: l.jsx(dt, {
+              maxW: "900px",
+              position: "relative",
+              zIndex: 1,
+              children: l.jsxs(le, {
+                spacing: 8,
+                align: "center",
+                children: [
+                  l.jsx(S, {
+                    textAlign: "center",
+                    opacity: 0,
+                    animation: "fadeIn 1s ease-out forwards",
+                    sx: {
+                      "@keyframes fadeIn": {
+                        "0%": { opacity: 0, transform: "translateY(-20px)" },
+                        "100%": { opacity: 1, transform: "translateY(0)" },
+                      },
+                    },
+                    children: l.jsxs(ae, {
+                      fontSize: { base: "xl", md: "2xl", lg: "3xl" },
+                      fontWeight: "900",
+                      color: "white",
+                      textAlign: "center",
+                      lineHeight: "1.6",
+                      textShadow: "2px 2px 8px rgba(0, 0, 0, 0.5)",
+                      letterSpacing: "wide",
+                      children: [
+                        "Бажаю кожному завтра прокинутись зі словами ",
+                        l.jsx("br", {}),
+                        l.jsx(ae, {
+                          as: "span",
+                          fontSize: { base: "2xl", md: "3xl", lg: "4xl" },
+                          color: "#FFFF00",
+                          textShadow: "3px 3px 6px rgba(0, 0, 0, 0.7)",
+                          display: "inline-block",
+                          mt: 2,
+                          children: '" МИ ПЕРЕМОГЛИ ! "',
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsxs(S, {
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 3,
+                    flexWrap: "wrap",
+                    bg: "rgba(255, 255, 255, 0.95)",
+                    borderRadius: "full",
+                    px: { base: 6, md: 8 },
+                    py: { base: 4, md: 5 },
+                    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
+                    },
+                    children: [
+                      l.jsx(S, {
+                        borderRadius: "full",
+                        p: { base: "3px", md: "4px" },
+                        bg: "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)",
+                        boxShadow: "0 4px 12px rgba(255, 215, 0, 0.4)",
+                        transition: "all 0.3s ease",
+                        _hover: {
+                          transform: "scale(1.15) rotate(5deg)",
+                          boxShadow: "0 6px 16px rgba(255, 215, 0, 0.6)",
+                        },
+                        children: l.jsx(V, {
+                          src: "/Boichenko_HGPA/images/photo.jpg",
+                          alt: "Україна",
+                          w: { base: "32px", md: "40px", lg: "50px" },
+                          h: { base: "32px", md: "40px", lg: "50px" },
+                          borderRadius: "full",
+                          objectFit: "cover",
+                          border: "2px solid white",
+                        }),
+                      }),
+                      l.jsx(ae, {
+                        fontSize: { base: "lg", md: "xl", lg: "4xl" },
+                        fontWeight: "900",
+                        color: "black",
+                        children: "Слава Україні !",
+                      }),
+                      l.jsx(ae, {
+                        fontSize: { base: "2xl", md: "3xl", lg: "4xl" },
+                        filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))",
+                        children: "💛💙",
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+            }),
+          }),
+          l.jsxs(S, {
+            bgImage:
+              "/Boichenko_HGPA/images/m6dgrmziukxstr0xzhlk6sj798hofap0.jpg",
+            bgSize: "cover",
+            bgPosition: "center",
+            bgRepeat: "no-repeat",
+            bgAttachment: "fixed",
+            minHeight: "100vh",
+            position: "relative",
+            _before: {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              bg: "rgba(0, 0, 0, 0)",
+              zIndex: 0,
+            },
+            children: [
+              l.jsx(dt, {
+                maxW: "900px",
+                py: { base: 12, md: 16, lg: 6 },
+                px: { base: 6, md: 8 },
+                position: "relative",
+                zIndex: 1,
+                children: l.jsxs(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: [
+                    l.jsx(S, {
+                      textAlign: "center",
+                      position: "relative",
+                      children: l.jsx(Re, {
+                        size: { base: "xl", md: "2xl", lg: "3xl" },
+                        color: "white",
+                        textAlign: "center",
+                        fontWeight: "900",
+                        textShadow: "3px 3px 8px rgba(0, 0, 0, 0.7)",
+                        letterSpacing: "wide",
+                        position: "relative",
+                        pb: 4,
+                        _after: {
+                          content: '""',
+                          position: "absolute",
+                          bottom: 0,
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: "120px",
+                          height: "4px",
+                          bg: "linear-gradient(90deg, #0057B7, #FFD700)",
+                          borderRadius: "full",
+                          boxShadow: "0 2px 8px rgba(255, 215, 0, 0.5)",
+                        },
+                        children: "Патріотичне виховання",
+                      }),
+                    }),
+                    l.jsx(S, {
+                      bg: "rgba(255, 255, 255, 0.7)",
+                      borderRadius: "2xl",
+                      p: { base: 8, md: 10, lg: 12 },
+                      boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                      border: "2px solid",
+                      borderColor: "rgba(255, 215, 0, 0.3)",
+                      position: "relative",
+                      overflow: "hidden",
+                      _before: {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: "4px",
+                        bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                        zIndex: 1,
+                      },
+                      transition: "all 0.3s ease",
+                      _hover: {
+                        transform: "translateY(-4px)",
+                        boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                      },
+                      children: l.jsx(le, {
+                        spacing: 8,
+                        align: "stretch",
+                        position: "relative",
+                        zIndex: 2,
+                        children: l.jsx(S, {
+                          bg: "linear-gradient(135deg, rgba(0, 87, 183, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%)",
+                          borderRadius: "xl",
+                          p: { base: 6, md: 8 },
+                          border: "2px solid",
+                          borderColor: "rgba(255, 215, 0, 0.3)",
+                          position: "relative",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "4xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "center",
+                            fontWeight: "900",
+                            fontStyle: "italic",
+                            letterSpacing: "1px",
+                            children:
+                              "Пишаємося та висловлюємо велику шану, повагу випускникам, які стали на захист України!",
+                          }),
+                        }),
+                      }),
+                    }),
+                    l.jsx(kt, {}),
+                    l.jsx(S, {
+                      bg: "rgba(255, 255, 255, 0.7)",
+                      borderRadius: "2xl",
+                      p: { base: 8, md: 10, lg: 12 },
+                      boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                      border: "2px solid",
+                      borderColor: "rgba(255, 215, 0, 0.3)",
+                      position: "relative",
+                      overflow: "hidden",
+                      _before: {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: "4px",
+                        bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                        zIndex: 1,
+                      },
+                      transition: "all 0.3s ease",
+                      _hover: {
+                        transform: "translateY(-4px)",
+                        boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                      },
+                      children: l.jsxs(le, {
+                        spacing: 8,
+                        align: "stretch",
+                        position: "relative",
+                        zIndex: 2,
+                        children: [
+                          l.jsxs(S, {
+                            textAlign: "center",
+                            children: [
+                              l.jsx(ae, {
+                                fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                mb: 2,
+                                children: "03 грудня",
+                              }),
+                              l.jsx(ae, {
+                                fontSize: { base: "sm", md: "md", lg: "lg" },
+                                color: "gray.600",
+                                fontStyle: "italic",
+                                children:
+                                  "напередодні Дня Збройних Сил України",
+                              }),
+                            ],
+                          }),
+                          l.jsx(S, {
+                            bg: "rgba(0, 87, 183, 0.05)",
+                            borderRadius: "xl",
+                            p: { base: 6, md: 8 },
+                            borderLeft: "4px solid",
+                            borderColor: "#0057B7",
+                            children: l.jsxs(ae, {
+                              fontSize: { base: "md", md: "lg", lg: "xl" },
+                              lineHeight: "2",
+                              color: "gray.800",
+                              textAlign: "justify",
+                              fontWeight: "600",
+                              letterSpacing: "0.3px",
+                              children: [
+                                "Захід розпочався ",
+                                l.jsx(ae, {
+                                  as: "span",
+                                  fontWeight: "700",
+                                  color: "#0057B7",
+                                  children: "хвилиною мовчання",
+                                }),
+                                " в пам'ять про всіх Героїв, які віддали життя за незалежність і свободу нашої держави, а також про цивільних, що загинули внаслідок російської агресії. Серед них – наші студенти, випускники, а також рідні викладачів і співпрацівників академії та структурних підрозділів.",
+                              ],
+                            }),
+                          }),
+                          l.jsx(S, {
+                            position: "relative",
+                            pl: { base: 4, md: 6 },
+                            borderLeft: "4px solid",
+                            borderColor: "#FFD700",
+                            children: l.jsxs(ae, {
+                              fontSize: { base: "md", md: "lg", lg: "xl" },
+                              lineHeight: "2",
+                              color: "gray.800",
+                              textAlign: "justify",
+                              fontWeight: "600",
+                              letterSpacing: "0.3px",
+                              children: [
+                                l.jsx(ae, {
+                                  as: "span",
+                                  fontWeight: "700",
+                                  color: "#0057B7",
+                                  children: "Галина Федорівна Пономарьова",
+                                }),
+                                ", ректор академії, висловила Григорію та всім захисникам і захисницям слова глибокої вдячності та вручила Подяку за високе почуття патріотизму, вагомий внесок у наближення Перемоги, гідний приклад самовідданості та героїзму.",
+                              ],
+                            }),
+                          }),
+                          l.jsx(S, {
+                            bg: "linear-gradient(135deg, rgba(0, 87, 183, 0.15) 0%, rgba(255, 215, 0, 0.15) 100%)",
+                            borderRadius: "xl",
+                            p: { base: 6, md: 8 },
+                            border: "2px solid",
+                            borderColor: "rgba(0, 87, 183, 0.3)",
+                            children: l.jsxs(le, {
+                              spacing: 4,
+                              align: "stretch",
+                              children: [
+                                l.jsx(ae, {
+                                  fontSize: { base: "md", md: "lg", lg: "xl" },
+                                  lineHeight: "2",
+                                  color: "gray.800",
+                                  textAlign: "justify",
+                                  fontWeight: "600",
+                                  letterSpacing: "0.3px",
+                                  children:
+                                    "Щиро пишаємося нашими захисниками і захисницями, їхньою мужністю, незламністю та відданістю Україні, адже саме завдяки їхній силі й жертовності ми щодня наближаємося до Перемоги.",
+                                }),
+                                l.jsx(ae, {
+                                  fontSize: { base: "md", md: "lg", lg: "xl" },
+                                  lineHeight: "2",
+                                  color: "gray.800",
+                                  textAlign: "justify",
+                                  fontWeight: "600",
+                                  letterSpacing: "0.3px",
+                                  children:
+                                    "Дякуємо всім учасникам акції за небайдужість, активну участь і готовність підтримувати наших захисників у цей непростий для країни час. Зустріч стала важливим нагадуванням про єдність українців, про силу спільної підтримки та про те, що кожен воїн – наш Герой, за якого ми молимося та якого чекаємо з перемогою.",
+                                }),
+                              ],
+                            }),
+                          }),
+                        ],
+                      }),
+                    }),
+                  ],
+                }),
+              }),
+              l.jsxs(S, {
+                bg: "rgba(255, 255, 255, 0.7)",
+                borderRadius: "2xl",
+                p: { base: 6, md: 8, lg: 10 },
+                boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                border: "2px solid",
+                borderColor: "rgba(255, 215, 0, 0.3)",
+                position: "relative",
+                maxW: "100%",
+                overflow: "hidden",
+                _before: {
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: "4px",
+                  bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                  zIndex: 1,
+                },
+                children: [
+                  l.jsx(le, {
+                    spacing: 6,
+                    position: "relative",
+                    zIndex: 2,
+                    children: l.jsxs(Ce, {
+                      templateColumns: {
+                        base: "1fr",
+                        sm: "repeat(2, 1fr)",
+                        md: "repeat(4, 1fr)",
+                        lg: "repeat(4, 1fr)",
+                      },
+                      gap: { base: 4, md: 5 },
+                      w: "100%",
+                      children: [
+                        l.jsx(ne, {
+                          colSpan: { base: 1, sm: 1, md: 2, lg: 2 },
+                          children: l.jsx(S, {
+                            borderRadius: "xl",
+                            overflow: "hidden",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            cursor: "pointer",
+                            _hover: {
+                              transform: "scale(1.03)",
+                              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsx(V, {
+                              src: "/Boichenko_HGPA/images/photo_2025-12-22_15-22-34.jpg",
+                              alt: "Зустріч з Григорієм Антощенком",
+                              width: "100%",
+                              height: {
+                                base: "250px",
+                                sm: "280px",
+                                md: "300px",
+                                lg: "350px",
+                              },
+                              objectFit: "cover",
+                            }),
+                          }),
+                        }),
+                        l.jsx(ne, {
+                          colSpan: { base: 1, sm: 1, md: 2, lg: 2 },
+                          children: l.jsx(S, {
+                            borderRadius: "xl",
+                            overflow: "hidden",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            cursor: "pointer",
+                            _hover: {
+                              transform: "scale(1.03)",
+                              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsx(V, {
+                              src: "/Boichenko_HGPA/images/photo_2025-12-22_15-22-21.jpg",
+                              alt: "Зустріч з Григорієм Антощенком",
+                              width: "100%",
+                              height: {
+                                base: "250px",
+                                sm: "280px",
+                                md: "300px",
+                                lg: "350px",
+                              },
+                              objectFit: "cover",
+                            }),
+                          }),
+                        }),
+                        l.jsx(ne, {
+                          colSpan: { base: 1, sm: 1, md: 1, lg: 1 },
+                          children: l.jsx(S, {
+                            borderRadius: "xl",
+                            overflow: "hidden",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            cursor: "pointer",
+                            _hover: {
+                              transform: "scale(1.03)",
+                              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsx(V, {
+                              src: "/Boichenko_HGPA/images/photo_2025-12-22_15-22-25.jpg",
+                              alt: "Зустріч з Григорієм Антощенком",
+                              width: "100%",
+                              height: {
+                                base: "200px",
+                                sm: "220px",
+                                md: "280px",
+                                lg: "280px",
+                              },
+                              objectFit: "cover",
+                            }),
+                          }),
+                        }),
+                        l.jsx(ne, {
+                          colSpan: { base: 1, sm: 1, md: 2, lg: 2 },
+                          children: l.jsx(S, {
+                            borderRadius: "xl",
+                            overflow: "hidden",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            cursor: "pointer",
+                            _hover: {
+                              transform: "scale(1.03)",
+                              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsx(V, {
+                              src: "/Boichenko_HGPA/images/photo_2025-12-22_15-22-13.jpg",
+                              alt: "Зустріч з Григорієм Антощенком",
+                              width: "100%",
+                              height: {
+                                base: "200px",
+                                sm: "220px",
+                                md: "280px",
+                                lg: "280px",
+                              },
+                              objectFit: "cover",
+                            }),
+                          }),
+                        }),
+                        l.jsx(ne, {
+                          colSpan: { base: 1, sm: 1, md: 1, lg: 1 },
+                          children: l.jsx(S, {
+                            borderRadius: "xl",
+                            overflow: "hidden",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            cursor: "pointer",
+                            _hover: {
+                              transform: "scale(1.03)",
+                              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsx(V, {
+                              src: "/Boichenko_HGPA/images/photo_2025-12-22_15-22-29.jpg",
+                              alt: "Зустріч з Григорієм Антощенком",
+                              width: "100%",
+                              height: {
+                                base: "200px",
+                                sm: "220px",
+                                md: "280px",
+                                lg: "280px",
+                              },
+                              objectFit: "cover",
+                            }),
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(le, {
+                    spacing: 6,
+                    position: "relative",
+                    zIndex: 2,
+                    mt: 10,
+                    children: l.jsx(S, {
+                      borderRadius: "xl",
+                      overflow: "hidden",
+                      boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+                      w: "30%",
+                      maxW: "40%",
+                      bg: "black",
+                      position: "relative",
+                      children: l.jsx("video", {
+                        src: "/Boichenko_HGPA/videos/IMG_1788.MP4",
+                        controls: !0,
+                        controlsList: "nodownload",
+                        style: {
+                          width: "100%",
+                          height: "auto",
+                          display: "block",
+                          minHeight: "400px",
+                        },
+                        onError: (r) => {
+                          console.error("Video error:", r);
+                        },
+                        children: "Ваш браузер не підтримує відео.",
+                      }),
+                    }),
+                  }),
+                  l.jsx(S, {
+                    mt: 10,
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 6, md: 8, lg: 10 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+                          w: "100%",
+                          maxW: { base: "100%", md: "800px", lg: "900px" },
+                          mx: "auto",
+                          bg: "black",
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2025-12-18_03-28-35.jpg",
+                            alt: "Зустріч з Григорієм Антощенком",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          w: "100%",
+                          maxW: { base: "100%", md: "800px", lg: "900px" },
+                          mx: "auto",
+                          pl: { base: 6, md: 8 },
+                          pr: { base: 4, md: 6 },
+                          py: { base: 6, md: 8 },
+                          bg: "linear-gradient(135deg, rgba(0, 87, 183, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%)",
+                          borderRadius: "xl",
+                          borderLeft: "6px solid",
+                          borderColor: "#0057B7",
+                          _before: {
+                            content: '"\\201C"',
+                            position: "absolute",
+                            left: { base: "12px", md: "16px" },
+                            top: { base: "12px", md: "16px" },
+                            fontSize: { base: "4xl", md: "5xl", lg: "6xl" },
+                            color: "#0057B7",
+                            fontFamily: "Georgia, serif",
+                            lineHeight: 1,
+                            opacity: 0.3,
+                          },
+                          _after: {
+                            content: '"\\201D"',
+                            position: "absolute",
+                            right: { base: "12px", md: "16px" },
+                            bottom: { base: "12px", md: "16px" },
+                            fontSize: { base: "4xl", md: "5xl", lg: "6xl" },
+                            color: "#0057B7",
+                            fontFamily: "Georgia, serif",
+                            lineHeight: 1,
+                            opacity: 0.3,
+                          },
+                          children: l.jsxs(le, {
+                            spacing: 6,
+                            align: "stretch",
+                            children: [
+                              l.jsx(ae, {
+                                fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                                color: "gray.800",
+                                lineHeight: "1.8",
+                                fontWeight: "600",
+                                fontStyle: "italic",
+                                textAlign: "center",
+                                letterSpacing: "0.5px",
+                                children:
+                                  "Добрий день, шановні куратори та наставники, дякуємо за активну участь в акції.",
+                              }),
+                              l.jsx(ae, {
+                                fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                                color: "gray.800",
+                                lineHeight: "1.8",
+                                fontWeight: "600",
+                                fontStyle: "italic",
+                                textAlign: "center",
+                                letterSpacing: "0.5px",
+                                children:
+                                  "Все передали Григорію від нього також вдячність.",
+                              }),
+                              l.jsx(S, {
+                                pt: 4,
+                                pb: 2,
+                                borderTop: "2px solid",
+                                borderBottom: "2px solid",
+                                borderColor: "rgba(0, 87, 183, 0.2)",
+                                children: l.jsx(ae, {
+                                  fontSize: {
+                                    base: "xl",
+                                    md: "2xl",
+                                    lg: "3xl",
+                                  },
+                                  color: "#0057B7",
+                                  lineHeight: "1.6",
+                                  fontWeight: "900",
+                                  textAlign: "center",
+                                  letterSpacing: "1px",
+                                  bgGradient: "linear(to-r, #0057B7, #FFD700)",
+                                  bgClip: "text",
+                                  children: "Разом до Перемоги!",
+                                }),
+                              }),
+                              l.jsxs(S, {
+                                pt: 4,
+                                textAlign: "center",
+                                children: [
+                                  l.jsx(ae, {
+                                    fontSize: {
+                                      base: "md",
+                                      md: "lg",
+                                      lg: "xl",
+                                    },
+                                    color: "gray.600",
+                                    lineHeight: "1.6",
+                                    fontWeight: "500",
+                                    letterSpacing: "0.3px",
+                                    children: "2025 рік. Випускник 2016 року.",
+                                  }),
+                                  l.jsx(ae, {
+                                    fontSize: {
+                                      base: "lg",
+                                      md: "xl",
+                                      lg: "2xl",
+                                    },
+                                    color: "#0057B7",
+                                    lineHeight: "1.6",
+                                    fontWeight: "700",
+                                    mt: 2,
+                                    letterSpacing: "0.5px",
+                                    children: "Григорій Антощенко",
+                                  }),
+                                ],
+                              }),
+                            ],
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                ],
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsxs(S, {
+                          textAlign: "center",
+                          children: [
+                            l.jsx(ae, {
+                              fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                              fontWeight: "700",
+                              color: "#0057B7",
+                              mb: 2,
+                              children: "2023 рік",
+                            }),
+                            l.jsx(ae, {
+                              fontSize: { base: "sm", md: "md", lg: "lg" },
+                              color: "gray.600",
+                              fontStyle: "italic",
+                              children:
+                                'З нагоди святкування "Дня працівника освіти і науки України"',
+                            }),
+                          ],
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              "Були запрошені випускники 2016 року ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "Кириченко Євген",
+                              }),
+                              " та ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "Кошкарьов Владислав",
+                              }),
+                              ". Військовослужбовці привітали педагогічний колектив та провели зустріч зі здобувачами освіти, яка носила патріотично-виховний характер.",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 4, md: 6 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-12-17_11-59-38.jpg",
+                                      alt: "Зустріч з випускниками 2023",
+                                      width: "100%",
+                                      height: {
+                                        base: "250px",
+                                        sm: "300px",
+                                        md: "300px",
+                                        lg: "350px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-12-17_12-00-07.jpg",
+                                      alt: "Зустріч з випускниками 2023",
+                                      width: "100%",
+                                      height: {
+                                        base: "250px",
+                                        sm: "300px",
+                                        md: "300px",
+                                        lg: "350px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/MainImgs/photo_2025-12-14_14-45-22.jpg",
+                                alt: "Зустріч з випускниками 2023",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              "Онлайн зустріч з батьками здобувачів освіти ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "31ф групи",
+                              }),
+                              ", які проходять службу в збройних силах України.",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            sm: "repeat(2, 1fr)",
+                            md: "repeat(4, 1fr)",
+                          },
+                          gap: { base: 4, md: 5 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-07.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-13.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-19.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-25.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-30.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-34.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-40.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2025-12-25_18-40-45.jpg",
+                                  alt: "Онлайн зустріч з батьками",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                            fontWeight: "700",
+                            color: "#0057B7",
+                            mb: 2,
+                            children: "2024 рік",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              "Онлайн-спілкування із випускниками коледжу присвячене ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "дню збройних сил України",
+                              }),
+                              ".",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_18-50-25.jpg",
+                                alt: "Онлайн-спілкування 2024",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_18-50-31.jpg",
+                                alt: "Онлайн-спілкування 2024",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_18-50-37.jpg",
+                                alt: "Онлайн-спілкування 2024",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                            fontWeight: "700",
+                            color: "#0057B7",
+                            mb: 2,
+                            children: "2024 рік",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              "Онлайн лекція до ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "дня пам'яті Героїв Небесної Сотні",
+                              }),
+                              ": події Харківського Євромайдану.",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                sm: "repeat(2, 1fr)",
+                                md: "repeat(4, 1fr)",
+                              },
+                              gap: { base: 4, md: 5 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-12-25_18-54-10.jpg",
+                                      alt: "Онлайн лекція 2024",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "400px",
+                                        md: "550px",
+                                        lg: "500px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-12-25_18-54-15.jpg",
+                                      alt: "Онлайн лекція 2024",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "400px",
+                                        md: "550px",
+                                        lg: "500px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-12-25_18-54-20.jpg",
+                                      alt: "Онлайн лекція 2024",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "400px",
+                                        md: "550px",
+                                        lg: "500px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-12-25_18-54-25.jpg",
+                                      alt: "Онлайн лекція 2024",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "400px",
+                                        md: "550px",
+                                        lg: "500px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_18-54-30.jpg",
+                                alt: "Онлайн лекція 2024",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsxs(S, {
+                          textAlign: "center",
+                          children: [
+                            l.jsx(ae, {
+                              fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                              fontWeight: "700",
+                              color: "#0057B7",
+                              mb: 2,
+                              children: "21 листопада",
+                            }),
+                            l.jsx(ae, {
+                              fontSize: { base: "sm", md: "md", lg: "lg" },
+                              color: "gray.600",
+                              fontStyle: "italic",
+                              children: "День Гідності та Свободи",
+                            }),
+                          ],
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            mb: 6,
+                            children: [
+                              "Викладачі, співпрацівники та здобувачі освіти академії вшанували на ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "Алеї Слави",
+                              }),
+                              " пам'ять усіх Героїв, які віддали життя у боях за рідну землю під час російської агресії проти України. Серед них – наші студенти, випускники, а також батьки й рідні викладачів та співпрацівників Академії та її структурних підрозділів. .",
+                            ],
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#FFD700",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            mb: 6,
+                            children:
+                              "Кожне ім'я, викарбуване на Алеї Слави, – це історія мужності, незламності та самопожертви. Їхній подвиг завжди нагадуватиме нам про ціну, яку українці заплатили й продовжують платити за мир, гідність та демократичні цінності.",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          bg: "linear-gradient(135deg, rgba(0, 87, 183, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%)",
+                          borderRadius: "xl",
+                          p: { base: 6, md: 8 },
+                          border: "2px solid",
+                          borderColor: "rgba(255, 215, 0, 0.3)",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children:
+                              "Традиція вшанування пам'яті на Алеї Слави є для колективу академії важливим проявом єдності, патріотизму, відповідальності за збереження історичної пам'яті та глибокої поваги до Героїв, чиї імена назавжди вписані в історію академії.",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2025-12-18_02-03-38.jpg",
+                            alt: "День Гідності та Свободи",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              "Зустріч з ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "Віталієм Кірієнком",
+                              }),
+                              " майстром спорту з важкої атлетики, тренером та молодшим сержантом сил спеціальних операцій.",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-13-35.jpg",
+                                alt: "Зустріч з Віталієм Кірієнком",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-13-43.jpg",
+                                alt: "Зустріч з Віталієм Кірієнком",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              "Нагородження батьків здобувачів освіти ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "31ф групи",
+                              }),
+                              " за їхню сумлінну службу в збройних силах України.",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-18-22.jpg",
+                                alt: "Нагородження батьків",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-18-28.jpg",
+                                alt: "Нагородження батьків",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsxs(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: [
+                            l.jsx(ae, {
+                              fontSize: { base: "md", md: "lg", lg: "xl" },
+                              lineHeight: "2",
+                              color: "gray.800",
+                              textAlign: "justify",
+                              fontWeight: "600",
+                              letterSpacing: "0.3px",
+                              mb: 4,
+                              children:
+                                "Наслідування традицій та ідентичності нашого народу.",
+                            }),
+                            l.jsx(ae, {
+                              fontSize: { base: "lg", md: "xl", lg: "2xl" },
+                              lineHeight: "1.8",
+                              color: "#0057B7",
+                              textAlign: "center",
+                              fontWeight: "700",
+                              fontStyle: "italic",
+                              children: '"З днем вишиванки!"',
+                            }),
+                          ],
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-20-50.jpg",
+                                alt: "День вишиванки",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-21-06.jpg",
+                                alt: "День вишиванки",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              "Подяка здобувачам освіти ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "31ф групи",
+                              }),
+                              " за волонтерську діяльність.",
+                            ],
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2025-12-25_19-24-27.jpg",
+                            alt: "Подяка за волонтерську діяльність",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "xl", md: "2xl", lg: "3xl" },
+                            fontWeight: "800",
+                            color: "#0057B7",
+                            children: "Млинці з любов’ю, донати з серцем🥞",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children:
+                              "19 лютого в академії відбувся благодійний масничний ярмарок «Млинці з любов’ю, донати з серцем!». Цей захід уже третій рік поспіль став чудовою традицією, яка не лише святкує Масницю, а й підтримує українських військових.",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          children: l.jsxs("video", {
+                            controls: !0,
+                            style: {
+                              display: "block",
+                              width: "100%",
+                              height: "auto",
+                              maxHeight: "700px",
+                              objectFit: "contain",
+                            },
+                            preload: "metadata",
+                            children: [
+                              l.jsx("source", {
+                                src: "/Boichenko_HGPA/videos/IMG_3688.mp4",
+                                type: "video/mp4",
+                              }),
+                              "Ваш браузер не підтримує відео тег.",
+                            ],
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/20260219_122951.jpg",
+                            alt: "Благодійний ярмарок - фото 1",
+                            width: "100%",
+                            height: {
+                              base: "700px",
+                              sm: "700px",
+                              md: "900px",
+                              lg: "1000px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/IMG-5a97e8876081a017afd5f59eba43b875-V.jpg",
+                            alt: "Благодійний ярмарок - фото 2",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-03-09_13-40-29.jpg",
+                            alt: "Благодійний ярмарок - фото 3",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(dt, {
+                maxW: "900px",
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(le, {
+                  spacing: 10,
+                  align: "stretch",
+                  children: l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsx(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children:
+                              '10.03.26. Викладачі та студенти Харківського педагогічного фахового коледжу Комунального закладу "Харківської гуманітарно-педагогічної академії" Харківської обласної ради відвідали концертну програму до "Дня державного гімну України" за участі "Студіїї квартал 95" та українських митців.',
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-03-16_10-14-13.jpg",
+                            alt: "Концерт до Дня державного гімну України - фото 1",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-03-16_10-14-18.jpg",
+                            alt: "Концерт до Дня державного гімну України - фото 2",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            md: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 6 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-03-16_10-14-34.jpg",
+                                  alt: "Концерт до Дня державного гімну України - фото 3",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-03-13_11-00-47.jpg",
+                                  alt: "Концерт до Дня державного гімну України - фото 4",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "400px",
+                                    md: "500px",
+                                    lg: "600px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            md: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 6 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                children: l.jsxs("video", {
+                                  controls: !0,
+                                  style: {
+                                    display: "block",
+                                    width: "100%",
+                                    height: "auto",
+                                    maxHeight: "500px",
+                                    objectFit: "contain",
+                                  },
+                                  preload: "metadata",
+                                  children: [
+                                    l.jsx("source", {
+                                      src: "/Boichenko_HGPA/videos/video_2026-03-16_10-14-01.mp4",
+                                      type: "video/mp4",
+                                    }),
+                                    "Ваш браузер не підтримує відео тег.",
+                                  ],
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                children: l.jsxs("video", {
+                                  controls: !0,
+                                  style: {
+                                    display: "block",
+                                    width: "100%",
+                                    height: "auto",
+                                    maxHeight: "500px",
+                                    objectFit: "contain",
+                                  },
+                                  preload: "metadata",
+                                  children: [
+                                    l.jsx("source", {
+                                      src: "/Boichenko_HGPA/videos/video_2026-03-16_10-14-08.mp4",
+                                      type: "video/mp4",
+                                    }),
+                                    "Ваш браузер не підтримує відео тег.",
+                                  ],
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                }),
+              }),
+              l.jsx(kt, {}),
+              l.jsx(S, {
+                px: { base: 4, md: 6, lg: 8 },
+                py: { base: 8, md: 12, lg: 16 },
+                position: "relative",
+                zIndex: 1,
+                children: l.jsx(S, {
+                  bg: "rgba(255, 255, 255, 0.7)",
+                  borderRadius: "2xl",
+                  p: { base: 8, md: 10, lg: 12 },
+                  boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                  border: "2px solid",
+                  borderColor: "rgba(255, 215, 0, 0.3)",
+                  position: "relative",
+                  overflow: "hidden",
+                  maxW: "1400px",
+                  mx: "auto",
+                  _before: {
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: "4px",
+                    bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                    zIndex: 1,
+                  },
+                  transition: "all 0.3s ease",
+                  _hover: {
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                  },
+                  children: l.jsxs(le, {
+                    spacing: 8,
+                    align: "stretch",
+                    position: "relative",
+                    zIndex: 2,
+                    children: [
+                      l.jsxs(S, {
+                        textAlign: "center",
+                        py: { base: 6, md: 8 },
+                        children: [
+                          l.jsx(ae, {
+                            fontSize: { base: "xl", md: "2xl", lg: "3xl" },
+                            lineHeight: "1.6",
+                            color: "gray.800",
+                            fontWeight: "700",
+                            mb: 4,
+                            children: "Пам'ятаємо та перемагаємо!",
+                          }),
+                          l.jsx(ae, {
+                            fontSize: { base: "2xl", md: "3xl", lg: "4xl" },
+                            lineHeight: "1.4",
+                            fontWeight: "900",
+                            bgGradient: "linear(to-r, #0057B7, #FFD700)",
+                            bgClip: "text",
+                            letterSpacing: "2px",
+                            textTransform: "uppercase",
+                            children: "БОРОТЬБА ТРИВАЄ!",
+                          }),
+                        ],
+                      }),
+                      l.jsxs(Ce, {
+                        templateColumns: { base: "1fr", sm: "repeat(2, 1fr)" },
+                        gap: { base: 4, md: 6 },
+                        maxW: "1200px",
+                        mx: "auto",
+                        w: "100%",
+                        children: [
+                          l.jsx(ne, {
+                            children: l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.03)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-28-12.jpg",
+                                alt: "Пам'ятаємо та перемагаємо",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          }),
+                          l.jsx(ne, {
+                            children: l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.03)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2025-12-25_19-28-17.jpg",
+                                alt: "Пам'ятаємо та перемагаємо",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          }),
+                        ],
+                      }),
+                      l.jsx(S, {
+                        borderRadius: "xl",
+                        overflow: "hidden",
+                        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                        transition: "all 0.3s ease",
+                        cursor: "pointer",
+                        _hover: {
+                          transform: "scale(1.01)",
+                          boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                        },
+                        maxW: "1200px",
+                        mx: "auto",
+                        w: "100%",
+                        children: l.jsx(V, {
+                          src: "/Boichenko_HGPA/images/photo_2025-12-25_20-18-47.jpg",
+                          alt: "Пам'ятаємо та перемагаємо",
+                          width: "100%",
+                          height: {
+                            base: "300px",
+                            sm: "400px",
+                            md: "500px",
+                            lg: "600px",
+                          },
+                          objectFit: "cover",
+                        }),
+                      }),
+                    ],
+                  }),
+                }),
+              }),
+            ],
+          }),
+        ],
+      }),
+    });
+  },
+  UH = wa`
   0%, 100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
     transform: translateY(-30px) rotate(180deg);
   }
-`,WH=wa`
+`,
+  WH = wa`
   0%, 100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
     transform: translateY(-40px) rotate(-180deg);
   }
-`,GH=wa`
+`,
+  GH = wa`
   0%, 100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
     transform: translateY(-35px) rotate(180deg);
   }
-`,YH=wa`
+`,
+  YH = wa`
   0% {
     opacity: 0;
     transform: translateY(50px) scale(0.9);
@@ -481,7 +8491,8 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-`,qH=wa`
+`,
+  qH = wa`
   0% {
     background-position: 0% 50%;
   }
@@ -491,4 +8502,4432 @@ Please change the parent <Route path="${A}"> to <Route path="${A==="/"?"*":`${A}
   100% {
     background-position: 0% 50%;
   }
-`,XH=()=>{const e=Nn(),[r,n]=_.useState(!1),i=_.useRef(null);return _.useEffect(()=>{const c=new IntersectionObserver(u=>{u.forEach(d=>{d.isIntersecting&&n(!0)})},{threshold:.2,rootMargin:"0px 0px -100px 0px"});return i.current&&c.observe(i.current),()=>{i.current&&c.unobserve(i.current)}},[]),l.jsx(Vn,{isLoading:e,children:l.jsxs(S,{position:"relative",minHeight:"100vh",overflow:"hidden",children:[l.jsxs(S,{position:"relative",py:{base:16,md:20,lg:24},px:{base:4,md:8},bgGradient:"linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%)",bgSize:"400% 400%",animation:"gradient 15s ease infinite",sx:{"@keyframes gradient":{"0%":{backgroundPosition:"0% 50%"},"50%":{backgroundPosition:"100% 50%"},"100%":{backgroundPosition:"0% 50%"}}},_before:{content:'""',position:"absolute",top:0,left:0,right:0,bottom:0,bg:"rgba(0, 0, 0, 0.3)",zIndex:1},children:[l.jsx(S,{position:"absolute",top:"20%",left:"10%",width:{base:"80px",md:"100px",lg:"80px"},height:{base:"80px",md:"100px",lg:"80px"},zIndex:2,animation:`${UH} 3s ease-in-out infinite`,filter:"drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4))",display:"flex",alignItems:"center",justifyContent:"center",children:l.jsx(S,{width:"100%",height:"100%",borderRadius:"50%",bg:"white",display:"flex",alignItems:"center",justifyContent:"center",fontSize:{base:"50px",md:"70px",lg:"90px"},boxShadow:"0 6px 25px rgba(0, 0, 0, 0.4)",border:"3px solid #000",children:"⚽"})}),l.jsx(S,{position:"absolute",top:{base:"10%",md:"8%",lg:"84%"},left:{base:"35%",md:"38%",lg:"40%"},width:{base:"90px",md:"110px",lg:"80px"},height:{base:"90px",md:"110px",lg:"80px"},zIndex:2,animation:`${WH} 3.5s ease-in-out infinite`,filter:"drop-shadow(0 8px 16px rgba(255, 107, 53, 0.5))",display:"flex",alignItems:"center",justifyContent:"center",children:l.jsx(S,{width:"100%",height:"100%",borderRadius:"50%",bg:"#FF6B35",display:"flex",alignItems:"center",justifyContent:"center",fontSize:{base:"55px",md:"75px",lg:"95px"},boxShadow:"0 6px 25px rgba(255, 107, 53, 0.5)",border:"3px solid #000",children:"🏀"})}),l.jsx(S,{position:"absolute",top:{base:"10%",md:"8%",lg:"26%"},right:{base:"35%",md:"38%",lg:"4%"},width:{base:"85px",md:"105px",lg:"80px"},height:{base:"85px",md:"105px",lg:"80px"},zIndex:2,animation:`${GH} 4s ease-in-out infinite`,filter:"drop-shadow(0 8px 16px rgba(255, 215, 0, 0.5))",display:"flex",alignItems:"center",justifyContent:"center",children:l.jsx(S,{width:"100%",height:"100%",borderRadius:"50%",bg:"#FFD700",display:"flex",alignItems:"center",justifyContent:"center",fontSize:{base:"52px",md:"72px",lg:"92px"},boxShadow:"0 6px 25px rgba(255, 215, 0, 0.5)",border:"3px solid #000",children:"🏐"})}),l.jsx(dt,{maxW:"1200px",position:"relative",zIndex:3,children:l.jsx(le,{spacing:8,align:"center",children:l.jsx(Re,{size:{base:"xl",md:"2xl",lg:"3xl"},color:"white",textAlign:"center",fontWeight:"900",textShadow:"3px 3px 8px rgba(0, 0, 0, 0.7)",letterSpacing:"wide",lineHeight:"1.4",children:"Рух - це життя"})})})]}),l.jsx(S,{bgGradient:"linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",py:{base:12,md:16,lg:20},px:{base:4,md:8},position:"relative",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #667eea, #764ba2, #f093fb, #4facfe, #00f2fe)",zIndex:1},children:l.jsx(dt,{maxW:"1600px",position:"relative",zIndex:2,children:l.jsx(le,{spacing:8,align:"center",children:l.jsx(S,{borderRadius:"3xl",overflow:"visible",boxShadow:"0 20px 60px rgba(0, 0, 0, 0.3)",position:"relative",bgGradient:"linear-gradient(135deg, #667eea, #764ba2, #f093fb, #4facfe, #00f2fe)",p:{base:4,md:5,lg:6},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 24px 72px rgba(0, 0, 0, 0.4)"},display:"flex",justifyContent:"center",alignItems:"center",width:{base:"100%",md:"95%",lg:"60%"},mx:"auto",children:l.jsx(S,{borderRadius:"2xl",overflow:"hidden",position:"relative",bg:"black",width:"100%",display:"flex",justifyContent:"center",alignItems:"center",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxWidth:"100%",maxHeight:"75vh",borderRadius:"1rem",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2026-01-06_13-08-21.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})})})})}),l.jsx(S,{bgGradient:"linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",py:{base:12,md:16,lg:20},px:{base:4,md:8},position:"relative",children:l.jsx(dt,{maxW:"1200px",children:l.jsxs(le,{spacing:8,align:"stretch",children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"xl",md:"2xl",lg:"3xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Гравець"})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-a0eed2a248b1f0236ab00572cd73dc4a-V.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-be5d7f3d66ad9ab452a7ec682cf8e9e7-V.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/20220531_111621.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG_20251214_150901_623.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-d6a39f9e58d674ca6e768dc71b0136a8-V.jpg",alt:"Гравець",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover",objectPosition:"top"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-8b117c2dae8f9ad797b135efea7e3c50-V.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-04-57.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-04-37.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-255159084a06821a3054ed333e39e2fc-V.jpg",alt:"Гравець",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})}),l.jsx(S,{bgGradient:"linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",py:{base:12,md:16,lg:20},px:{base:4,md:8},position:"relative",children:l.jsx(dt,{maxW:"1200px",children:l.jsxs(le,{spacing:8,align:"stretch",children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"xl",md:"2xl",lg:"3xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Тренер"})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/20240617_092626.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-29-53.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-29-59.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-30-12.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-29-03.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-28-49.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-29-14.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-29-41.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-29-47.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-29-22.jpg",alt:"Тренер",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})})}),l.jsx(S,{bgGradient:"linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",py:{base:12,md:16,lg:20},px:{base:4,md:8},position:"relative",children:l.jsx(dt,{maxW:"1200px",children:l.jsxs(le,{spacing:8,align:"stretch",children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"xl",md:"2xl",lg:"3xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Викладач"})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-43-50.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-44-21.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-45-29.jpg",alt:"Викладач",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-45-44.jpg",alt:"Викладач",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-43-55.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-44-26.jpg",alt:"Викладач",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-44-47.jpg",alt:"Викладач",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-34de48fb9d6cdd7e605b85cd2f6c0379-V.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-45-48.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-45-55.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-44-58.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-07_00-20-19.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-04-28_03-09-48.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-04-28_03-10-08.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-04-28_03-10-14.jpg",alt:"Викладач",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",position:"relative",bg:"black",children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"700px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/video_2026-04-28_03-10-00.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})]})]})})}),l.jsx(S,{ref:i,bgGradient:"linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",pt:{base:16,md:20,lg:20},pb:{base:4,md:4,lg:6},px:{base:4,md:8},position:"relative",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #667eea, #764ba2, #f093fb, #4facfe, #00f2fe)",zIndex:1},children:l.jsx(dt,{maxW:"1600px",position:"relative",zIndex:2,children:l.jsxs(le,{spacing:{base:8,md:12,lg:16},align:"stretch",children:[l.jsx(S,{textAlign:"center",sx:{animation:r?`${YH} 1.5s ease-out forwards`:"none",animationDelay:r?"0.3s":"0s",opacity:r?void 0:0,transform:r?void 0:"translateY(50px) scale(0.9)"},children:l.jsx(ae,{fontSize:{base:"xl",md:"3xl",lg:"4xl"},fontWeight:"700",lineHeight:{base:1.4,md:1.5},px:{base:4,md:8},py:{base:2,md:2},fontStyle:"italic",bgGradient:"linear-gradient(135deg, #0057B7 0%, #667eea 25%, #764ba2 50%, #f093fb 75%, #4facfe 100%)",bgClip:"text",color:"transparent",sx:{backgroundSize:"200% 200%",animation:`${qH} 3s ease infinite`},children:"У спорті, як і в житті, важливо не ідеально грати, а не зупинятися !"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},mt:{base:4,md:4},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"2xl",overflow:"hidden",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.02)",boxShadow:"0 12px 32px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_14-46-14.jpg",alt:"Спорт",width:"100%",height:{base:"250px",sm:"320px",md:"400px",lg:"480px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"2xl",overflow:"hidden",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",position:"relative",bg:"black",_hover:{transform:"scale(1.02)",boxShadow:"0 12px 32px rgba(0, 0, 0, 0.4)"},children:l.jsxs("video",{controls:!0,style:{display:"block",width:"100%",height:"auto",maxHeight:"480px",objectFit:"contain"},preload:"metadata",children:[l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/би эктив дэй-2.mp4",type:"video/mp4"}),"Ваш браузер не підтримує відео тег."]})})})]})]})})})]})})},ZH=()=>{const e=Nn();return l.jsx(Vn,{isLoading:e,children:l.jsxs(S,{position:"relative",minHeight:"100vh",overflow:"hidden",children:[l.jsx("video",{autoPlay:!0,loop:!0,muted:!0,playsInline:!0,style:{position:"fixed",top:0,left:0,minWidth:"100%",minHeight:"100%",width:"auto",height:"auto",objectFit:"cover",zIndex:0,pointerEvents:"none"},children:l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/flag.mp4",type:"video/mp4"})}),l.jsx(S,{position:"fixed",top:0,left:0,right:0,bottom:0,bg:"rgba(0, 0, 0, 0.5)",zIndex:1,pointerEvents:"none"}),l.jsx(S,{position:"relative",zIndex:2,height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",children:l.jsx(dt,{maxW:"1200px",children:l.jsx(Re,{size:{base:"xl",md:"2xl",lg:"3xl"},color:"white",textAlign:"center",fontWeight:"900",textShadow:"3px 3px 8px rgba(0, 0, 0, 0.7)",letterSpacing:"wide",children:"Досягнення"})})}),l.jsx(S,{position:"relative",zIndex:2,minHeight:"100vh",children:l.jsx(dt,{maxW:"900px",py:{base:12,md:16,lg:20},px:{base:6,md:8},position:"relative",children:l.jsxs(le,{spacing:10,align:"stretch",children:[l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Нагородження годинником"})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:[l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Бойченка Артема Васильовича"})," з нагоди святкування ",l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"105 річчя"}),' Комунального закладу "Харківської гуманітарно-педагогічної академії" Харківської обласної ради ',l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"мером м.Харкова Ігорем Олександровичем Тереховим"}),"."]})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_14-46-29.jpg",alt:"Нагородження годинником",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_14-47-01.jpg",alt:"Нагородження годинником",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_14-47-09.jpg",alt:"Нагородження годинником",width:"100%",height:{base:"250px",sm:"300px",md:"350px",lg:"400px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_14-47-14.jpg",alt:"Нагородження годинником",width:"100%",height:{base:"250px",sm:"300px",md:"350px",lg:"400px"},objectFit:"cover"})})})]})]})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Захист кандидатської дисертації і отримання звання кандидата педагогічних наук"})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/6.jpg",alt:"Захист кандидатської дисертації",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-26-28.jpg",alt:"Захист кандидатської дисертації",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-26-33.jpg",alt:"Захист кандидатської дисертації",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-26-43.jpg",alt:"Захист кандидатської дисертації",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})})]})]})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Урочисте вручення посвідчення доцента"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_15-19-11.jpg",alt:"Урочисте вручення посвідчення доцента",width:"100%",height:{base:"600px",sm:"750px",md:"900px",lg:"700px"},objectFit:"cover",objectPosition:"top"})})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:'Привітання грамотою та подякою до "Дня працівника освіти та науки України"'})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_15-28-07.jpg",alt:"Привітання подякою та грамотою",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_15-28-11.jpg",alt:"Привітання подякою та грамотою",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_15-28-02.jpg",alt:"Привітання подякою та грамотою",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_15-27-56.jpg",alt:"Привітання подякою та грамотою",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_15-28-20.jpg",alt:"Привітання подякою та грамотою",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})})]}),l.jsx(S,{width:"100%",display:"flex",justifyContent:"center",alignItems:"center",py:6,children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.02)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},display:"flex",justifyContent:"center",alignItems:"center",bg:"white",p:{base:3,md:4,lg:6},width:"100%",maxWidth:"100%",children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-05_15-28-24.jpg",alt:"Привітання подякою та грамотою",width:"100%",maxWidth:"100%",maxHeight:{base:"500px",sm:"600px",md:"700px",lg:"800px"},height:"auto",objectFit:"contain"})})})]})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Вступ до докторантури та отримання посвідчення"})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/DSC_1303.JPG.jpg",alt:"Вступ до докторантури та отримання посвідчення",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/DSC_1271.JPG.jpg",alt:"Вступ до докторантури та отримання посвідчення",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"Перемога у олімпійській вікторині серед навчальних закладів м.Харкова"})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-06-53.jpg",alt:"Перемога у олімпійській вікторині",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-07-11.jpg",alt:"Перемога у олімпійській вікторині",width:"100%",height:{base:"350px",sm:"450px",md:"550px",lg:"650px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-07-18.jpg",alt:"Перемога у олімпійській вікторині",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:'Перемога у олімпійській вікторині присвяченої "Міжнародному дню спорту на благо розвитку та миру"'})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsxs(Ce,{templateColumns:{base:"1fr",sm:"repeat(2, 1fr)"},gap:{base:4,md:5},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-13-34.jpg",alt:"Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.03)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-13-24.jpg",alt:"Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"450px"},objectFit:"cover"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-13-37.jpg",alt:"Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-13-19.jpg",alt:"Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-06_01-13-30.jpg",alt:"Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover"})})]})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"24 лютого 2026 року"})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:[l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Артем Бойченко"})," взяв участь як спікер у семінарі викладачів та керівників фізичного виховання  закладів фахової передвищої освіти  «Інноваційні технології фізичного виховання в контексті цифровізації освіти» та виступив з доповіддю «Освітній вебсайт викладача в контексті цифровізації фізичного виховання»"]})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-04_00-03-33.jpg",alt:"Артем Бойченко взяв участь як спікер у семінарі",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover",objectPosition:"right center"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-04_00-04-26.jpg",alt:"Артем Бойченко взяв участь як спікер у семінарі",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover",objectPosition:"right center"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-03-04_00-06-53.jpg",alt:"Артем Бойченко взяв участь як спікер у семінарі",width:"100%",height:{base:"300px",sm:"400px",md:"500px",lg:"600px"},objectFit:"cover",objectPosition:"right center"})})]})]})}),l.jsx(kt,{}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 215, 0, 0.3)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"#0057B7",fontWeight:"700",mb:4,children:"17 березня 2026 року"})}),l.jsx(S,{position:"relative",pl:{base:4,md:6},borderLeft:"4px solid",borderColor:"#0057B7",children:l.jsxs(ae,{fontSize:{base:"md",md:"lg",lg:"xl"},lineHeight:"2",color:"gray.800",textAlign:"justify",fontWeight:"600",letterSpacing:"0.3px",children:[l.jsx(ae,{as:"span",fontWeight:"700",color:"#0057B7",children:"Бойченко Артем Васильович"})," ","підтвердив кваліфікаційну категорію «спеціаліст вищої категорії» та отримав педагогічне звання «викладач-методист»."]})}),l.jsxs(le,{spacing:{base:4,md:5},align:"stretch",children:[l.jsx(S,{alignSelf:"center",w:"100%",maxW:{base:"88%",sm:"82%",md:"80%",lg:"76%"},mt:{base:8,md:10,lg:12},borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-04-28_02-47-59.jpg",alt:"Підтвердження кваліфікаційної категорії та звання викладача-методиста",width:"100%",height:{base:"300px",sm:"400px",md:"450px",lg:"550px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-04-28_02-47-45.jpg",alt:"Підтвердження кваліфікаційної категорії та звання викладача-методиста",width:"100%",height:{base:"300px",sm:"300px",md:"300px",lg:"350px"},objectFit:"cover"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-04-28_02-48-06.jpg",alt:"Підтвердження кваліфікаційної категорії та звання викладача-методиста",width:"100%",height:{base:"300px",sm:"350px",md:"400px",lg:"500px"},objectFit:"cover"})})]})]})})]})})})]})})},QH=()=>{const e=Nn(),{isOpen:r,onOpen:n,onClose:i}=Vb(),[c,u]=_.useState(null),d=(p,g)=>{u({src:p,alt:g}),n()};return l.jsx(Vn,{isLoading:e,children:l.jsxs(S,{position:"relative",minHeight:"100vh",overflow:"hidden",children:[l.jsx("video",{autoPlay:!0,loop:!0,muted:!0,playsInline:!0,style:{position:"fixed",top:0,left:0,minWidth:"100%",minHeight:"100%",width:"auto",height:"auto",objectFit:"cover",zIndex:0,pointerEvents:"none"},children:l.jsx("source",{src:"/HGPA_Boiko/Boichenko_HGPA/videos/background_1.mp4",type:"video/mp4"})}),l.jsx(S,{position:"fixed",top:0,left:0,right:0,bottom:0,bg:"rgba(0, 0, 0, 0.5)",zIndex:1,pointerEvents:"none"}),l.jsx(S,{position:"relative",zIndex:2,height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",width:"100%",children:l.jsx(S,{border:"2px solid white",borderRadius:"8px",px:{base:8,md:12,lg:16},py:{base:6,md:8,lg:10},bg:"rgba(255, 255, 255, 0.1)",backdropFilter:"blur(10px)",boxShadow:"0 8px 32px rgba(0, 0, 0, 0.3)",textAlign:"center",mx:"auto",children:l.jsx(Re,{size:{base:"xl",md:"2xl",lg:"3xl"},color:"white",textAlign:"center",fontWeight:"600",letterSpacing:"wide",fontFamily:"serif",whiteSpace:"nowrap",children:"Підвищення кваліфікації"})})}),l.jsx(S,{position:"relative",zIndex:2,minHeight:"100vh",bg:"transparent",children:l.jsx(dt,{maxW:"900px",py:{base:12,md:16,lg:20},px:{base:6,md:8},position:"relative",children:l.jsxs(le,{spacing:10,align:"stretch",children:[l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 255, 255, 0.5)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(S,{border:"2px solid rgba(0, 0, 0, 0.2)",borderRadius:"8px",px:{base:6,md:8,lg:10},py:{base:4,md:5,lg:6},display:"inline-block",bg:"rgba(255, 255, 255, 0.9)",backdropFilter:"blur(10px)",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.2)",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",fontWeight:"700",letterSpacing:"wide",fontFamily:"serif",children:"2021 рік"})})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-08_00-30-52.jpg","Диплом 2021"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2026-01-08_00-30-52.jpg",alt:"Диплом 2021",width:"100%",height:"auto",objectFit:"contain"})})]})}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 255, 255, 0.5)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(S,{border:"2px solid rgba(0, 0, 0, 0.2)",borderRadius:"8px",px:{base:6,md:8,lg:10},py:{base:4,md:5,lg:6},display:"inline-block",bg:"rgba(255, 255, 255, 0.9)",backdropFilter:"blur(10px)",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.2)",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",fontWeight:"700",letterSpacing:"wide",fontFamily:"serif",children:"2022 рік"})})}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Міжнародне_стаж_Білостоцький_унів_Польща.jpg","Міжнародне стаж Білостоцький унів Польща"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Міжнародне_стаж_Білостоцький_унів_Польща.jpg",alt:"Міжнародне стаж Білостоцький унів Польща",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/!2 ст. Міжн. стаж. Білост. унів..jpg","2 ст. Міжн. стаж. Білост. унів."),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/!2 ст. Міжн. стаж. Білост. унів..jpg",alt:"2 ст. Міжн. стаж. Білост. унів.",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/IMG-c79012a681e3152cd5ba0f7e23004305-V.jpg","IMG-c79012a681e3152cd5ba0f7e23004305-V"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/IMG-c79012a681e3152cd5ba0f7e23004305-V.jpg",alt:"IMG-c79012a681e3152cd5ba0f7e23004305-V",width:"100%",height:"auto",objectFit:"contain"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Artem Boichenko(1).jpg","Artem Boichenko"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Artem Boichenko(1).jpg",alt:"Artem Boichenko",width:"100%",height:"auto",objectFit:"contain"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/№GDTfE-01-00149 (1) (2).jpg","№GDTfE-01-00149"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/№GDTfE-01-00149 (1) (2).jpg",alt:"№GDTfE-01-00149",width:"100%",height:"auto",objectFit:"contain"})})]})]})}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 255, 255, 0.5)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(S,{border:"2px solid rgba(0, 0, 0, 0.2)",borderRadius:"8px",px:{base:6,md:8,lg:10},py:{base:4,md:5,lg:6},display:"inline-block",bg:"rgba(255, 255, 255, 0.9)",backdropFilter:"blur(10px)",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.2)",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",fontWeight:"700",letterSpacing:"wide",fontFamily:"serif",children:"2023 рік"})})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/2023.jpg","2023"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/2023.jpg",alt:"2023",width:"100%",height:"auto",objectFit:"contain"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/20241210_104358.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/20241210_104358.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/веб оф сайнс 2023.jpg","Веб оф сайнс 2023"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/веб оф сайнс 2023.jpg",alt:"Веб оф сайнс 2023",width:"100%",height:"auto",objectFit:"contain"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/конференція.jpg","Конференція"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/конференція.jpg",alt:"Конференція",width:"100%",height:"auto",objectFit:"contain"})}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/бі ектів.jpg","Бі ектів"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/бі ектів.jpg",alt:"Бі ектів",width:"100%",height:"auto",objectFit:"contain"})})]})]})}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 255, 255, 0.5)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(S,{border:"2px solid rgba(0, 0, 0, 0.2)",borderRadius:"8px",px:{base:6,md:8,lg:10},py:{base:4,md:5,lg:6},display:"inline-block",bg:"rgba(255, 255, 255, 0.9)",backdropFilter:"blur(10px)",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.2)",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",fontWeight:"700",letterSpacing:"wide",fontFamily:"serif",children:"2024 рік"})})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-41.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-41.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-44.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-44.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-46.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-46.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-51.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-51.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/2_5281023102044624877.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/2_5281023102044624877.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-48.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2024-12-10_12-54-48.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/2_5199474734089128204.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/2_5199474734089128204.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/2_5345860821698236104.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/2_5345860821698236104.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/2_5386666133451456754.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/2_5386666133451456754.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/204_Сертифікати Серпнева.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/204_Сертифікати Серпнева.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем (3).jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем (3).jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Бойченко АртемЕЗ-0665.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Бойченко АртемЕЗ-0665.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Бойченко_Артем_сертифікат_07_09_08_24_Soft_skills_1.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Бойченко_Артем_сертифікат_07_09_08_24_Soft_skills_1.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/2_5309893575855597203.jpg","2024"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/2_5309893575855597203.jpg",alt:"2024",width:"100%",height:"auto",objectFit:"contain"})})]})]})}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 255, 255, 0.5)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(S,{border:"2px solid rgba(0, 0, 0, 0.2)",borderRadius:"8px",px:{base:6,md:8,lg:10},py:{base:4,md:5,lg:6},display:"inline-block",bg:"rgba(255, 255, 255, 0.9)",backdropFilter:"blur(10px)",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.2)",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",fontWeight:"700",letterSpacing:"wide",fontFamily:"serif",children:"2025 рік"})})}),l.jsxs(le,{spacing:6,align:"stretch",children:[l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-09-26_14-44-36.jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-09-26_14-44-36.jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-20_16-55-02.jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/photo_2025-12-20_16-55-02.jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Бойченко.jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Бойченко.jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Качан 2025 2.jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Качан 2025 2.jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Сертифікат-Качан-2025-_2_-_1_.jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Сертифікат-Качан-2025-_2_-_1_.jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем Васильович (122).jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем Васильович (122).jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем Васильович(332).jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Бойченко Артем Васильович(332).jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/інклюзія 30.jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/інклюзія 30.jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/фахове підвищення кв. 30 год..jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/фахове підвищення кв. 30 год..jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})})]}),l.jsxs(Ce,{templateColumns:{base:"1fr",md:"repeat(2, 1fr)"},gap:{base:6,md:8},children:[l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/Certificate_Artem_Boichenko (2).jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/Certificate_Artem_Boichenko (2).jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})}),l.jsx(ne,{children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/MTU1Nw==.jpg","2025"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/MTU1Nw==.jpg",alt:"2025",width:"100%",height:"auto",objectFit:"contain"})})})]})]})]})}),l.jsx(S,{bg:"rgba(255, 255, 255, 0.7)",borderRadius:"2xl",p:{base:8,md:10,lg:12},boxShadow:"0 12px 40px rgba(0, 0, 0, 0.4)",border:"2px solid",borderColor:"rgba(255, 255, 255, 0.5)",position:"relative",overflow:"hidden",_before:{content:'""',position:"absolute",top:0,left:0,right:0,height:"4px",bg:"linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",zIndex:1},transition:"all 0.3s ease",_hover:{transform:"translateY(-4px)",boxShadow:"0 16px 48px rgba(0, 0, 0, 0.5)"},children:l.jsxs(le,{spacing:8,align:"stretch",position:"relative",zIndex:2,children:[l.jsx(S,{textAlign:"center",children:l.jsx(S,{border:"2px solid rgba(0, 0, 0, 0.2)",borderRadius:"8px",px:{base:6,md:8,lg:10},py:{base:4,md:5,lg:6},display:"inline-block",bg:"rgba(255, 255, 255, 0.9)",backdropFilter:"blur(10px)",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.2)",children:l.jsx(Re,{size:{base:"lg",md:"xl",lg:"2xl"},color:"gray.800",fontWeight:"700",letterSpacing:"wide",fontFamily:"serif",children:"2026 рік"})})}),l.jsx(le,{spacing:6,align:"stretch",children:l.jsx(S,{borderRadius:"xl",overflow:"hidden",boxShadow:"0 4px 16px rgba(0, 0, 0, 0.3)",transition:"all 0.3s ease",cursor:"pointer",bg:"white",p:2,onClick:()=>d("/HGPA_Boiko/Boichenko_HGPA/images/PDFMailer.jpg","2026"),_hover:{transform:"scale(1.01)",boxShadow:"0 8px 24px rgba(0, 0, 0, 0.4)"},children:l.jsx(V,{src:"/HGPA_Boiko/Boichenko_HGPA/images/PDFMailer.jpg",alt:"2026",width:"100%",height:"auto",objectFit:"contain"})})})]})})]})})}),l.jsxs(nu,{isOpen:r,onClose:i,size:"full",isCentered:!0,children:[l.jsx(iu,{bg:"blackAlpha.800",backdropFilter:"blur(10px)"}),l.jsxs(bf,{bg:"transparent",boxShadow:"none",maxW:"95vw",maxH:"95vh",m:0,children:[l.jsx(lu,{color:"white",bg:"rgba(0, 0, 0, 0.5)",borderRadius:"full",size:"lg",_hover:{bg:"rgba(0, 0, 0, 0.7)"},zIndex:10}),l.jsx(ou,{p:0,display:"flex",alignItems:"center",justifyContent:"center",position:"relative",children:c&&l.jsx(V,{src:c.src,alt:c.alt,maxW:"100%",maxH:"95vh",objectFit:"contain",borderRadius:"lg",boxShadow:"0 20px 60px rgba(0, 0, 0, 0.8)"})})]})]})]})})},KH=()=>l.jsxs(zH,{children:[l.jsx(AH,{}),l.jsxs(_C,{children:[l.jsx(Va,{path:"/",element:l.jsx(OH,{})}),l.jsx(Va,{path:"/portfolio",element:l.jsx($H,{})}),l.jsx(Va,{path:"/educational-methodical",element:l.jsx(LH,{})}),l.jsx(Va,{path:"/extracurricular",element:l.jsx(NH,{})}),l.jsx(Va,{path:"/volunteer",element:l.jsx(IH,{})}),l.jsx(Va,{path:"/patriotic-education",element:l.jsx(PH,{})}),l.jsx(Va,{path:"/physical-activity",element:l.jsx(XH,{})}),l.jsx(Va,{path:"/achievements",element:l.jsx(ZH,{})}),l.jsx(Va,{path:"/self-development",element:l.jsx(QH,{})})]})]});function JH(){return l.jsx(a8,{children:l.jsx(KH,{})})}"scrollRestoration"in window.history&&(window.history.scrollRestoration="manual");let G0=!1;window.addEventListener("popstate",()=>{G0=!0,window.scrollTo(0,0),setTimeout(()=>{G0=!1},1e3)});let v5;window.addEventListener("scroll",()=>{G0&&(window.scrollTo(0,0),clearTimeout(v5),v5=setTimeout(()=>{G0=!1},1e3))},{passive:!1,capture:!0});k6.createRoot(document.getElementById("root")).render(l.jsx(jL,{children:l.jsx(JH,{})}));
+`,
+  XH = () => {
+    const e = Nn(),
+      [r, n] = _.useState(!1),
+      i = _.useRef(null);
+    return (
+      _.useEffect(() => {
+        const c = new IntersectionObserver(
+          (u) => {
+            u.forEach((d) => {
+              d.isIntersecting && n(!0);
+            });
+          },
+          { threshold: 0.2, rootMargin: "0px 0px -100px 0px" }
+        );
+        return (
+          i.current && c.observe(i.current),
+          () => {
+            i.current && c.unobserve(i.current);
+          }
+        );
+      }, []),
+      l.jsx(Vn, {
+        isLoading: e,
+        children: l.jsxs(S, {
+          position: "relative",
+          minHeight: "100vh",
+          overflow: "hidden",
+          children: [
+            l.jsxs(S, {
+              position: "relative",
+              py: { base: 16, md: 20, lg: 24 },
+              px: { base: 4, md: 8 },
+              bgGradient:
+                "linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%)",
+              bgSize: "400% 400%",
+              animation: "gradient 15s ease infinite",
+              sx: {
+                "@keyframes gradient": {
+                  "0%": { backgroundPosition: "0% 50%" },
+                  "50%": { backgroundPosition: "100% 50%" },
+                  "100%": { backgroundPosition: "0% 50%" },
+                },
+              },
+              _before: {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                bg: "rgba(0, 0, 0, 0.3)",
+                zIndex: 1,
+              },
+              children: [
+                l.jsx(S, {
+                  position: "absolute",
+                  top: "20%",
+                  left: "10%",
+                  width: { base: "80px", md: "100px", lg: "80px" },
+                  height: { base: "80px", md: "100px", lg: "80px" },
+                  zIndex: 2,
+                  animation: `${UH} 3s ease-in-out infinite`,
+                  filter: "drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4))",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  children: l.jsx(S, {
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    bg: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: { base: "50px", md: "70px", lg: "90px" },
+                    boxShadow: "0 6px 25px rgba(0, 0, 0, 0.4)",
+                    border: "3px solid #000",
+                    children: "⚽",
+                  }),
+                }),
+                l.jsx(S, {
+                  position: "absolute",
+                  top: { base: "10%", md: "8%", lg: "84%" },
+                  left: { base: "35%", md: "38%", lg: "40%" },
+                  width: { base: "90px", md: "110px", lg: "80px" },
+                  height: { base: "90px", md: "110px", lg: "80px" },
+                  zIndex: 2,
+                  animation: `${WH} 3.5s ease-in-out infinite`,
+                  filter: "drop-shadow(0 8px 16px rgba(255, 107, 53, 0.5))",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  children: l.jsx(S, {
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    bg: "#FF6B35",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: { base: "55px", md: "75px", lg: "95px" },
+                    boxShadow: "0 6px 25px rgba(255, 107, 53, 0.5)",
+                    border: "3px solid #000",
+                    children: "🏀",
+                  }),
+                }),
+                l.jsx(S, {
+                  position: "absolute",
+                  top: { base: "10%", md: "8%", lg: "26%" },
+                  right: { base: "35%", md: "38%", lg: "4%" },
+                  width: { base: "85px", md: "105px", lg: "80px" },
+                  height: { base: "85px", md: "105px", lg: "80px" },
+                  zIndex: 2,
+                  animation: `${GH} 4s ease-in-out infinite`,
+                  filter: "drop-shadow(0 8px 16px rgba(255, 215, 0, 0.5))",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  children: l.jsx(S, {
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    bg: "#FFD700",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: { base: "52px", md: "72px", lg: "92px" },
+                    boxShadow: "0 6px 25px rgba(255, 215, 0, 0.5)",
+                    border: "3px solid #000",
+                    children: "🏐",
+                  }),
+                }),
+                l.jsx(dt, {
+                  maxW: "1200px",
+                  position: "relative",
+                  zIndex: 3,
+                  children: l.jsx(le, {
+                    spacing: 8,
+                    align: "center",
+                    children: l.jsx(Re, {
+                      size: { base: "xl", md: "2xl", lg: "3xl" },
+                      color: "white",
+                      textAlign: "center",
+                      fontWeight: "900",
+                      textShadow: "3px 3px 8px rgba(0, 0, 0, 0.7)",
+                      letterSpacing: "wide",
+                      lineHeight: "1.4",
+                      children: "Рух - це життя",
+                    }),
+                  }),
+                }),
+              ],
+            }),
+            l.jsx(S, {
+              bgGradient:
+                "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",
+              py: { base: 12, md: 16, lg: 20 },
+              px: { base: 4, md: 8 },
+              position: "relative",
+              _before: {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "4px",
+                bg: "linear-gradient(90deg, #667eea, #764ba2, #f093fb, #4facfe, #00f2fe)",
+                zIndex: 1,
+              },
+              children: l.jsx(dt, {
+                maxW: "1600px",
+                position: "relative",
+                zIndex: 2,
+                children: l.jsx(le, {
+                  spacing: 8,
+                  align: "center",
+                  children: l.jsx(S, {
+                    borderRadius: "3xl",
+                    overflow: "visible",
+                    boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+                    position: "relative",
+                    bgGradient:
+                      "linear-gradient(135deg, #667eea, #764ba2, #f093fb, #4facfe, #00f2fe)",
+                    p: { base: 4, md: 5, lg: 6 },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 24px 72px rgba(0, 0, 0, 0.4)",
+                    },
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: { base: "100%", md: "95%", lg: "60%" },
+                    mx: "auto",
+                    children: l.jsx(S, {
+                      borderRadius: "2xl",
+                      overflow: "hidden",
+                      position: "relative",
+                      bg: "black",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      children: l.jsxs("video", {
+                        controls: !0,
+                        style: {
+                          display: "block",
+                          width: "100%",
+                          height: "auto",
+                          maxWidth: "100%",
+                          maxHeight: "75vh",
+                          borderRadius: "1rem",
+                          objectFit: "contain",
+                        },
+                        preload: "metadata",
+                        children: [
+                          l.jsx("source", {
+                            src: "/Boichenko_HGPA/videos/video_2026-01-06_13-08-21.mp4",
+                            type: "video/mp4",
+                          }),
+                          "Ваш браузер не підтримує відео тег.",
+                        ],
+                      }),
+                    }),
+                  }),
+                }),
+              }),
+            }),
+            l.jsx(S, {
+              bgGradient:
+                "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",
+              py: { base: 12, md: 16, lg: 20 },
+              px: { base: 4, md: 8 },
+              position: "relative",
+              children: l.jsx(dt, {
+                maxW: "1200px",
+                children: l.jsxs(le, {
+                  spacing: 8,
+                  align: "stretch",
+                  children: [
+                    l.jsx(S, {
+                      textAlign: "center",
+                      children: l.jsx(Re, {
+                        size: { base: "xl", md: "2xl", lg: "3xl" },
+                        color: "#0057B7",
+                        fontWeight: "700",
+                        mb: 4,
+                        children: "Гравець",
+                      }),
+                    }),
+                    l.jsxs(le, {
+                      spacing: { base: 4, md: 5 },
+                      align: "stretch",
+                      children: [
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/IMG-a0eed2a248b1f0236ab00572cd73dc4a-V.jpg",
+                            alt: "Гравець",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            sm: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 5 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/IMG-be5d7f3d66ad9ab452a7ec682cf8e9e7-V.jpg",
+                                  alt: "Гравець",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/20220531_111621.jpg",
+                                  alt: "Гравець",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/IMG_20251214_150901_623.jpg",
+                            alt: "Гравець",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/IMG-d6a39f9e58d674ca6e768dc71b0136a8-V.jpg",
+                            alt: "Гравець",
+                            width: "100%",
+                            height: {
+                              base: "350px",
+                              sm: "450px",
+                              md: "550px",
+                              lg: "650px",
+                            },
+                            objectFit: "cover",
+                            objectPosition: "top",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/IMG-8b117c2dae8f9ad797b135efea7e3c50-V.jpg",
+                            alt: "Гравець",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-04-57.jpg",
+                            alt: "Гравець",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-04-37.jpg",
+                            alt: "Гравець",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/IMG-255159084a06821a3054ed333e39e2fc-V.jpg",
+                            alt: "Гравець",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+              }),
+            }),
+            l.jsx(S, {
+              bgGradient:
+                "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",
+              py: { base: 12, md: 16, lg: 20 },
+              px: { base: 4, md: 8 },
+              position: "relative",
+              children: l.jsx(dt, {
+                maxW: "1200px",
+                children: l.jsxs(le, {
+                  spacing: 8,
+                  align: "stretch",
+                  children: [
+                    l.jsx(S, {
+                      textAlign: "center",
+                      children: l.jsx(Re, {
+                        size: { base: "xl", md: "2xl", lg: "3xl" },
+                        color: "#0057B7",
+                        fontWeight: "700",
+                        mb: 4,
+                        children: "Тренер",
+                      }),
+                    }),
+                    l.jsxs(le, {
+                      spacing: { base: 4, md: 5 },
+                      align: "stretch",
+                      children: [
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/20240617_092626.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-29-53.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-29-59.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-30-12.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-29-03.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            sm: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 5 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-28-49.jpg",
+                                  alt: "Тренер",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-29-14.jpg",
+                                  alt: "Тренер",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-29-41.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-29-47.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-29-22.jpg",
+                            alt: "Тренер",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+              }),
+            }),
+            l.jsx(S, {
+              bgGradient:
+                "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",
+              py: { base: 12, md: 16, lg: 20 },
+              px: { base: 4, md: 8 },
+              position: "relative",
+              children: l.jsx(dt, {
+                maxW: "1200px",
+                children: l.jsxs(le, {
+                  spacing: 8,
+                  align: "stretch",
+                  children: [
+                    l.jsx(S, {
+                      textAlign: "center",
+                      children: l.jsx(Re, {
+                        size: { base: "xl", md: "2xl", lg: "3xl" },
+                        color: "#0057B7",
+                        fontWeight: "700",
+                        mb: 4,
+                        children: "Викладач",
+                      }),
+                    }),
+                    l.jsxs(le, {
+                      spacing: { base: 4, md: 5 },
+                      align: "stretch",
+                      children: [
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            sm: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 5 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-43-50.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-44-21.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            sm: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 5 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-45-29.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "350px",
+                                    sm: "450px",
+                                    md: "550px",
+                                    lg: "650px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-45-44.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "350px",
+                                    sm: "450px",
+                                    md: "550px",
+                                    lg: "650px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-43-55.jpg",
+                            alt: "Викладач",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            sm: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 5 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-44-26.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "350px",
+                                    sm: "450px",
+                                    md: "550px",
+                                    lg: "650px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-44-47.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "350px",
+                                    sm: "450px",
+                                    md: "550px",
+                                    lg: "650px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/IMG-34de48fb9d6cdd7e605b85cd2f6c0379-V.jpg",
+                            alt: "Викладач",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            sm: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 4, md: 5 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-45-48.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.03)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-06_14-45-55.jpg",
+                                  alt: "Викладач",
+                                  width: "100%",
+                                  height: {
+                                    base: "300px",
+                                    sm: "350px",
+                                    md: "400px",
+                                    lg: "450px",
+                                  },
+                                  objectFit: "cover",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-06_14-44-58.jpg",
+                            alt: "Викладач",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-07_00-20-19.jpg",
+                            alt: "Викладач",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-04-28_03-09-48.jpg",
+                            alt: "Викладач",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-04-28_03-10-08.jpg",
+                            alt: "Викладач",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-04-28_03-10-14.jpg",
+                            alt: "Викладач",
+                            width: "100%",
+                            height: {
+                              base: "300px",
+                              sm: "400px",
+                              md: "500px",
+                              lg: "600px",
+                            },
+                            objectFit: "cover",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          position: "relative",
+                          bg: "black",
+                          children: l.jsxs("video", {
+                            controls: !0,
+                            style: {
+                              display: "block",
+                              width: "100%",
+                              height: "auto",
+                              maxHeight: "700px",
+                              objectFit: "contain",
+                            },
+                            preload: "metadata",
+                            children: [
+                              l.jsx("source", {
+                                src: "/Boichenko_HGPA/videos/video_2026-04-28_03-10-00.mp4",
+                                type: "video/mp4",
+                              }),
+                              "Ваш браузер не підтримує відео тег.",
+                            ],
+                          }),
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+              }),
+            }),
+            l.jsx(S, {
+              ref: i,
+              bgGradient:
+                "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 243, 250, 0.95) 100%)",
+              pt: { base: 16, md: 20, lg: 20 },
+              pb: { base: 4, md: 4, lg: 6 },
+              px: { base: 4, md: 8 },
+              position: "relative",
+              _before: {
+                content: '""',
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: "4px",
+                bg: "linear-gradient(90deg, #667eea, #764ba2, #f093fb, #4facfe, #00f2fe)",
+                zIndex: 1,
+              },
+              children: l.jsx(dt, {
+                maxW: "1600px",
+                position: "relative",
+                zIndex: 2,
+                children: l.jsxs(le, {
+                  spacing: { base: 8, md: 12, lg: 16 },
+                  align: "stretch",
+                  children: [
+                    l.jsx(S, {
+                      textAlign: "center",
+                      sx: {
+                        animation: r ? `${YH} 1.5s ease-out forwards` : "none",
+                        animationDelay: r ? "0.3s" : "0s",
+                        opacity: r ? void 0 : 0,
+                        transform: r ? void 0 : "translateY(50px) scale(0.9)",
+                      },
+                      children: l.jsx(ae, {
+                        fontSize: { base: "xl", md: "3xl", lg: "4xl" },
+                        fontWeight: "700",
+                        lineHeight: { base: 1.4, md: 1.5 },
+                        px: { base: 4, md: 8 },
+                        py: { base: 2, md: 2 },
+                        fontStyle: "italic",
+                        bgGradient:
+                          "linear-gradient(135deg, #0057B7 0%, #667eea 25%, #764ba2 50%, #f093fb 75%, #4facfe 100%)",
+                        bgClip: "text",
+                        color: "transparent",
+                        sx: {
+                          backgroundSize: "200% 200%",
+                          animation: `${qH} 3s ease infinite`,
+                        },
+                        children:
+                          "У спорті, як і в житті, важливо не ідеально грати, а не зупинятися !",
+                      }),
+                    }),
+                    l.jsxs(Ce, {
+                      templateColumns: { base: "1fr", md: "repeat(2, 1fr)" },
+                      gap: { base: 6, md: 8 },
+                      mt: { base: 4, md: 4 },
+                      children: [
+                        l.jsx(ne, {
+                          children: l.jsx(S, {
+                            borderRadius: "2xl",
+                            overflow: "hidden",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            cursor: "pointer",
+                            _hover: {
+                              transform: "scale(1.02)",
+                              boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsx(V, {
+                              src: "/Boichenko_HGPA/images/photo_2026-01-06_14-46-14.jpg",
+                              alt: "Спорт",
+                              width: "100%",
+                              height: {
+                                base: "250px",
+                                sm: "320px",
+                                md: "400px",
+                                lg: "480px",
+                              },
+                              objectFit: "cover",
+                            }),
+                          }),
+                        }),
+                        l.jsx(ne, {
+                          children: l.jsx(S, {
+                            borderRadius: "2xl",
+                            overflow: "hidden",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            position: "relative",
+                            bg: "black",
+                            _hover: {
+                              transform: "scale(1.02)",
+                              boxShadow: "0 12px 32px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsxs("video", {
+                              controls: !0,
+                              style: {
+                                display: "block",
+                                width: "100%",
+                                height: "auto",
+                                maxHeight: "480px",
+                                objectFit: "contain",
+                              },
+                              preload: "metadata",
+                              children: [
+                                l.jsx("source", {
+                                  src: "/Boichenko_HGPA/videos/би эктив дэй-2.mp4",
+                                  type: "video/mp4",
+                                }),
+                                "Ваш браузер не підтримує відео тег.",
+                              ],
+                            }),
+                          }),
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+              }),
+            }),
+          ],
+        }),
+      })
+    );
+  },
+  ZH = () => {
+    const e = Nn();
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsxs(S, {
+        position: "relative",
+        minHeight: "100vh",
+        overflow: "hidden",
+        children: [
+          l.jsx("video", {
+            autoPlay: !0,
+            loop: !0,
+            muted: !0,
+            playsInline: !0,
+            style: {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              minWidth: "100%",
+              minHeight: "100%",
+              width: "auto",
+              height: "auto",
+              objectFit: "cover",
+              zIndex: 0,
+              pointerEvents: "none",
+            },
+            children: l.jsx("source", {
+              src: "/Boichenko_HGPA/videos/flag.mp4",
+              type: "video/mp4",
+            }),
+          }),
+          l.jsx(S, {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            bg: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1,
+            pointerEvents: "none",
+          }),
+          l.jsx(S, {
+            position: "relative",
+            zIndex: 2,
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            children: l.jsx(dt, {
+              maxW: "1200px",
+              children: l.jsx(Re, {
+                size: { base: "xl", md: "2xl", lg: "3xl" },
+                color: "white",
+                textAlign: "center",
+                fontWeight: "900",
+                textShadow: "3px 3px 8px rgba(0, 0, 0, 0.7)",
+                letterSpacing: "wide",
+                children: "Досягнення",
+              }),
+            }),
+          }),
+          l.jsx(S, {
+            position: "relative",
+            zIndex: 2,
+            minHeight: "100vh",
+            children: l.jsx(dt, {
+              maxW: "900px",
+              py: { base: 12, md: 16, lg: 20 },
+              px: { base: 6, md: 8 },
+              position: "relative",
+              children: l.jsxs(le, {
+                spacing: 10,
+                align: "stretch",
+                children: [
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children: "Нагородження годинником",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "Бойченка Артема Васильовича",
+                              }),
+                              " з нагоди святкування ",
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "105 річчя",
+                              }),
+                              ' Комунального закладу "Харківської гуманітарно-педагогічної академії" Харківської обласної ради ',
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children:
+                                  "мером м.Харкова Ігорем Олександровичем Тереховим",
+                              }),
+                              ".",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-05_14-46-29.jpg",
+                                alt: "Нагородження годинником",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-05_14-47-01.jpg",
+                                alt: "Нагородження годинником",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                sm: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 4, md: 5 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-05_14-47-09.jpg",
+                                      alt: "Нагородження годинником",
+                                      width: "100%",
+                                      height: {
+                                        base: "250px",
+                                        sm: "300px",
+                                        md: "350px",
+                                        lg: "400px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-05_14-47-14.jpg",
+                                      alt: "Нагородження годинником",
+                                      width: "100%",
+                                      height: {
+                                        base: "250px",
+                                        sm: "300px",
+                                        md: "350px",
+                                        lg: "400px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children:
+                              "Захист кандидатської дисертації і отримання звання кандидата педагогічних наук",
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/6.jpg",
+                                alt: "Захист кандидатської дисертації",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-06_01-26-28.jpg",
+                                alt: "Захист кандидатської дисертації",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                sm: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 4, md: 5 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-06_01-26-33.jpg",
+                                      alt: "Захист кандидатської дисертації",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "350px",
+                                        md: "400px",
+                                        lg: "450px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-06_01-26-43.jpg",
+                                      alt: "Захист кандидатської дисертації",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "350px",
+                                        md: "400px",
+                                        lg: "450px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children: "Урочисте вручення посвідчення доцента",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-05_15-19-11.jpg",
+                            alt: "Урочисте вручення посвідчення доцента",
+                            width: "100%",
+                            height: {
+                              base: "600px",
+                              sm: "750px",
+                              md: "900px",
+                              lg: "700px",
+                            },
+                            objectFit: "cover",
+                            objectPosition: "top",
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children:
+                              'Привітання грамотою та подякою до "Дня працівника освіти та науки України"',
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-05_15-28-07.jpg",
+                                alt: "Привітання подякою та грамотою",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-05_15-28-11.jpg",
+                                alt: "Привітання подякою та грамотою",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-05_15-28-02.jpg",
+                                alt: "Привітання подякою та грамотою",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                sm: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 4, md: 5 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-05_15-27-56.jpg",
+                                      alt: "Привітання подякою та грамотою",
+                                      width: "100%",
+                                      height: {
+                                        base: "350px",
+                                        sm: "450px",
+                                        md: "550px",
+                                        lg: "650px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-05_15-28-20.jpg",
+                                      alt: "Привітання подякою та грамотою",
+                                      width: "100%",
+                                      height: {
+                                        base: "350px",
+                                        sm: "450px",
+                                        md: "550px",
+                                        lg: "650px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsx(S, {
+                              width: "100%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              py: 6,
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                _hover: {
+                                  transform: "scale(1.02)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                bg: "white",
+                                p: { base: 3, md: 4, lg: 6 },
+                                width: "100%",
+                                maxWidth: "100%",
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/photo_2026-01-05_15-28-24.jpg",
+                                  alt: "Привітання подякою та грамотою",
+                                  width: "100%",
+                                  maxWidth: "100%",
+                                  maxHeight: {
+                                    base: "500px",
+                                    sm: "600px",
+                                    md: "700px",
+                                    lg: "800px",
+                                  },
+                                  height: "auto",
+                                  objectFit: "contain",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children:
+                              "Вступ до докторантури та отримання посвідчення",
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/DSC_1303.JPG.jpg",
+                                alt: "Вступ до докторантури та отримання посвідчення",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/DSC_1271.JPG.jpg",
+                                alt: "Вступ до докторантури та отримання посвідчення",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children:
+                              "Перемога у олімпійській вікторині серед навчальних закладів м.Харкова",
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                sm: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 4, md: 5 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-06_01-06-53.jpg",
+                                      alt: "Перемога у олімпійській вікторині",
+                                      width: "100%",
+                                      height: {
+                                        base: "350px",
+                                        sm: "450px",
+                                        md: "550px",
+                                        lg: "650px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-06_01-07-11.jpg",
+                                      alt: "Перемога у олімпійській вікторині",
+                                      width: "100%",
+                                      height: {
+                                        base: "350px",
+                                        sm: "450px",
+                                        md: "550px",
+                                        lg: "650px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-06_01-07-18.jpg",
+                                alt: "Перемога у олімпійській вікторині",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children:
+                              'Перемога у олімпійській вікторині присвяченої "Міжнародному дню спорту на благо розвитку та миру"',
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                sm: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 4, md: 5 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-06_01-13-34.jpg",
+                                      alt: "Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "350px",
+                                        md: "400px",
+                                        lg: "450px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    _hover: {
+                                      transform: "scale(1.03)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2026-01-06_01-13-24.jpg",
+                                      alt: "Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",
+                                      width: "100%",
+                                      height: {
+                                        base: "300px",
+                                        sm: "350px",
+                                        md: "400px",
+                                        lg: "450px",
+                                      },
+                                      objectFit: "cover",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-06_01-13-37.jpg",
+                                alt: "Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-06_01-13-19.jpg",
+                                alt: "Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-01-06_01-13-30.jpg",
+                                alt: "Перемога у олімпійській вікторині присвяченої Міжнародному дню спорту",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children: "24 лютого 2026 року",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "Артем Бойченко",
+                              }),
+                              " взяв участь як спікер у семінарі викладачів та керівників фізичного виховання  закладів фахової передвищої освіти  «Інноваційні технології фізичного виховання в контексті цифровізації освіти» та виступив з доповіддю «Освітній вебсайт викладача в контексті цифровізації фізичного виховання»",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-03-04_00-03-33.jpg",
+                                alt: "Артем Бойченко взяв участь як спікер у семінарі",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                                objectPosition: "right center",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-03-04_00-04-26.jpg",
+                                alt: "Артем Бойченко взяв участь як спікер у семінарі",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                                objectPosition: "right center",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-03-04_00-06-53.jpg",
+                                alt: "Артем Бойченко взяв участь як спікер у семінарі",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "500px",
+                                  lg: "600px",
+                                },
+                                objectFit: "cover",
+                                objectPosition: "right center",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(kt, {}),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 215, 0, 0.3)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, #0057B7, #FFD700, #0057B7)",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(Re, {
+                            size: { base: "lg", md: "xl", lg: "2xl" },
+                            color: "#0057B7",
+                            fontWeight: "700",
+                            mb: 4,
+                            children: "17 березня 2026 року",
+                          }),
+                        }),
+                        l.jsx(S, {
+                          position: "relative",
+                          pl: { base: 4, md: 6 },
+                          borderLeft: "4px solid",
+                          borderColor: "#0057B7",
+                          children: l.jsxs(ae, {
+                            fontSize: { base: "md", md: "lg", lg: "xl" },
+                            lineHeight: "2",
+                            color: "gray.800",
+                            textAlign: "justify",
+                            fontWeight: "600",
+                            letterSpacing: "0.3px",
+                            children: [
+                              l.jsx(ae, {
+                                as: "span",
+                                fontWeight: "700",
+                                color: "#0057B7",
+                                children: "Бойченко Артем Васильович",
+                              }),
+                              " ",
+                              "підтвердив кваліфікаційну категорію «спеціаліст вищої категорії» та отримав педагогічне звання «викладач-методист».",
+                            ],
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: { base: 4, md: 5 },
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              alignSelf: "center",
+                              w: "100%",
+                              maxW: {
+                                base: "88%",
+                                sm: "82%",
+                                md: "80%",
+                                lg: "76%",
+                              },
+                              mt: { base: 8, md: 10, lg: 12 },
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-04-28_02-47-59.jpg",
+                                alt: "Підтвердження кваліфікаційної категорії та звання викладача-методиста",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "400px",
+                                  md: "450px",
+                                  lg: "550px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-04-28_02-47-45.jpg",
+                                alt: "Підтвердження кваліфікаційної категорії та звання викладача-методиста",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "300px",
+                                  md: "300px",
+                                  lg: "350px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/photo_2026-04-28_02-48-06.jpg",
+                                alt: "Підтвердження кваліфікаційної категорії та звання викладача-методиста",
+                                width: "100%",
+                                height: {
+                                  base: "300px",
+                                  sm: "350px",
+                                  md: "400px",
+                                  lg: "500px",
+                                },
+                                objectFit: "cover",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                ],
+              }),
+            }),
+          }),
+        ],
+      }),
+    });
+  },
+  QH = () => {
+    const e = Nn(),
+      { isOpen: r, onOpen: n, onClose: i } = Vb(),
+      [c, u] = _.useState(null),
+      d = (p, g) => {
+        u({ src: p, alt: g }), n();
+      };
+    return l.jsx(Vn, {
+      isLoading: e,
+      children: l.jsxs(S, {
+        position: "relative",
+        minHeight: "100vh",
+        overflow: "hidden",
+        children: [
+          l.jsx("video", {
+            autoPlay: !0,
+            loop: !0,
+            muted: !0,
+            playsInline: !0,
+            style: {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              minWidth: "100%",
+              minHeight: "100%",
+              width: "auto",
+              height: "auto",
+              objectFit: "cover",
+              zIndex: 0,
+              pointerEvents: "none",
+            },
+            children: l.jsx("source", {
+              src: "/Boichenko_HGPA/videos/background_1.mp4",
+              type: "video/mp4",
+            }),
+          }),
+          l.jsx(S, {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            bg: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1,
+            pointerEvents: "none",
+          }),
+          l.jsx(S, {
+            position: "relative",
+            zIndex: 2,
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            children: l.jsx(S, {
+              border: "2px solid white",
+              borderRadius: "8px",
+              px: { base: 8, md: 12, lg: 16 },
+              py: { base: 6, md: 8, lg: 10 },
+              bg: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+              textAlign: "center",
+              mx: "auto",
+              children: l.jsx(Re, {
+                size: { base: "xl", md: "2xl", lg: "3xl" },
+                color: "white",
+                textAlign: "center",
+                fontWeight: "600",
+                letterSpacing: "wide",
+                fontFamily: "serif",
+                whiteSpace: "nowrap",
+                children: "Підвищення кваліфікації",
+              }),
+            }),
+          }),
+          l.jsx(S, {
+            position: "relative",
+            zIndex: 2,
+            minHeight: "100vh",
+            bg: "transparent",
+            children: l.jsx(dt, {
+              maxW: "900px",
+              py: { base: 12, md: 16, lg: 20 },
+              px: { base: 6, md: 8 },
+              position: "relative",
+              children: l.jsxs(le, {
+                spacing: 10,
+                align: "stretch",
+                children: [
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 255, 255, 0.5)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(S, {
+                            border: "2px solid rgba(0, 0, 0, 0.2)",
+                            borderRadius: "8px",
+                            px: { base: 6, md: 8, lg: 10 },
+                            py: { base: 4, md: 5, lg: 6 },
+                            display: "inline-block",
+                            bg: "rgba(255, 255, 255, 0.9)",
+                            backdropFilter: "blur(10px)",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                            children: l.jsx(Re, {
+                              size: { base: "lg", md: "xl", lg: "2xl" },
+                              color: "gray.800",
+                              fontWeight: "700",
+                              letterSpacing: "wide",
+                              fontFamily: "serif",
+                              children: "2021 рік",
+                            }),
+                          }),
+                        }),
+                        l.jsx(S, {
+                          borderRadius: "xl",
+                          overflow: "hidden",
+                          boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                          transition: "all 0.3s ease",
+                          cursor: "pointer",
+                          bg: "white",
+                          p: 2,
+                          onClick: () =>
+                            d(
+                              "/Boichenko_HGPA/images/photo_2026-01-08_00-30-52.jpg",
+                              "Диплом 2021"
+                            ),
+                          _hover: {
+                            transform: "scale(1.01)",
+                            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                          },
+                          children: l.jsx(V, {
+                            src: "/Boichenko_HGPA/images/photo_2026-01-08_00-30-52.jpg",
+                            alt: "Диплом 2021",
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "contain",
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 255, 255, 0.5)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(S, {
+                            border: "2px solid rgba(0, 0, 0, 0.2)",
+                            borderRadius: "8px",
+                            px: { base: 6, md: 8, lg: 10 },
+                            py: { base: 4, md: 5, lg: 6 },
+                            display: "inline-block",
+                            bg: "rgba(255, 255, 255, 0.9)",
+                            backdropFilter: "blur(10px)",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                            children: l.jsx(Re, {
+                              size: { base: "lg", md: "xl", lg: "2xl" },
+                              color: "gray.800",
+                              fontWeight: "700",
+                              letterSpacing: "wide",
+                              fontFamily: "serif",
+                              children: "2022 рік",
+                            }),
+                          }),
+                        }),
+                        l.jsxs(Ce, {
+                          templateColumns: {
+                            base: "1fr",
+                            md: "repeat(2, 1fr)",
+                          },
+                          gap: { base: 6, md: 8 },
+                          children: [
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                bg: "white",
+                                p: 2,
+                                onClick: () =>
+                                  d(
+                                    "/Boichenko_HGPA/images/Міжнародне_стаж_Білостоцький_унів_Польща.jpg",
+                                    "Міжнародне стаж Білостоцький унів Польща"
+                                  ),
+                                _hover: {
+                                  transform: "scale(1.01)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/Міжнародне_стаж_Білостоцький_унів_Польща.jpg",
+                                  alt: "Міжнародне стаж Білостоцький унів Польща",
+                                  width: "100%",
+                                  height: "auto",
+                                  objectFit: "contain",
+                                }),
+                              }),
+                            }),
+                            l.jsx(ne, {
+                              children: l.jsx(S, {
+                                borderRadius: "xl",
+                                overflow: "hidden",
+                                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                transition: "all 0.3s ease",
+                                cursor: "pointer",
+                                bg: "white",
+                                p: 2,
+                                onClick: () =>
+                                  d(
+                                    "/Boichenko_HGPA/images/!2 ст. Міжн. стаж. Білост. унів..jpg",
+                                    "2 ст. Міжн. стаж. Білост. унів."
+                                  ),
+                                _hover: {
+                                  transform: "scale(1.01)",
+                                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                },
+                                children: l.jsx(V, {
+                                  src: "/Boichenko_HGPA/images/!2 ст. Міжн. стаж. Білост. унів..jpg",
+                                  alt: "2 ст. Міжн. стаж. Білост. унів.",
+                                  width: "100%",
+                                  height: "auto",
+                                  objectFit: "contain",
+                                }),
+                              }),
+                            }),
+                          ],
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/IMG-c79012a681e3152cd5ba0f7e23004305-V.jpg",
+                                  "IMG-c79012a681e3152cd5ba0f7e23004305-V"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/IMG-c79012a681e3152cd5ba0f7e23004305-V.jpg",
+                                alt: "IMG-c79012a681e3152cd5ba0f7e23004305-V",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/Artem Boichenko(1).jpg",
+                                  "Artem Boichenko"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/Artem Boichenko(1).jpg",
+                                alt: "Artem Boichenko",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/№GDTfE-01-00149 (1) (2).jpg",
+                                  "№GDTfE-01-00149"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/№GDTfE-01-00149 (1) (2).jpg",
+                                alt: "№GDTfE-01-00149",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 255, 255, 0.5)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(S, {
+                            border: "2px solid rgba(0, 0, 0, 0.2)",
+                            borderRadius: "8px",
+                            px: { base: 6, md: 8, lg: 10 },
+                            py: { base: 4, md: 5, lg: 6 },
+                            display: "inline-block",
+                            bg: "rgba(255, 255, 255, 0.9)",
+                            backdropFilter: "blur(10px)",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                            children: l.jsx(Re, {
+                              size: { base: "lg", md: "xl", lg: "2xl" },
+                              color: "gray.800",
+                              fontWeight: "700",
+                              letterSpacing: "wide",
+                              fontFamily: "serif",
+                              children: "2023 рік",
+                            }),
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/2023.jpg",
+                                  "2023"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/2023.jpg",
+                                alt: "2023",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/20241210_104358.jpg",
+                                  "2024"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/20241210_104358.jpg",
+                                alt: "2024",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/веб оф сайнс 2023.jpg",
+                                  "Веб оф сайнс 2023"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/веб оф сайнс 2023.jpg",
+                                alt: "Веб оф сайнс 2023",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/конференція.jpg",
+                                  "Конференція"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/конференція.jpg",
+                                alt: "Конференція",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/бі ектів.jpg",
+                                  "Бі ектів"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/бі ектів.jpg",
+                                alt: "Бі ектів",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 255, 255, 0.5)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(S, {
+                            border: "2px solid rgba(0, 0, 0, 0.2)",
+                            borderRadius: "8px",
+                            px: { base: 6, md: 8, lg: 10 },
+                            py: { base: 4, md: 5, lg: 6 },
+                            display: "inline-block",
+                            bg: "rgba(255, 255, 255, 0.9)",
+                            backdropFilter: "blur(10px)",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                            children: l.jsx(Re, {
+                              size: { base: "lg", md: "xl", lg: "2xl" },
+                              color: "gray.800",
+                              fontWeight: "700",
+                              letterSpacing: "wide",
+                              fontFamily: "serif",
+                              children: "2024 рік",
+                            }),
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/photo_2024-12-10_12-54-41.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2024-12-10_12-54-41.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/photo_2024-12-10_12-54-44.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2024-12-10_12-54-44.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/photo_2024-12-10_12-54-46.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2024-12-10_12-54-46.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/photo_2024-12-10_12-54-51.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2024-12-10_12-54-51.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/2_5281023102044624877.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/2_5281023102044624877.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/photo_2024-12-10_12-54-48.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2024-12-10_12-54-48.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/2_5199474734089128204.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/2_5199474734089128204.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/2_5345860821698236104.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/2_5345860821698236104.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/2_5386666133451456754.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/2_5386666133451456754.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/204_Сертифікати Серпнева.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/204_Сертифікати Серпнева.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Бойченко Артем (3).jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Бойченко Артем (3).jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Бойченко Артем.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Бойченко Артем.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Бойченко АртемЕЗ-0665.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Бойченко АртемЕЗ-0665.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Бойченко_Артем_сертифікат_07_09_08_24_Soft_skills_1.jpg",
+                                        "2024"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Бойченко_Артем_сертифікат_07_09_08_24_Soft_skills_1.jpg",
+                                      alt: "2024",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/2_5309893575855597203.jpg",
+                                  "2024"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/2_5309893575855597203.jpg",
+                                alt: "2024",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 255, 255, 0.5)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(S, {
+                            border: "2px solid rgba(0, 0, 0, 0.2)",
+                            borderRadius: "8px",
+                            px: { base: 6, md: 8, lg: 10 },
+                            py: { base: 4, md: 5, lg: 6 },
+                            display: "inline-block",
+                            bg: "rgba(255, 255, 255, 0.9)",
+                            backdropFilter: "blur(10px)",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                            children: l.jsx(Re, {
+                              size: { base: "lg", md: "xl", lg: "2xl" },
+                              color: "gray.800",
+                              fontWeight: "700",
+                              letterSpacing: "wide",
+                              fontFamily: "serif",
+                              children: "2025 рік",
+                            }),
+                          }),
+                        }),
+                        l.jsxs(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: [
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/photo_2025-09-26_14-44-36.jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-09-26_14-44-36.jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/photo_2025-12-20_16-55-02.jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/photo_2025-12-20_16-55-02.jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Бойченко.jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Бойченко.jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Качан 2025 2.jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Качан 2025 2.jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Сертифікат-Качан-2025-_2_-_1_.jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Сертифікат-Качан-2025-_2_-_1_.jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Бойченко Артем Васильович (122).jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Бойченко Артем Васильович (122).jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsx(S, {
+                              borderRadius: "xl",
+                              overflow: "hidden",
+                              boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                              transition: "all 0.3s ease",
+                              cursor: "pointer",
+                              bg: "white",
+                              p: 2,
+                              onClick: () =>
+                                d(
+                                  "/Boichenko_HGPA/images/Бойченко Артем Васильович(332).jpg",
+                                  "2025"
+                                ),
+                              _hover: {
+                                transform: "scale(1.01)",
+                                boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                              },
+                              children: l.jsx(V, {
+                                src: "/Boichenko_HGPA/images/Бойченко Артем Васильович(332).jpg",
+                                alt: "2025",
+                                width: "100%",
+                                height: "auto",
+                                objectFit: "contain",
+                              }),
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/інклюзія 30.jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/інклюзія 30.jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/фахове підвищення кв. 30 год..jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/фахове підвищення кв. 30 год..jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                            l.jsxs(Ce, {
+                              templateColumns: {
+                                base: "1fr",
+                                md: "repeat(2, 1fr)",
+                              },
+                              gap: { base: 6, md: 8 },
+                              children: [
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/Certificate_Artem_Boichenko (2).jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/Certificate_Artem_Boichenko (2).jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                                l.jsx(ne, {
+                                  children: l.jsx(S, {
+                                    borderRadius: "xl",
+                                    overflow: "hidden",
+                                    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                                    transition: "all 0.3s ease",
+                                    cursor: "pointer",
+                                    bg: "white",
+                                    p: 2,
+                                    onClick: () =>
+                                      d(
+                                        "/Boichenko_HGPA/images/MTU1Nw==.jpg",
+                                        "2025"
+                                      ),
+                                    _hover: {
+                                      transform: "scale(1.01)",
+                                      boxShadow:
+                                        "0 8px 24px rgba(0, 0, 0, 0.4)",
+                                    },
+                                    children: l.jsx(V, {
+                                      src: "/Boichenko_HGPA/images/MTU1Nw==.jpg",
+                                      alt: "2025",
+                                      width: "100%",
+                                      height: "auto",
+                                      objectFit: "contain",
+                                    }),
+                                  }),
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                  }),
+                  l.jsx(S, {
+                    bg: "rgba(255, 255, 255, 0.7)",
+                    borderRadius: "2xl",
+                    p: { base: 8, md: 10, lg: 12 },
+                    boxShadow: "0 12px 40px rgba(0, 0, 0, 0.4)",
+                    border: "2px solid",
+                    borderColor: "rgba(255, 255, 255, 0.5)",
+                    position: "relative",
+                    overflow: "hidden",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: "4px",
+                      bg: "linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8))",
+                      zIndex: 1,
+                    },
+                    transition: "all 0.3s ease",
+                    _hover: {
+                      transform: "translateY(-4px)",
+                      boxShadow: "0 16px 48px rgba(0, 0, 0, 0.5)",
+                    },
+                    children: l.jsxs(le, {
+                      spacing: 8,
+                      align: "stretch",
+                      position: "relative",
+                      zIndex: 2,
+                      children: [
+                        l.jsx(S, {
+                          textAlign: "center",
+                          children: l.jsx(S, {
+                            border: "2px solid rgba(0, 0, 0, 0.2)",
+                            borderRadius: "8px",
+                            px: { base: 6, md: 8, lg: 10 },
+                            py: { base: 4, md: 5, lg: 6 },
+                            display: "inline-block",
+                            bg: "rgba(255, 255, 255, 0.9)",
+                            backdropFilter: "blur(10px)",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)",
+                            children: l.jsx(Re, {
+                              size: { base: "lg", md: "xl", lg: "2xl" },
+                              color: "gray.800",
+                              fontWeight: "700",
+                              letterSpacing: "wide",
+                              fontFamily: "serif",
+                              children: "2026 рік",
+                            }),
+                          }),
+                        }),
+                        l.jsx(le, {
+                          spacing: 6,
+                          align: "stretch",
+                          children: l.jsx(S, {
+                            borderRadius: "xl",
+                            overflow: "hidden",
+                            boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
+                            transition: "all 0.3s ease",
+                            cursor: "pointer",
+                            bg: "white",
+                            p: 2,
+                            onClick: () =>
+                              d(
+                                "/Boichenko_HGPA/images/PDFMailer.jpg",
+                                "2026"
+                              ),
+                            _hover: {
+                              transform: "scale(1.01)",
+                              boxShadow: "0 8px 24px rgba(0, 0, 0, 0.4)",
+                            },
+                            children: l.jsx(V, {
+                              src: "/Boichenko_HGPA/images/PDFMailer.jpg",
+                              alt: "2026",
+                              width: "100%",
+                              height: "auto",
+                              objectFit: "contain",
+                            }),
+                          }),
+                        }),
+                      ],
+                    }),
+                  }),
+                ],
+              }),
+            }),
+          }),
+          l.jsxs(nu, {
+            isOpen: r,
+            onClose: i,
+            size: "full",
+            isCentered: !0,
+            children: [
+              l.jsx(iu, { bg: "blackAlpha.800", backdropFilter: "blur(10px)" }),
+              l.jsxs(bf, {
+                bg: "transparent",
+                boxShadow: "none",
+                maxW: "95vw",
+                maxH: "95vh",
+                m: 0,
+                children: [
+                  l.jsx(lu, {
+                    color: "white",
+                    bg: "rgba(0, 0, 0, 0.5)",
+                    borderRadius: "full",
+                    size: "lg",
+                    _hover: { bg: "rgba(0, 0, 0, 0.7)" },
+                    zIndex: 10,
+                  }),
+                  l.jsx(ou, {
+                    p: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "relative",
+                    children:
+                      c &&
+                      l.jsx(V, {
+                        src: c.src,
+                        alt: c.alt,
+                        maxW: "100%",
+                        maxH: "95vh",
+                        objectFit: "contain",
+                        borderRadius: "lg",
+                        boxShadow: "0 20px 60px rgba(0, 0, 0, 0.8)",
+                      }),
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      }),
+    });
+  },
+  KH = () =>
+    l.jsxs(zH, {
+      children: [
+        l.jsx(AH, {}),
+        l.jsxs(_C, {
+          children: [
+            l.jsx(Va, { path: "/", element: l.jsx(OH, {}) }),
+            l.jsx(Va, { path: "/portfolio", element: l.jsx($H, {}) }),
+            l.jsx(Va, {
+              path: "/educational-methodical",
+              element: l.jsx(LH, {}),
+            }),
+            l.jsx(Va, { path: "/extracurricular", element: l.jsx(NH, {}) }),
+            l.jsx(Va, { path: "/volunteer", element: l.jsx(IH, {}) }),
+            l.jsx(Va, { path: "/patriotic-education", element: l.jsx(PH, {}) }),
+            l.jsx(Va, { path: "/physical-activity", element: l.jsx(XH, {}) }),
+            l.jsx(Va, { path: "/achievements", element: l.jsx(ZH, {}) }),
+            l.jsx(Va, { path: "/self-development", element: l.jsx(QH, {}) }),
+          ],
+        }),
+      ],
+    });function JH(){return l.jsx(a8,{children:l.jsx(KH,{})})}"scrollRestoration"in window.history&&(window.history.scrollRestoration="manual");let G0=!1;window.addEventListener("popstate",()=>{G0=!0,window.scrollTo(0,0),setTimeout(()=>{G0=!1},1e3)});let v5;window.addEventListener("scroll",()=>{G0&&(window.scrollTo(0,0),clearTimeout(v5),v5=setTimeout(()=>{G0=!1},1e3))},{passive:!1,capture:!0});k6.createRoot(document.getElementById("root")).render(l.jsx(jL,{children:l.jsx(JH,{})}));
